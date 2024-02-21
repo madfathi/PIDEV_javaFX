@@ -2,25 +2,41 @@ package tn.esprit.applictiongui.model;
 
 public class panier {
     private int idp,quantite,pt;
-    private String nomp;
+    private String nomp,prod_id;
     private String img;
 
     public panier() {
     }
 
-    public panier(int idp, int quantite, String nomp, String img,int pt) {
+    public panier(int quantite, int pt, String nomp) {
+        this.quantite = quantite;
+        this.pt = pt;
+        this.nomp = nomp;
+    }
+
+    public panier(int idp, int quantite, String nomp, String img, int pt, String prod_id) {
         this.idp = idp;
         this.quantite = quantite;
         this.nomp = nomp;
         this.img = img;
         this.pt=pt;
+        this.prod_id=prod_id;
     }
 
-    public panier(int quantite, String nomp, String img,int pt) {
+    public panier(int quantite, String nomp, String img,int pt,String prod_id) {
         this.quantite = quantite;
         this.nomp = nomp;
         this.img = img;
         this.pt=pt;
+        this.prod_id=prod_id;
+    }
+
+    public String getProd_id() {
+        return prod_id;
+    }
+
+    public void setProd_id(String prod_id) {
+        this.prod_id = prod_id;
     }
 
     public int getPt() {
@@ -70,6 +86,7 @@ public class panier {
                 ", quantite=" + quantite +
                 ", pt=" + pt +
                 ", nomp='" + nomp + '\'' +
+                ", prod_id='" + prod_id + '\'' +
                 ", img='" + img + '\'' +
                 '}';
     }

@@ -6,6 +6,7 @@ import util.mydatabase;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 public class commandeservice implements iservice <commande> {
     private Connection connection;
@@ -25,7 +26,7 @@ public class commandeservice implements iservice <commande> {
 
     @Override
     public void modifier(commande commande) throws SQLException {
-        String req="UPDATE commande SET tel=?,nom=?,pre=?,mail=?,addr=?,pani=? WHERE idc=?";
+        String req="UPDATE commande SET tel=?,nom=?,pre=?,mail=?,addr=? WHERE idc=?";
 
         PreparedStatement cs=connection.prepareStatement(req);
 
@@ -34,8 +35,8 @@ public class commandeservice implements iservice <commande> {
         cs.setString(3,commande.getPre());
         cs.setString(4,commande.getMail());
         cs.setString(5,commande.getAddr());
-        cs.setString(6,commande.getPani());
-        cs.setInt(7,commande.getIdc());
+
+        cs.setInt(6,commande.getIdc());
         cs.executeUpdate();
 
     }
@@ -66,7 +67,7 @@ public class commandeservice implements iservice <commande> {
             co.setNom(rs.getString("pre"));
             co.setPre(rs.getString("mail"));
             co.setAddr(rs.getString("addr"));
-            co.setPani(rs.getString("pani"));
+            co.setPani(Collections.singletonList(rs.getString("pani")));
             commandes.add(co);
         }
         return commandes;
@@ -76,7 +77,7 @@ public class commandeservice implements iservice <commande> {
     @Override
     public List<commande> tri_par_nom() throws SQLException {
         List<commande> commandes=new ArrayList<>();
-        String req = "SELECT * FROM commande ORDER BY nom";
+        String req = "SELECT * FROM commande ORDER BY nom asc";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(req);
 
@@ -90,7 +91,7 @@ public class commandeservice implements iservice <commande> {
             co.setNom(rs.getString("pre"));
             co.setPre(rs.getString("mail"));
             co.setAddr(rs.getString("addr"));
-            co.setPani(rs.getString("pani"));
+            co.setPani(Collections.singletonList(rs.getString("pani")));
             commandes.add(co);
         }
         return commandes;
@@ -110,18 +111,41 @@ public class commandeservice implements iservice <commande> {
             commande co=new commande();
             co.setIdc(rs.getInt("idc"));
             co.setTel(rs.getInt("tel"));
-            co.setMail(rs.getString("nom"));
-            co.setNom(rs.getString("pre"));
-            co.setPre(rs.getString("mail"));
+            co.setNom(rs.getString("nom"));
+            co.setPre(rs.getString("pre"));
+            co.setMail(rs.getString("mail"));
             co.setAddr(rs.getString("addr"));
-            co.setPani(rs.getString("pani"));
+            co.setPani(Collections.singletonList(rs.getString("pani")));
             commandes.add(co);
         }
         return commandes;
 
 
     }
+
+    @Override
+    public List<commande> tri_par_nom2() throws SQLException {
+        List<commande> commandes=new ArrayList<>();
+        String req = "SELECT * FROM commande ORDER BY nom desc";
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(req);
+
+        while (rs.next())
+        {
+            commande co=new commande();
+
+            co.setIdc(rs.getInt("idc"));
+            co.setTel(rs.getInt("tel"));
+            co.setMail(rs.getString("nom"));
+            co.setNom(rs.getString("pre"));
+            co.setPre(rs.getString("mail"));
+            co.setAddr(rs.getString("addr"));
+            co.setPani(Collections.singletonList(rs.getString("pani")));
+            commandes.add(co);
+        }
+        return commandes;
     }
+}
 
 
 

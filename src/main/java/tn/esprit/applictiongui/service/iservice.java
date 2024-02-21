@@ -11,4 +11,6 @@ public interface iservice <T>
     List<T>recuperer() throws SQLException;
     List<T>tri_par_nom() throws SQLException;
     List<T>chercher(String nom) throws SQLException;
+    List<T>tri_par_nom2() throws SQLException;
+
 }

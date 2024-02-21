@@ -1,10 +1,23 @@
 package tn.esprit.applictiongui.model;
 
+import java.util.List;
+
 public class commande {
     private int idc,tel;
-    private String nom,pre,mail,addr,pani;
+    private String nom,pre,mail,addr;
+    private List<String> pani;
 
-    public commande(int idc, int tel, String nom, String pre, String mail, String addr, String pani) {
+    // Getter
+    public List<String> getPani() {
+        return pani;
+    }
+
+    // Setter
+    public void setPani(List<String> nouvelleValeur) {
+        this.pani = nouvelleValeur;
+    }
+
+    public commande(int idc,int tel, String nom, String pre, String mail, String addr, List<String>  pani) {
         this.idc = idc;
         this.tel = tel;
         this.nom = nom;
@@ -14,7 +27,7 @@ public class commande {
         this.pani = pani;
     }
 
-    public commande(int tel, String nom, String pre, String mail, String addr, String pani)
+    public commande( int tel,String nom, String pre, String mail, String addr, List<String> pani)
     {
 
         this.tel=tel;
@@ -26,13 +39,22 @@ public class commande {
 
     }
 
+    public commande(int idc, int tel, String nom, String pre, String mail, String addr) {
+        this.idc = idc;
+        this.tel = tel;
+        this.nom = nom;
+        this.pre = pre;
+        this.mail = mail;
+        this.addr = addr;
+    }
+
     public commande() {
 
     }
 
-    public String getPani() {
+    /*public String getPani() {
         return pani;
-    }
+    }*/
 
 
     public int getIdc() {
@@ -83,9 +105,9 @@ public class commande {
         this.tel = tel;
     }
 
-    public void setPani(String pani) {
+   /* public void setPani(String pani) {
         this.pani = pani;
-    }
+    }*/
 
     @Override
     public String toString() {
@@ -99,6 +121,7 @@ public class commande {
                 ", pani='" + pani + '\'' +
                 '}';
     }
+
 
 
 }

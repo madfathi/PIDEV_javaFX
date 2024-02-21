@@ -14,7 +14,7 @@ public class panierservice implements iservice <panier>{
     public panierservice(){connection= mydatabase.getInstance().getConnection();}
     @Override
     public void ajouter(panier panier) throws SQLException {
-        String req="INSERT INTO panier (quantite,nomp,img,pt) VALUES('"+panier.getQuantite()+"','"+panier.getNomp()+"','"+panier.getImg()+"','"+panier.getPt()+"')";
+        String req="INSERT INTO panier (quantite,nomp,img,pt,prod_id) VALUES('"+panier.getQuantite()+"','"+panier.getNomp()+"','"+panier.getImg()+"','"+panier.getPt()+"','"+panier.getProd_id()+"')";
 
         Statement st=connection.createStatement();
         st.executeUpdate(req);
@@ -23,7 +23,7 @@ public class panierservice implements iservice <panier>{
 
     @Override
     public void modifier(panier panier) throws SQLException {
-        String req="UPDATE panier SET quantite=?,nomp=?,img=?,pt=? WHERE idp=?";
+        String req="UPDATE panier SET quantite=?,nomp=?,img=?,pt=?,prod_id=? WHERE idp=?";
 
         PreparedStatement cs=connection.prepareStatement(req);
 
@@ -32,6 +32,7 @@ public class panierservice implements iservice <panier>{
         cs.setString(3,panier.getImg());
         cs.setInt(4,panier.getPt());
         cs.setInt(5,panier.getIdp());
+        cs.setString(6,panier.getProd_id());
         cs.executeUpdate();
     }
 
@@ -58,6 +59,7 @@ public class panierservice implements iservice <panier>{
             pa.setNomp(rs.getString("nomp"));
             pa.setImg(rs.getString("img"));
             pa.setPt(rs.getInt("pt"));
+            pa.setProd_id(rs.getString("prod_id"));
             paniers.add(pa);
         }
         return paniers;
@@ -67,7 +69,7 @@ public class panierservice implements iservice <panier>{
     @Override
     public List<panier> tri_par_nom() throws SQLException {
         List<panier> paniers=new ArrayList<>();
-        String req = "SELECT * FROM panier ORDER BY quantite";
+        String req = "SELECT * FROM panier ORDER BY pt";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(req);
 
@@ -79,6 +81,7 @@ public class panierservice implements iservice <panier>{
             pa.setNomp(rs.getString("nomp"));
             pa.setImg(rs.getString("img"));
             pa.setPt(rs.getInt("pt"));
+            pa.setProd_id(rs.getString("prod_id"));
             paniers.add(pa);
         }
         return paniers;
@@ -87,7 +90,47 @@ public class panierservice implements iservice <panier>{
 
     @Override
     public List<panier> chercher(String nom) throws SQLException {
-        return null;
+        List<panier> paniers=new ArrayList<>();
+        String req = "SELECT * FROM panier ORDER BY pt asc ";
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(req);
+
+        while (rs.next())
+        {
+            panier pa=new panier();
+
+            pa.setIdp(rs.getInt("idp"));
+            pa.setQuantite(rs.getInt("quantite"));
+            pa.setNomp(rs.getString("nomp"));
+            pa.setImg(rs.getString("img"));
+            pa.setPt(rs.getInt("pt"));
+            pa.setProd_id(rs.getString("prod_id"));
+            paniers.add(pa);
+        }
+        return paniers;
+    }
+
+    @Override
+    public List<panier> tri_par_nom2() throws SQLException {
+        List<panier> paniers=new ArrayList<>();
+        String req = "SELECT * FROM panier ORDER BY pt desc";
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(req);
+
+        while (rs.next())
+        {
+            panier pa=new panier();
+
+            pa.setIdp(rs.getInt("idp"));
+            pa.setQuantite(rs.getInt("quantite"));
+            pa.setNomp(rs.getString("nomp"));
+            pa.setImg(rs.getString("img"));
+            pa.setPt(rs.getInt("pt"));
+            pa.setProd_id(rs.getString("prod_id"));
+
+            paniers.add(pa);
+        }
+        return paniers;
     }
 
 
