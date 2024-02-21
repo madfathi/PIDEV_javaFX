@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="851.0" prefWidth="1147.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplicatio.controllers.AjoSeance">
+   <children>
+      <AnchorPane layoutX="136.0" layoutY="94.0" prefHeight="731.0" prefWidth="1124.0" styleClass="wh" AnchorPane.bottomAnchor="-85.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <BorderPane layoutX="98.0" layoutY="11.2" prefHeight="765.0" prefWidth="1147.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0">
+               <top>
+                  <AnchorPane prefHeight="91.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="92.0" fitWidth="68.0" layoutX="1052.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../../zeroWaste-javaFX-main/src/assets/img/assoIcon.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="284.0" layoutY="31.0" prefHeight="30.0" prefWidth="270.0" text="POWERFIT APPLICATION">
+                           <textFill>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color red="0.32807016372680664" green="0.5789473652839661" blue="0.34897661209106445" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.5358479619026184" green="0.05918128788471222" blue="0.6947368383407593" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </textFill>
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="92.0" fitWidth="80.0" layoutX="616.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../../zeroWaste-javaFX-main/src/assets/img/user-active.png" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="searchField" layoutX="778.0" layoutY="40.0" onKeyReleased="#addEmployeeSearch" prefHeight="26.0" prefWidth="226.0" />
+                        <Button layoutX="952.0" layoutY="12.0" mnemonicParsing="false" onAction="#onSearchButtonClick" text="Button" />
+                     </children>
+                  </AnchorPane>
+               </top>
+               <left>
+                  <AnchorPane prefHeight="600.0" prefWidth="244.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="163.0" fitWidth="184.0" layoutX="41.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../../zeroWaste-javaFX-main/src/assets/img/avatar.png" />
+                           </image>
+                        </ImageView>
+                        <Line endX="100.0" layoutX="122.0" layoutY="265.0" startX="-100.0" stroke="#1f7321" />
+                        <HBox fx:id="dashboardBtn3" alignment="CENTER_LEFT" layoutX="30.0" layoutY="196.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#open_dashboard" prefHeight="50.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fx:id="dashboardIcon3" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../../../../../zeroWaste-javaFX-main/src/assets/img/menu-active.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets right="25.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label fx:id="dashboardText3" text="Dashboard" textFill="WHITE">
+                                 <font>
+                                    <Font name="Montserrat Regular" size="14.0" />
+                                 </font>
+                                 <styleClass>
+                                    <String fx:value="text" />
+                                    <String fx:value="activeText" />
+                                 </styleClass>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                           <styleClass>
+                              <String fx:value="nav-links" />
+                              <String fx:value="activeLink" />
+                           </styleClass>
+                           <stylesheets>
+                              <URL value="@../../../../java/tn/esprit/guiapplicatio/out/assets/style/aliStyle.css" />
+                              <URL value="@../../../../java/tn/esprit/guiapplicatio/out/assets/style/aliStyle.css" />
+                              <URL value="@../../../../../out/assets/style/aliStyle.css" />
+                           </stylesheets>
+                        </HBox>
+                        <Button layoutX="40.0" layoutY="356.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="155.0" text="Gestion Seance" />
+                        <Button layoutX="39.0" layoutY="442.0" mnemonicParsing="false" onAction="#ge_re" prefHeight="40.0" prefWidth="158.0" text="Gestion Reservation" />
+                        <TableView fx:id="tableview" layoutX="228.0" layoutY="14.0" onMouseClicked="#rowclicked" prefHeight="266.0" prefWidth="9.0">
+                          <columns>
+                            <TableColumn fx:id="id" prefWidth="215.20001220703125" text="Type_Seance" />
+                            <TableColumn fx:id="ty" prefWidth="211.20004272460938" text="Categorie" />
+                              <TableColumn fx:id="ca" prefWidth="231.199951171875" text="Duree_Seance" />
+                              <TableColumn fx:id="du" minWidth="0.0" prefWidth="224.0" text="Duree_Seance" />
+                              <TableColumn fx:id="nb" minWidth="0.0" prefWidth="18.4000244140625" text="NB_Maximal" />
+                          </columns>
+                           <stylesheets>
+                              <URL value="@../../../../java/tn/esprit/guiapplicatio/out/assets/style/page/dashboardDesign.css" />
+                              <URL value="@out/assets/style/nabilStyle.css" />
+                              <URL value="@out/assets/style/aliStyle.css" />
+                              <URL value="@out/assets/style/page/dashboardDesign.css" />
+                              <URL value="@../../../../../out/assets/style/page/dashboardDesign.css" />
+                              <URL value="@../../../../../out/assets/style/nabilStyle.css" />
+                              <URL value="@../../../../../out/assets/style/aliStyle.css" />
+                           </stylesheets>
+                        </TableView>
+                     </children></AnchorPane>
+               </left>
+               <center>
+                  <AnchorPane prefHeight="599.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane prefHeight="674.0" prefWidth="899.0" styleClass="white-bg">
+                           <children>
+                              <AnchorPane layoutX="-1.0" layoutY="2.0" prefHeight="277.0" prefWidth="900.0">
+                                 <styleClass>
+                                    <String fx:value="white-bg" />
+                                    <String fx:value="shadow" />
+                                    <String fx:value="openProductDetailsBtn" />
+                                 </styleClass>
+                                 <children>
+                                    <ListView fx:id="typeco" layoutX="14.0" layoutY="70.0" onMouseClicked="#row1" prefHeight="200.0" prefWidth="196.0">
+                                       <styleClass>
+                                          <String fx:value="white-bg" />
+                                          <String fx:value="shadow" />
+                                          <String fx:value="openProductDetailsBtn" />
+                                       </styleClass>
+                                       <stylesheets>
+                                          <URL value="@../../../../../assets/style/page/dashboardDesign.css" />
+                                          <URL value="@../../../../../assets/style/aliStyle.css" />
+                                          <URL value="@../../../../../assets/style/nabilStyle.css" />
+                                       </stylesheets>
+                                    </ListView>
+                                    <ListView fx:id="categorieco" layoutX="234.0" layoutY="74.0" prefHeight="192.0" prefWidth="190.0">
+                                       <stylesheets>
+                                          <URL value="@../../../../../assets/style/page/dashboardDesign.css" />
+                                          <URL value="@../../../../../assets/style/aliStyle.css" />
+                                          <URL value="@../../../../../assets/style/nabilStyle.css" />
+                                       </stylesheets>
+                                       <styleClass>
+                                          <String fx:value="white-bg" />
+                                          <String fx:value="shadow" />
+                                          <String fx:value="openProductDetailsBtn" />
+                                       </styleClass>
+                                    </ListView>
+                                    <ListView fx:id="dureeco" layoutX="450.0" layoutY="70.0" prefHeight="200.0" prefWidth="203.0">
+                                       <stylesheets>
+                                          <URL value="@../../../../../assets/style/nabilStyle.css" />
+                                          <URL value="@../../../../../assets/style/aliStyle.css" />
+                                          <URL value="@../../../../../assets/style/page/dashboardDesign.css" />
+                                       </stylesheets>
+                                       <styleClass>
+                                          <String fx:value="shadowwhite-bg" />
+                                          <String fx:value="shadow" />
+                                          <String fx:value="openProductDetailsBtn" />
+                                       </styleClass>
+                                    </ListView>
+                                    <ListView fx:id="nbco" layoutX="682.0" layoutY="70.0" prefHeight="200.0" prefWidth="209.0">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <stylesheets>
+                                          <URL value="@../../../../../assets/style/aliStyle.css" />
+                                          <URL value="@../../../../../assets/style/nabilStyle.css" />
+                                          <URL value="@../../../../../assets/style/page/dashboardDesign.css" />
+                                       </stylesheets>
+                                       <styleClass>
+                                          <String fx:value="openProductDetailsBtn" />
+                                          <String fx:value="shadow" />
+                                       </styleClass>
+                                    </ListView>
+                                    <Label layoutX="53.0" layoutY="34.0" prefHeight="27.0" prefWidth="148.0" text="TYPE_SEANCE">
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop>
+                                                   <color>
+                                                      <Color red="0.32807016372680664" green="0.5789473652839661" blue="0.34897661209106445" />
+                                                   </color>
+                                                </Stop>
+                                                <Stop offset="1.0">
+                                                   <color>
+                                                      <Color red="0.5358479619026184" green="0.05918128788471222" blue="0.6947368383407593" />
+                                                   </color>
+                                                </Stop>
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="273.0" layoutY="34.0" prefHeight="27.0" prefWidth="96.0" text="CATEGORIE">
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop>
+                                                   <color>
+                                                      <Color red="0.32807016372680664" green="0.5789473652839661" blue="0.34897661209106445" />
+                                                   </color>
+                                                </Stop>
+                                                <Stop offset="1.0">
+                                                   <color>
+                                                      <Color red="0.5358479619026184" green="0.05918128788471222" blue="0.6947368383407593" />
+                                                   </color>
+                                                </Stop>
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="494.0" layoutY="34.0" prefHeight="27.0" prefWidth="158.0" text="DUREE_SEANCE">
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop>
+                                                   <color>
+                                                      <Color red="0.32807016372680664" green="0.5789473652839661" blue="0.34897661209106445" />
+                                                   </color>
+                                                </Stop>
+                                                <Stop offset="1.0">
+                                                   <color>
+                                                      <Color red="0.5358479619026184" green="0.05918128788471222" blue="0.6947368383407593" />
+                                                   </color>
+                                                </Stop>
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="725.0" layoutY="34.0" prefHeight="27.0" prefWidth="124.0" text="NB_MAXIMAL">
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop>
+                                                   <color>
+                                                      <Color red="0.32807016372680664" green="0.5789473652839661" blue="0.34897661209106445" />
+                                                   </color>
+                                                </Stop>
+                                                <Stop offset="1.0">
+                                                   <color>
+                                                      <Color red="0.5358479619026184" green="0.05918128788471222" blue="0.6947368383407593" />
+                                                   </color>
+                                                </Stop>
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <stylesheets>
+                                    <URL value="@../../../../../assets/style/page/dashboardDesign.css" />
+                                    <URL value="@../../../../../assets/style/aliStyle.css" />
+                                    <URL value="@../../../../../assets/style/nabilStyle.css" />
+                                    <URL value="@../../../../../out/assets/style/nabilStyle.css" />
+                                    <URL value="@../../../../../out/assets/style/aliStyle.css" />
+                                    <URL value="@../../../../../out/assets/style/page/dashboardDesign.css" />
+                                 </stylesheets>
+                              </AnchorPane>
+                              <TextField fx:id="typeTF" layoutX="166.0" layoutY="330.0" prefHeight="26.0" prefWidth="386.0" />
+                              <TextField fx:id="dureeTF" layoutX="165.0" layoutY="383.0" prefHeight="26.0" prefWidth="388.0" />
+                              <Label layoutX="22.0" layoutY="329.0" prefHeight="27.0" prefWidth="135.0" text="TYPE_SEANCE">
+                                 <textFill>
+                                    <LinearGradient endX="1.0" endY="1.0">
+                                       <stops>
+                                          <Stop>
+                                             <color>
+                                                <Color red="0.32807016372680664" green="0.5789473652839661" blue="0.34897661209106445" />
+                                             </color>
+                                          </Stop>
+                                          <Stop offset="1.0">
+                                             <color>
+                                                <Color red="0.5358479619026184" green="0.05918128788471222" blue="0.6947368383407593" />
+                                             </color>
+                                          </Stop>
+                                       </stops>
+                                    </LinearGradient>
+                                 </textFill>
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="nbTF" layoutX="166.0" layoutY="440.0" prefHeight="26.0" prefWidth="386.0" />
+                              <Button layoutX="668.0" layoutY="385.0" mnemonicParsing="false" onAction="#ajoSeance" prefHeight="44.0" prefWidth="182.0" text="Ajouter">
+                                 <stylesheets>
+                                    <URL value="@../../../../../assets/style/nabilStyle.css" />
+                                    <URL value="@../../../../../assets/style/aliStyle.css" />
+                                 </stylesheets>
+                                 <styleClass>
+                                    <String fx:value="activeLink" />
+                                    <String fx:value="nav-links" />
+                                 </styleClass>
+                              </Button>
+                              <ImageView fx:id="tfImage" fitHeight="115.0" fitWidth="150.0" layoutX="281.0" layoutY="535.0" pickOnBounds="true" preserveRatio="true" />
+                              <Label fx:id="erreurLabel" layoutX="142.0" layoutY="356.0" prefHeight="18.0" prefWidth="278.0" />
+                              <Label fx:id="derreurLabel" layoutX="129.0" layoutY="412.0" prefHeight="18.0" prefWidth="316.0" />
+                              <Label fx:id="nerreurLabel" layoutX="168.0" layoutY="465.0" prefHeight="18.0" prefWidth="248.0" />
+                              <Button fx:id="btnImageC" layoutX="165.0" layoutY="492.0" mnemonicParsing="false" onAction="#btnImageC" prefHeight="26.0" prefWidth="386.0" styleClass="activeLink" stylesheets="@../../../../../assets/style/aliStyle.css" text="image" />
+                              <ComboBox fx:id="sortCategorieBox" layoutX="720.0" layoutY="280.0" onAction="#sortCategorie" prefHeight="34.0" prefWidth="166.0" promptText="           Trier par Nom ↑" styleClass="activeLink" stylesheets="@../../../../../assets/style/aliStyle.css" />
+                              <Button layoutX="588.0" layoutY="280.0" mnemonicParsing="false" onAction="#pdf" prefHeight="26.0" prefWidth="113.0" styleClass="activeLink" text="pdf">
+                                 <stylesheets>
+                                    <URL value="@../../../../../out/assets/style/nabilStyle.css" />
+                                    <URL value="@../../../../../out/assets/style/aliStyle.css" />
+                                    <URL value="@../../../../../assets/style/aliStyle.css" />
+                                    <URL value="@../../../../../assets/style/nabilStyle.css" />
+                                 </stylesheets>
+                              </Button>
+                              <Label layoutX="20.0" layoutY="486.0" prefHeight="38.0" prefWidth="155.0" text="CATEGORIE">
+                                 <textFill>
+                                    <LinearGradient endX="1.0" endY="1.0">
+                                       <stops>
+                                          <Stop>
+                                             <color>
+                                                <Color red="0.32807016372680664" green="0.5789473652839661" blue="0.34897661209106445" />
+                                             </color>
+                                          </Stop>
+                                          <Stop offset="1.0">
+                                             <color>
+                                                <Color red="0.5358479619026184" green="0.05918128788471222" blue="0.6947368383407593" />
+                                             </color>
+                                          </Stop>
+                                       </stops>
+                                    </LinearGradient>
+                                 </textFill>
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="21.0" layoutY="382.0" prefHeight="27.0" prefWidth="154.0" text="DUREE_SEANCE">
+                                 <textFill>
+                                    <LinearGradient endX="1.0" endY="1.0">
+                                       <stops>
+                                          <Stop>
+                                             <color>
+                                                <Color red="0.32807016372680664" green="0.5789473652839661" blue="0.34897661209106445" />
+                                             </color>
+                                          </Stop>
+                                          <Stop offset="1.0">
+                                             <color>
+                                                <Color red="0.5358479619026184" green="0.05918128788471222" blue="0.6947368383407593" />
+                                             </color>
+                                          </Stop>
+                                       </stops>
+                                    </LinearGradient>
+                                 </textFill>
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="21.0" layoutY="439.0" prefHeight="27.0" prefWidth="125.0" text="NB_MAXIMAL">
+                                 <textFill>
+                                    <LinearGradient endX="1.0" endY="1.0">
+                                       <stops>
+                                          <Stop>
+                                             <color>
+                                                <Color red="0.32807016372680664" green="0.5789473652839661" blue="0.34897661209106445" />
+                                             </color>
+                                          </Stop>
+                                          <Stop offset="1.0">
+                                             <color>
+                                                <Color red="0.5358479619026184" green="0.05918128788471222" blue="0.6947368383407593" />
+                                             </color>
+                                          </Stop>
+                                       </stops>
+                                    </LinearGradient>
+                                 </textFill>
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Button layoutX="668.0" layoutY="441.0" mnemonicParsing="false" onAction="#ajoSeance" prefHeight="44.0" prefWidth="182.0" stylesheets="@../../../../../assets/style/aliStyle.css" text="modifier">
+                                 <styleClass>
+                                    <String fx:value="activeLink" />
+                                    <String fx:value="nav-links" />
+                                 </styleClass>
+                              </Button>
+                              <Button layoutX="668.0" layoutY="497.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="49.0" prefWidth="182.0" stylesheets="@../../../../../assets/style/aliStyle.css" text="supprimer">
+                                 <styleClass>
+                                    <String fx:value="activeLink" />
+                                    <String fx:value="nav-links" />
+                                 </styleClass>
+                              </Button>
+                              <ComboBox fx:id="cobos" layoutX="600.0" layoutY="592.0" prefHeight="43.0" prefWidth="284.0" promptText="                      ID_Seance" styleClass="activeLink" stylesheets="@../../../../../assets/style/aliStyle.css" />
+                           </children>
+                           <stylesheets>
+                              <URL value="@../../../../../out/assets/style/page/dashboardDesign.css" />
+                              <URL value="@../../../../../out/assets/style/page/dashboardDesign.css" />
+                              <URL value="@../../../../../out/assets/style/aliStyle.css" />
+                           </stylesheets>
+                        </AnchorPane>
+                        <Button layoutX="566.0" layoutY="760.0" mnemonicParsing="false" onAction="#supprimerseance" prefHeight="26.0" prefWidth="241.0" text="Button" />
+                        <TextField fx:id="suppr" layoutX="200.0" layoutY="760.0" prefHeight="26.0" prefWidth="350.0" />
+                     </children>
+                     <stylesheets>
+                        <URL value="@out/assets/style/page/dashboardDesign.css" />
+                        <URL value="@out/assets/style/nabilStyle.css" />
+                     </stylesheets>
+                  </AnchorPane>
+               </center>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
