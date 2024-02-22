@@ -9,12 +9,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import javafx.scene.input.KeyEvent;
 import tn.esprit.applictiongui.model.commande;
 import tn.esprit.applictiongui.service.commandeservice;
 import javafx.scene.input.MouseEvent;
@@ -24,9 +23,12 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 public class Affichecommande {
+    @FXML
+    private ListView<commande> listview;
 
     @FXML
     private TextField ID_c;
@@ -147,7 +149,7 @@ public String nom,pre,mail,addr,pani;
 
 
     public void SetValue(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
-        commande selected = tab.getSelectionModel().getSelectedItem();
+        commande selected =listview.getSelectionModel().getSelectedItem();
 
         if (selected != null) {
 
@@ -157,14 +159,14 @@ public String nom,pre,mail,addr,pani;
             ma.setText(selected.getAddr());
             mp.setText(selected.getPre());
             idc = selected.getIdc();
-            //pani = selected.getPani();
+            pani = selected.getPani().toString();
 
 
         }
     }
     @FXML
     void suppcommande(ActionEvent event) {
-        commande selected=tab.getSelectionModel().getSelectedItem();
+        commande selected=listview.getSelectionModel().getSelectedItem();
 
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -177,7 +179,7 @@ public String nom,pre,mail,addr,pani;
             alert.showAndWait().ifPresent(type -> {
                 if (type == okButton) {
                     try {
-                        css.supprimer(Integer.parseInt(rc.getText()));
+                        css.supprimer(selected.getIdc());
                         initialize();
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
@@ -210,18 +212,78 @@ public String nom,pre,mail,addr,pani;
     @FXML
     void updatecommande(ActionEvent event) throws SQLException {
 
-
         String nomC = mn.getText();
-        int id= Integer.parseInt(ID_c.getText());
         String pree = mp.getText();
-        int te = Integer.parseInt(mt.getText());
         String maa = mm.getText();
         String ad = ma.getText();
-        //String panii=getPani();
-        commande c = new commande(id,te,nomC,pree,maa,ad);
+        int te;
+
+// Contrôle de saisie pour nomC
+        if (nomC.isEmpty()) {
+            // Afficher un message d'erreur si le champ est vide
+            Alert al = new Alert(Alert.AlertType.ERROR);
+            al.setTitle("Erreur de saisie");
+            al.setContentText("Veuillez entrer un nom.");
+            al.showAndWait();
+            return; // Arrêter l'exécution de la méthode
+        }
+
+// Contrôle de saisie pour pree
+        if (pree.isEmpty()) {
+            // Afficher un message d'erreur si le champ est vide
+            Alert al = new Alert(Alert.AlertType.ERROR);
+            al.setTitle("Erreur de saisie");
+            al.setContentText("Veuillez entrer un prénom.");
+            al.showAndWait();
+            return; // Arrêter l'exécution de la méthode
+        }
+
+// Contrôle de saisie pour te
+        try {
+            te = Integer.parseInt(mt.getText());
+        } catch (NumberFormatException e) {
+            // Afficher un message d'erreur si te n'est pas un entier
+            Alert al = new Alert(Alert.AlertType.ERROR);
+            al.setTitle("Erreur de saisie");
+            al.setContentText("Veuillez entrer un nombre valide pour te.");
+            al.showAndWait();
+            return; // Arrêter l'exécution de la méthode
+        }
+
+// Contrôle de saisie pour maa
+        if (maa.isEmpty() && !maa.contains("@")) {
+            // Afficher un message d'erreur si le champ est vide
+            Alert al = new Alert(Alert.AlertType.ERROR);
+            al.setTitle("Erreur de saisie");
+            al.setContentText("Veuillez entrer une valeur pour maa.");
+            al.showAndWait();
+            return; // Arrêter l'exécution de la méthode
+        }
+
+// Contrôle de saisie pour ad
+        if (ad.isEmpty()) {
+            // Afficher un message d'erreur si le champ est vide
+            Alert al = new Alert(Alert.AlertType.ERROR);
+            al.setTitle("Erreur de saisie");
+            al.setContentText("Veuillez entrer une adresse.");
+            al.showAndWait();
+            return; // Arrêter l'exécution de la méthode
+        }
+
+// Si tous les champs sont correctement saisis, poursuivre avec la création de la commande
+// (Vous pouvez ajouter le code de création de commande ici)
+
+// Afficher un message de succès
+        Alert al = new Alert(Alert.AlertType.INFORMATION);
+        al.setTitle("Succès");
+        al.setContentText("Produit Modifié avec succès.");
+        al.showAndWait();
+
+        initialize(); //
+       commande c =new commande(idc,te,nomC,pree,maa,ad, Collections.singletonList(pani));
         css.modifier(c);
 
-        Alert al = new Alert(Alert.AlertType.WARNING);
+        //Alert al = new Alert(Alert.AlertType.WARNING);
 
         al.setTitle("Succes");
         al.setContentText("Produit Modifiée");
@@ -234,7 +296,7 @@ public String nom,pre,mail,addr,pani;
         /*rc.getItems().removeAll(rc.getItems());
         rc.getItems().addAll("Trier", "Trier par Nom ↑", "Trier par Nom ↓");
         rc.getSelectionModel().select("Trier");*/
-        commandeservice cs=new commandeservice();
+        /*commandeservice cs=new commandeservice();
         try {
             List<commande> co=cs.recuperer();
             ObservableList<commande> ob= FXCollections.observableList(co);
@@ -250,10 +312,10 @@ public String nom,pre,mail,addr,pani;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        commandeservice userService = null;
-        userService = new commandeservice();
+        commandeservice co = null;
+        co = new commandeservice();
         try {
-            List<commande> users = userService.recuperer();
+            List<commande> users = co.recuperer();
             ObservableList<String> telList = FXCollections.observableArrayList();
             ObservableList<String> emailList = FXCollections.observableArrayList();
             ObservableList<String> mdpList = FXCollections.observableArrayList();
@@ -278,6 +340,14 @@ public String nom,pre,mail,addr,pani;
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
+        }*/
+
+        try {
+            List<commande> co = cs.recuperer();
+            ObservableList<commande> ob = FXCollections.observableList(co);
+            listview.setItems(ob);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -350,7 +420,7 @@ public String nom,pre,mail,addr,pani;
 
         // Mettre à jour la TableView
         //tell.setItems(updatedList);
-      tab.setItems(updatedList);
+      listview.setItems(updatedList);
     }
 
     @FXML
@@ -365,10 +435,10 @@ public String nom,pre,mail,addr,pani;
         ObservableList<commande> updatedList = FXCollections.observableArrayList(temp);
 
         // Mettre à jour la TableView
-        tab.setItems(updatedList);
+        listview.setItems(updatedList);
     }
     public void pdf(ActionEvent actionEvent) throws IOException {
-        ObservableList<commande> data = tab.getItems();
+        ObservableList<commande> data = listview.getItems();
 
         try {
             // Créez un nouveau document PDF
@@ -398,7 +468,7 @@ public String nom,pre,mail,addr,pani;
                 contentStream.showText(ligne);
 
                 contentStream.newLine();;
-                contentStream.newLineAtOffset(0, -15);
+                contentStream.newLineAtOffset(0, -17);
 
 
             }
@@ -427,7 +497,7 @@ public String nom,pre,mail,addr,pani;
     void back(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/applictiongui/back.fxml"));
         try {
-            rc.getScene().setRoot(fxmlLoader.load());
+            mt.getScene().setRoot(fxmlLoader.load());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

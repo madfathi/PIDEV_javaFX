@@ -29,29 +29,16 @@
          </font>
       </Label>
       <Button layoutX="113.0" layoutY="418.0" mnemonicParsing="false" onAction="#updatecommande" prefHeight="34.0" prefWidth="114.0" text="Modifier" />
-      <Button layoutX="579.0" layoutY="401.0" mnemonicParsing="false" onAction="#suppcommande" prefHeight="34.0" prefWidth="107.0" text="Supprimer" />
-      <TextField fx:id="mt" layoutX="182.0" layoutY="322.0" promptText="tel" />
-      <TextField fx:id="mn" layoutX="14.0" layoutY="349.0" promptText="nom" />
+      <Button layoutX="808.0" layoutY="305.0" mnemonicParsing="false" onAction="#suppcommande" prefHeight="34.0" prefWidth="107.0" text="Supprimer" />
+      <TextField fx:id="mt" layoutX="95.0" layoutY="322.0" promptText="tel" />
+      <TextField fx:id="mn" layoutX="20.0" layoutY="349.0" promptText="nom" />
       <TextField fx:id="mp" layoutX="182.0" layoutY="349.0" promptText="prenom" />
       <TextField fx:id="mm" layoutX="182.0" layoutY="379.0" promptText="mail" />
       <TextField fx:id="ma" layoutX="14.0" layoutY="379.0" promptText="adresse" />
-      <TextField fx:id="rc" layoutX="712.0" layoutY="405.0" onKeyPressed="#recherchecommande" prefHeight="26.0" prefWidth="191.0" promptText="ID" />
       <Button layoutX="679.0" layoutY="309.0" mnemonicParsing="false" onAction="#triasc" prefHeight="26.0" prefWidth="107.0" text="TRI_ASC" />
       <Button layoutX="679.0" layoutY="353.0" mnemonicParsing="false" onAction="#tridesc" prefHeight="26.0" prefWidth="107.0" text="TRI_DESC" />
       <Button layoutX="808.0" layoutY="353.0" mnemonicParsing="false" onAction="#pdf" prefHeight="26.0" prefWidth="107.0" text="PDF" />
       <Button layoutX="10.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="BACK" />
-      <ListView fx:id="tell" layoutX="13.0" layoutY="88.0" prefHeight="200.0" prefWidth="114.0" />
-      <ListView fx:id="nnom" layoutX="170.0" layoutY="88.0" prefHeight="200.0" prefWidth="114.0" />
-      <ListView fx:id="ppre" layoutX="332.0" layoutY="88.0" prefHeight="200.0" prefWidth="114.0" />
-      <ListView fx:id="mmail" layoutX="487.0" layoutY="88.0" prefHeight="200.0" prefWidth="114.0" />
-      <ListView fx:id="ppani" layoutX="633.0" layoutY="88.0" prefHeight="200.0" prefWidth="114.0" />
-      <ListView fx:id="addd" layoutX="786.0" layoutY="88.0" prefHeight="200.0" prefWidth="114.0" />
-      <Label layoutX="56.0" layoutY="60.0" text="TEL" />
-      <Label layoutX="213.0" layoutY="60.0" text="NOM" />
-      <Label layoutX="365.0" layoutY="60.0" text="PRENOM" />
-      <Label layoutX="530.0" layoutY="60.0" text="MAIL" />
-      <Label layoutX="676.0" layoutY="60.0" text="PANI" />
-      <Label layoutX="829.0" layoutY="60.0" text="ADRESSE" />
-      <TextField fx:id="ID_c" layoutX="14.0" layoutY="322.0" promptText="ID" />
+      <ListView fx:id="listview" layoutX="4.0" layoutY="79.0" onMouseClicked="#SetValue" prefHeight="200.0" prefWidth="912.0" />
    </children>
 </AnchorPane>

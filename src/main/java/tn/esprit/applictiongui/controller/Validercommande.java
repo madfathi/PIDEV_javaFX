@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import tn.esprit.applictiongui.model.commande;
@@ -11,8 +12,10 @@ import tn.esprit.applictiongui.model.panier;
 import tn.esprit.applictiongui.model.produit;
 import tn.esprit.applictiongui.service.commandeservice;
 import tn.esprit.applictiongui.service.panierservice;
+import tn.esprit.applictiongui.test.HelloApplication;
 import util.mydatabase;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -117,7 +120,7 @@ public class Validercommande {
         co.setPre(pre.getText());
         co.setMail(mail.getText());
         co.setAddr(addr.getText());
-        co.setPani(Collections.singletonList(nomm + "" + we));
+        co.setPani(Collections.singletonList( we+ "" + nomm+""+tota));
 
         co.setTel(Integer.parseInt(tel.getText()));
 
@@ -133,6 +136,13 @@ public class Validercommande {
             alert.setContentText("Une erreur s'est produite lors de l'ajout de la personne: " + ex.getMessage());
             alert.showAndWait();
         }
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/applictiongui/merci.fxml"));
+        try {
+            tel.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 public void menutotal() throws SQLException {

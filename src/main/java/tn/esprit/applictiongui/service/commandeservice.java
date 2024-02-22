@@ -63,9 +63,9 @@ public class commandeservice implements iservice <commande> {
             commande co=new commande();
             co.setIdc(rs.getInt("idc"));
             co.setTel(rs.getInt("tel"));
-            co.setMail(rs.getString("nom"));
-            co.setNom(rs.getString("pre"));
-            co.setPre(rs.getString("mail"));
+            co.setMail(rs.getString("mail"));
+            co.setNom(rs.getString("nom"));
+            co.setPre(rs.getString("pre"));
             co.setAddr(rs.getString("addr"));
             co.setPani(Collections.singletonList(rs.getString("pani")));
             commandes.add(co);

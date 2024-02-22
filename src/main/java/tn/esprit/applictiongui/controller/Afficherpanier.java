@@ -18,6 +18,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class Afficherpanier {
+    @FXML
+    private ListView<panier> lists;
+
     ObservableList<panier> list = FXCollections.observableArrayList();
     private final panierservice cs =new panierservice();
     private panierservice css =new panierservice();
@@ -66,7 +69,7 @@ public String img;
         this.idp = id;
     }
     public void SetValue(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
-        panier selected = tab.getSelectionModel().getSelectedItem();
+        panier selected = lists.getSelectionModel().getSelectedItem();
 
         if (selected != null) {
 
@@ -75,6 +78,7 @@ public String img;
             idp = selected.getIdp();
             nomp = selected.getNomp();
             img = selected.getImg();
+
 
 
         }
@@ -108,7 +112,7 @@ public String img;
     }
     @FXML
     void supppanier(ActionEvent event) {
-        panier selected=tab.getSelectionModel().getSelectedItem();
+        panier selected=lists.getSelectionModel().getSelectedItem();
         if(selected!=null)
         {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -154,7 +158,7 @@ public String img;
         ObservableList<panier> updatedList = FXCollections.observableArrayList(temp);
 
         // Mettre à jour la TableView
-        tab.setItems(updatedList);
+        lists.setItems(updatedList);
     }
 
     @FXML
@@ -169,7 +173,7 @@ public String img;
         ObservableList<panier> updatedList = FXCollections.observableArrayList(temp);
 
         // Mettre à jour la TsableView
-        tab.setItems(updatedList);
+        lists.setItems(updatedList);
     }
 
     @FXML
@@ -186,6 +190,7 @@ public String img;
             tabp.setCellValueFactory(new PropertyValueFactory<>("pt"));
 
 
+            lists.setItems(ob);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
