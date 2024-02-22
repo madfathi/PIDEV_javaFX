@@ -3,11 +3,14 @@ package tn.esprit.guiapplication.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import tn.esprit.guiapplication.services.ClientService;
 import tn.esprit.guiapplication.models.Client;
+import tn.esprit.guiapplication.test.HelloApplication;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class Ajouterclient {
@@ -25,29 +28,117 @@ public class Ajouterclient {
 
     @FXML
     void afficherClient(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Afficherclient.fxml"));
+        try {
+            ageTF.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
 
     }
 
+    /*
+
+        @FXML
+        void ajouterClient(ActionEvent event) {
+            ClientService cs = new ClientService();
+            Client co = new Client();
+            co.setNom(nomTF.getText());
+            co.setPrenom(prenomTF.getText());
+            co.setAge(Integer.parseInt(ageTF.getText()));
+            co.setPoids(Integer.parseInt(poidsTF.getText()));
+            try {
+                cs.ajouter(co);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION) ;
+                alert.setTitle("Success");
+                alert.setContentText("client ajoutée");
+                alert.showAndWait();
+            } catch (SQLException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR) ;
+                alert.setTitle("Erreur");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
+        }
+    */
     @FXML
     void ajouterClient(ActionEvent event) {
-        ClientService clientService = new ClientService();
-        Client client = new Client();
-        client.setNom(nomTF.getText());
-        client.setPrenom(prenomTF.getText());
-        client.setAge(Integer.parseInt(ageTF.getText()));
-        client.setPoids(Integer.parseInt(poidsTF.getText()));
-        try {
-            clientService.ajouter(new Client(11, 77, "fhf", "ufh"));
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION) ;
-            alert.setTitle("Success");
-            alert.setContentText("client ajoutée");
-            alert.showAndWait();
-        } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR) ;
+        ClientService cs = new ClientService();
+        Client co = new Client();
+
+        // Récupérer les valeurs des champs et les trimmer pour enlever les espaces inutiles
+        String nom = nomTF.getText().trim();
+        String prenom = prenomTF.getText().trim();
+        String ageStr = ageTF.getText().trim();
+        String poidsStr = poidsTF.getText().trim();
+
+        // Vérifier si les champs sont vides
+        if (nom.isEmpty() || prenom.isEmpty() || ageStr.isEmpty() || poidsStr.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
-            alert.setContentText(e.getMessage());
+            alert.setContentText("Veuillez remplir tous les champs.");
             alert.showAndWait();
+            return; // Sortir de la méthode si un champ est vide
         }
+
+        // Vérifier si les champs age et poids contiennent des entiers valides
+        int age, poids;
+        try {
+            age = Integer.parseInt(ageStr);
+            poids = Integer.parseInt(poidsStr);
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setContentText("Veuillez saisir des valeurs numériques pour l'âge et le poids.");
+            alert.showAndWait();
+            return; // Sortir de la méthode si une valeur numérique est invalide
+        }
+
+        // Valider les contraintes supplémentaires, par exemple la longueur du nom et du prénom
+
+        // Ajouter le client seulement si toutes les vérifications sont passées
+        co.setNom(nom);
+        co.setPrenom(prenom);
+        co.setAge(age);
+        co.setPoids(poids);
+
+        if (!nom.matches("[a-zA-Z]+")) {
+            // Afficher une alerte
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de saisie");
+            alert.setHeaderText(null);
+            alert.setContentText("Le nom de client doit contenir uniquement des lettres.");
+            alert.showAndWait();
+            return; // Sortir de la méthode si la validation échoue
+        }
+            if (!prenom.matches("[a-zA-Z]+")) {
+                // Afficher une alerte
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur de saisie");
+                alert.setHeaderText(null);
+                alert.setContentText("Le prenom d'utilisateur doit contenir uniquement des lettres.");
+                alert.showAndWait();
+                return; // Sortir de la méthode si la validation échoue
+            }
+            try {
+                cs.ajouter(co);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Succès");
+                alert.setContentText("Client ajouté");
+                alert.showAndWait();
+            } catch (SQLException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
+        }
+
+
     }
 
-}
+
+
+
+

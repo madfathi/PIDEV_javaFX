@@ -6,6 +6,26 @@ public class Program {
     private  String niveau;
     private  String description;
     private  int prix;
+    private Client client;
+
+    public Client getClient() {
+
+        return client;
+    }
+
+
+    public Program(int id_p, String titre, String niveau, String description, int prix, Client client) {
+        this.id_p = id_p;
+        this.titre = titre;
+        this.niveau = niveau;
+        this.description = description;
+        this.prix = prix;
+        this.client = client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
     public Program (String titre , String niveau , String description , int prix) {
 
@@ -69,6 +89,7 @@ public class Program {
     }
 
     @Override
+
     public String toString() {
         return "Program{" +
                 "id_p=" + id_p +
@@ -76,6 +97,8 @@ public class Program {
                 ", niveau='" + niveau + '\'' +
                 ", description='" + description + '\'' +
                 ", prix=" + prix +
+                ", client=" + client + // Assuming client has a toString() method or you want to display its ID or name
                 '}';
     }
+
 }

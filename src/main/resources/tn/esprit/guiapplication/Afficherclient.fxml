@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="406.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplication.controllers.Afficherclient">
+   <children>
+      <Button layoutX="487.0" layoutY="190.0" mnemonicParsing="false" onAction="#modifierClient" prefHeight="26.0" prefWidth="87.0" text="Modifier" />
+      <TextField fx:id="poidsTFm" layoutX="374.0" layoutY="239.0" prefHeight="26.0" prefWidth="102.0" promptText="POIDS" />
+      <TextField fx:id="idTFm" layoutX="375.0" layoutY="95.0" prefHeight="26.0" prefWidth="102.0" promptText="ID" />
+      <TextField fx:id="nomTFm" layoutX="375.0" layoutY="132.0" prefHeight="26.0" prefWidth="102.0" promptText="NOM" />
+      <TextField fx:id="prenomTFm" layoutX="375.0" layoutY="167.0" prefHeight="26.0" prefWidth="102.0" promptText="PRENOM" />
+      <TextField fx:id="ageTFm" layoutX="375.0" layoutY="203.0" prefHeight="26.0" prefWidth="102.0" promptText="AGE" />
+
+      <Button layoutX="484.0" layoutY="324.0" mnemonicParsing="false" onAction="#ajouterProgram" prefHeight="26.0" prefWidth="147.0" text="Ajouter Program" />
+      <ListView fx:id="listView" layoutX="26.0" layoutY="108.0" prefHeight="170.0" prefWidth="322.0" />
+      <Button layoutX="487.0" layoutY="239.0" mnemonicParsing="false" onAction="#sort" prefHeight="26.0" prefWidth="87.0" text="Tri" />
+      <Button layoutX="488.0" layoutY="141.0" mnemonicParsing="false" onAction="#supprimerclient" text="supprimer" />
+      <Button layoutX="488.0" layoutY="95.0" mnemonicParsing="false" onAction="#trouverClient" prefHeight="26.0" prefWidth="87.0" text="Trouver" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#retour" text="&lt;----">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="67.0" fitWidth="263.0" layoutX="217.0" layoutY="14.0">
+         <image>
+            <Image url="C:\Users\salim\Downloads\418566203_1804384873376645_1434016650157370513_n.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="85.0" layoutY="73.0" />
+   </children>
+</AnchorPane>

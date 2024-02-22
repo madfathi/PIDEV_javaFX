@@ -8,6 +8,7 @@ public interface IService<T> {
     void supprimer(int id_c) throws SQLException;
 
     List<T> recuperer() throws SQLException;
-
+   List<T> getAll() throws SQLException;
 
 }
+
