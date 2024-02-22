@@ -1,5 +1,6 @@
 package tn.esprit.projet3a.services;
 
+import tn.esprit.projet3a.models.Evenment;
 import tn.esprit.projet3a.models.Review;
 import tn.esprit.projet3a.utils.MyDatabase;
 
@@ -9,6 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewService implements IService<Review> {
+
+
+
+    public List<Review> selectidr() throws SQLException {
+        List<Review> reviews = new ArrayList<>();
+        String req = "SELECT id_review FROM review";
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery(req);
+
+        while (rs.next()) {
+            Review review = new Review();
+            review.setId_review(rs.getInt("id_review"));
+            reviews.add(review);
+        }
+        return reviews;
+    }
 
     private Connection connection;
 
@@ -24,7 +41,13 @@ public class ReviewService implements IService<Review> {
     }
 
     @Override
-    public void modifier(Review review) throws SQLException {
+    public void modifier(Integer id_event, Evenment evenment) throws SQLException {
+
+    }
+
+
+    @Override
+    public void modifierReview(Integer id_review, Review review) throws SQLException {
         String req = "UPDATE review SET nbr_star = ? , description = ? , id_event = ? WHERE id_review = ?";
         PreparedStatement rss = connection.prepareStatement(req);
         rss.setInt(1, review.getNbr_star());
@@ -36,11 +59,16 @@ public class ReviewService implements IService<Review> {
     }
 
     @Override
-    public void supprimer(int id_review) throws SQLException {
+    public void supprimerReview(int id_review) throws SQLException {
         String req = "DELETE FROM review WHERE id_review = ?";
         PreparedStatement rss = connection.prepareStatement(req);
         rss.setInt(1, id_review);
         rss.executeUpdate();
+
+    }
+
+    @Override
+    public void supprimer(int id_event) throws SQLException {
 
     }
 
@@ -61,4 +89,7 @@ public class ReviewService implements IService<Review> {
         }
         return reviews;
     }
+
+
+
 }

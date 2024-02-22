@@ -1,6 +1,6 @@
 package tn.esprit.projet3a.models;
 
-public class Review {
+public class Review extends EventElement {
     private int id_review,nbr_star;
     private String description;
     private int id_event;
@@ -21,7 +21,7 @@ public class Review {
 
     }
 
-    public int getId_review() {
+    public  int getId_review() {
         return id_review;
     }
 
