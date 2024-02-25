@@ -116,7 +116,7 @@ public String img;
         if(selected!=null)
         {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Voulez-Vous Supprimer cet Categorie?");
+            alert.setTitle("Voulez-Vous Supprimer cet panier?");
             alert.setContentText("Supprimer?");
             ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
             ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);

@@ -27,7 +27,17 @@ public class commande {
         this.pani = pani;
     }
 
-    public commande( int tel,String nom, String pre, String mail, String addr, List<String> pani)
+    public commande( String nom, String pre) {
+
+        this.nom = nom;
+        this.pre = pre;
+    }
+
+    public commande(List<String> pani) {
+        this.pani = pani;
+    }
+
+    public commande(int tel, String nom, String pre, String mail, String addr, List<String> pani)
     {
 
         this.tel=tel;

@@ -22,6 +22,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class Validercommande {
+    @FXML
+    private Button btn;
 
 
     @FXML
@@ -63,10 +65,10 @@ public class Validercommande {
 
     @FXML
     void ajouter(ActionEvent event) throws SQLException {
-        panierservice userService = null;
-        userService = new panierservice();
+        panierservice papaService = null;
+        papaService = new panierservice();
 
-            List<panier> users = userService.recuperer();
+            List<panier> users = papaService.recuperer();
         ObservableList<String> nomm = FXCollections.observableArrayList();
         ObservableList<String> we = FXCollections.observableArrayList();
         for (panier user : users) {
@@ -128,15 +130,15 @@ public class Validercommande {
             cs.ajouter(co);
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Success");
-            alert.setContentText("Personne ajoutée avec succès");
+            alert.setContentText(" succès");
             alert.showAndWait();
         } catch (SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
-            alert.setContentText("Une erreur s'est produite lors de l'ajout de la personne: " + ex.getMessage());
+            alert.setContentText("Une erreur : " + ex.getMessage());
             alert.showAndWait();
         }
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/applictiongui/merci.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/applictiongui/code.fxml"));
         try {
             tel.getScene().setRoot(fxmlLoader.load());
         } catch (IOException e) {
@@ -144,7 +146,16 @@ public class Validercommande {
         }
 
     }
+    @FXML
+    void papa(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/applictiongui/panier.fxml"));
+        try {
+            nom.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+    }
 public void menutotal() throws SQLException {
         String req="SELECT SUM(pt) FROM panier";
     PreparedStatement pre=connection.prepareStatement(req);

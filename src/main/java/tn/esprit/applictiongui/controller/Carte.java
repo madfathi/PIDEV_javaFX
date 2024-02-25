@@ -83,7 +83,7 @@ public void add(ActionEvent actionEvent){
           pre.setString(5, String.valueOf(produitt_id));
           pre.executeUpdate();
           alert=new Alert(Alert.AlertType.INFORMATION);
-          alert.setTitle("messsage yaa katoussa");
+          alert.setTitle("messsage ");
           alert.setHeaderText(null);
           alert.setContentText("jawek behi");
           alert.showAndWait();

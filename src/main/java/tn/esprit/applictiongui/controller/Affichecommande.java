@@ -315,7 +315,7 @@ public String nom,pre,mail,addr,pani;
         commandeservice co = null;
         co = new commandeservice();
         try {
-            List<commande> users = co.recuperer();
+            List<commande> coo = co.recuperer();
             ObservableList<String> telList = FXCollections.observableArrayList();
             ObservableList<String> emailList = FXCollections.observableArrayList();
             ObservableList<String> mdpList = FXCollections.observableArrayList();
@@ -323,7 +323,7 @@ public String nom,pre,mail,addr,pani;
             ObservableList<String> prenomList = FXCollections.observableArrayList();
             ObservableList<String> adresseList = FXCollections.observableArrayList();
 
-            for (commande user : users) {
+            for (commande co : coo) {
                 telList.add(String.valueOf(user.getTel()));
                 emailList.add(user.getMail());
                 mdpList.add(String.valueOf(user.getPani()));
@@ -355,8 +355,8 @@ public String nom,pre,mail,addr,pani;
 
 
 
-    @FXML
-    void recherchecommande(KeyEvent event) {
+
+   /* void recherchecommande(KeyEvent event) {
 
 
         FilteredList<commande> filter = new FilteredList<>(list, ev -> true);
@@ -386,7 +386,7 @@ public String nom,pre,mail,addr,pani;
         // Set the items of the TableView to the SortedList
         tab.setItems(sort);
 
-    }
+    }*/
     /*@FXML
     void trier(ActionEvent event) throws SQLException {
         String selected = sc.getSelectionModel().getSelectedItem();
@@ -418,7 +418,7 @@ public String nom,pre,mail,addr,pani;
 
         ObservableList<commande> updatedList = FXCollections.observableArrayList(temp);
 
-        // Mettre à jour la TableView
+
         //tell.setItems(updatedList);
       listview.setItems(updatedList);
     }
@@ -434,7 +434,7 @@ public String nom,pre,mail,addr,pani;
         }
         ObservableList<commande> updatedList = FXCollections.observableArrayList(temp);
 
-        // Mettre à jour la TableView
+
         listview.setItems(updatedList);
     }
     public void pdf(ActionEvent actionEvent) throws IOException {
@@ -457,14 +457,12 @@ public String nom,pre,mail,addr,pani;
             contentStream.newLineAtOffset(100, 700);
 
 
-            for (commande categorie : data) {
-// Ajouter l'image
-                /*String imagePath = uploads + categorie.getCategorie();
-                PDImageXObject pdImage = PDImageXObject.createFromFile(imagePath, document);*/
+            for (commande ca : data) {
 
-                String ligne = "ID : " + categorie.getIdc() + "     Nom : " + categorie.getNom()
-                        +"     tel : " + categorie.getTel()+"     mail : " + categorie.getMail()
-                        +"    addresse : " + categorie.getAddr()+"     Votre Panier : " + categorie.getPani();
+
+                String ligne = "ID : " + ca.getIdc() + "     Nom : " + ca.getNom()
+                        +"     tel : " + ca.getTel()+"     mail : " + ca.getMail()
+                        +"    addresse : " + ca.getAddr()+"     Votre Panier : " + ca.getPani();
                 contentStream.showText(ligne);
 
                 contentStream.newLine();;
