@@ -1,28 +1,55 @@
 package tn.esprit.guiapplicatio.models;
 
+import java.util.Date;
+
 public class Seance {
 
-    public int id_seance, duree_seance, nb_maximal;
-    public String type_seance,categorie;
+    public int id_seance,  nb_maximal;
+    public String type_seance,categorie,duree_seance;
+    public Date date_fin;
 
-    public Seance(int id_seance, int duree_seance, int nb_maximal, String type_seance, String categorie) {
+    public Seance(int id_seance, String duree_seance, int nb_maximal, String type_seance, String categorie,Date date_fin) {
         this.id_seance = id_seance;
         this.duree_seance = duree_seance;
         this.nb_maximal = nb_maximal;
         this.type_seance = type_seance;
         this.categorie = categorie;
+        this.date_fin = date_fin;
+
     }
 
-    public Seance(int duree_seance, int nb_maximal, String type_seance, String categorie) {
+    public Seance(String duree_seance, int nb_maximal, String type_seance, String categorie,Date date_fin) {
         this.duree_seance = duree_seance;
         this.nb_maximal = nb_maximal;
         this.type_seance = type_seance;
         this.categorie = categorie;
+
+        this.date_fin = date_fin;
     }
 
     public Seance() {
 
 
+    }
+
+    public void setDate_fin(Date date_fin) {
+        this.date_fin = date_fin;
+    }
+
+    public java.sql.Date getDate_fin() {
+        return (java.sql.Date) date_fin;
+    }
+
+    @Override
+    public String toString() {
+        return "Seance{" +
+                "id_seance=" + id_seance +
+                ", nb_maximal=" + nb_maximal +
+                ", type_seance='" + type_seance + '\'' +
+                ", categorie='" + categorie + '\'' +
+                ", duree_seance='" + duree_seance + '\'' +
+                ", date_fin=" + date_fin +
+                '}';
     }
 
     public int getId_seance() {
@@ -33,11 +60,11 @@ public class Seance {
         this.id_seance = id_seance;
     }
 
-    public int getDuree_seance() {
+    public String getDuree_seance() {
         return duree_seance;
     }
 
-    public void setDuree_seance(int duree_seance) {
+    public void setDuree_seance(String duree_seance) {
         this.duree_seance = duree_seance;
     }
 
@@ -65,14 +92,4 @@ public class Seance {
         this.categorie = categorie;
     }
 
-    @Override
-    public String toString() {
-        return "Seance{" +
-                "id_seance=" + id_seance +
-                ", duree_seance=" + duree_seance +
-                ", nb_maximal=" + nb_maximal +
-                ", type_seance='" + type_seance + '\'' +
-                ", categorie='" + categorie + '\'' +
-                '}';
-    }
 }

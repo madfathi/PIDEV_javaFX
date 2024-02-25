@@ -66,7 +66,7 @@ public class AjouterSeance {
     }
     @FXML
     public void AjouterSeance(ActionEvent actionEvent) {
-        SeanceService cs = new SeanceService();
+  /*      SeanceService cs = new SeanceService();
         Seance co = new Seance();
         co.setType_seance(typeTF.getText());
         co.setCategorie(categorieTF.getText());
@@ -99,7 +99,7 @@ public class AjouterSeance {
         }
 
 
-
+*/
         }
 
 

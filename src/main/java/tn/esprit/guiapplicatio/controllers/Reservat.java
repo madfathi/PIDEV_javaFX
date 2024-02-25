@@ -1,14 +1,26 @@
 package tn.esprit.guiapplicatio.controllers;
-
+import javax.mail.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.input.MouseEvent;
 import tn.esprit.guiapplicatio.models.Reservation;
+
+import javax.mail.*;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +35,7 @@ import tn.esprit.guiapplicatio.services.ReservationService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import javafx.scene.control.TableColumn;
@@ -30,6 +43,10 @@ import javafx.scene.control.TableView;
 import tn.esprit.guiapplicatio.test.HelloApplication;
 import tn.esprit.guiapplicatio.utils.MyDatabase;
 
+import javax.mail.*;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 
 public class Reservat {
@@ -46,6 +63,11 @@ public class Reservat {
     private TableColumn<tn.esprit.guiapplicatio.models.Seance,Integer> idr;
     @FXML
     private TableColumn<tn.esprit.guiapplicatio.models.Seance,Integer> pho;
+    @FXML
+    private DatePicker date_debut;
+
+    @FXML
+    private DatePicker date_fin;
 
     @FXML
     private TextField ty;
@@ -73,7 +95,8 @@ public class Reservat {
     private TextField iddr;
     @FXML
     private TableView<Reservation> tableview;
-
+    private String username = "fathimaddeh88@gmail.com";
+    private String password = "wxnfnrqwjjcjzjby";
     private ReservationService css =new ReservationService();
     @FXML
     private TextField em;
@@ -259,6 +282,15 @@ ReservationService s=new ReservationService();
         initialize();
     }
 
+    public void mail(ActionEvent actionEvent) {
+      // envoyer();
+
+
+
+
+
+    }
+
     private class ButtonCell extends TableCell<Reservation, Boolean> {
         final Button cellButton = new Button("Supprimer");
 
@@ -338,8 +370,42 @@ ReservationService s=new ReservationService();
         String username = us.getText();
         String cat = is.getSelectionModel().getSelectedItem();
         String email = em.getText();
-        int phone = Integer.parseInt(ph.getText());
+   //     int phone = Integer.parseInt(ph.getText());
         String phoneStr = ph.getText();
+        if (username.isEmpty() || cat.isEmpty() ||email.isEmpty()||phoneStr.isEmpty() ) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+
+            // Sortir de la méthode si un champ
+            if (username.isEmpty()) {
+                alert.setTitle("Erreur");
+                alert.setContentText("champs username est vide");
+                alert.showAndWait();
+                return; // Sortir de la méthode si un champ
+            }
+            if (cat.isEmpty()) {
+                alert.setTitle("Erreur");
+                alert.setContentText("champs type est vide");
+                alert.showAndWait();
+                return; // Sortir de la méthode si un champ
+            }
+            if (email.isEmpty()) {
+                alert.setTitle("Erreur");
+                alert.setContentText("champs email est vide");
+                alert.showAndWait();
+                return; // Sortir de la méthode si un champ
+
+
+            }
+            if (phoneStr.isEmpty()) {
+                alert.setTitle("Erreur");
+                alert.setContentText("champs phone est vide");
+                alert.showAndWait();
+                return; // Sortir de la méthode si un champ
+
+
+            }
+return;
+        }
        if (!username.matches("[a-zA-Z]+")) {
             // Afficher une alerte
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -371,7 +437,8 @@ ReservationService s=new ReservationService();
             alert.showAndWait();
             return; // Sortir de la méthode si la valid
         }
-        String query = "SELECT id_seance FROM seance WHERE type_seance = ?";
+        int phone = Integer.parseInt(ph.getText());
+        String query = "SELECT id_seance,nb_maximal FROM seance WHERE type_seance = ?";
         Connection connection = MyDatabase.getInstance().getConnection();
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, cat);
@@ -379,11 +446,42 @@ ReservationService s=new ReservationService();
 
                 // Vérifier s'il y a un résultat
                 if (resultSet.next()) {
-
+                    int nombreReservations=0;
+                    int nb_maximale=resultSet.getInt("nb_maximal");
                     // Récupérer l'ID de la séance
                     id_seance = resultSet.getInt("id_seance");
+                    String sql = "SELECT * FROM reservation WHERE id_seance = ?";
+                    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                    preparedStatement.setInt(1, id_seance);
+                    ResultSet resultSe = preparedStatement.executeQuery();
+
+                    while(resultSe.next()) {
+                        nombreReservations++;
+                    }
+                    System.out.println(nombreReservations);
+                        if(nombreReservations > nb_maximale-1)
+                        {
+                            System.out.println(nombreReservations);
+                            System.out.println(nombreReservations);
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Erreur de saisie");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Le nombre maximale de la reservation est "+String.valueOf(nb_maximale));
+                            alert.showAndWait();
+                            return; // Sortir de la méthode si la valid
+
+
+                        }
+
+
+
+
+
+
                     ids.setText(String.valueOf(id_seance));
+
                     ps.ajouter(new Reservation(cat,username,email,phone,id_seance));
+                    envoyer(email);
                     ReservationService SeanceService = new ReservationService();
                     combooo.getItems().clear();
 
@@ -453,7 +551,6 @@ ReservationService s=new ReservationService();
 
 
 
-
 /*
         ps.ajouter(new Reservation(cat,username,email,phone,id_seance));
         Alert a = new Alert(Alert.AlertType.WARNING);
@@ -511,6 +608,47 @@ ReservationService s=new ReservationService();
 
     }
 
+
+
+
+        public void envoyer(String b) {
+// Etape 1 : Création de la session
+            Properties props = new Properties();
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587");
+
+            props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+            props.put("mail.smtp.ssl.ciphersuites", "TLS_AES_256_GCM_SHA384");
+            props.put("mail.smtp.socketFactory.port","465");
+            props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+            Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(username, password);
+                }
+            });
+
+            try {
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress("fathimaddeh88@gmail.com"));
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(b));
+                message.setSubject("SUCCESSFUL RESERVATION");
+                message.setText("votre reservation a ete faite avec succes");
+
+                // Enable debugging
+                session.setDebug(true);
+
+                Transport.send(message);
+                System.out.println("Message envoyé avec succès");
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        //Etape 4 : Tester la méthode
+
+
+
     public void modii(ActionEvent actionEvent) throws SQLException {
         ObservableList<Reservation> updatedList;
         updatedList = FXCollections.observableArrayList();
@@ -528,6 +666,36 @@ ReservationService s=new ReservationService();
         //String cat = is.getSelectionModel().getSelectedItem();
         String email = em.getText();
         String phoneStr = ph.getText();
+        if (username.isEmpty()  ||email.isEmpty()||phoneStr.isEmpty() ) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+
+            // Sortir de la méthode si un champ
+            if (username.isEmpty()) {
+                alert.setTitle("Erreur");
+                alert.setContentText("champs username est vide");
+                alert.showAndWait();
+                return; // Sortir de la méthode si un champ
+            }
+
+            if (email.isEmpty()) {
+                alert.setTitle("Erreur");
+                alert.setContentText("champs email est vide");
+                alert.showAndWait();
+                return; // Sortir de la méthode si un champ
+
+
+            }
+            if (phoneStr.isEmpty()) {
+                alert.setTitle("Erreur");
+                alert.setContentText("champs phone est vide");
+                alert.showAndWait();
+                return; // Sortir de la méthode si un champ
+
+
+            }
+
+        }
+
         if (!username.matches("[a-zA-Z]+")) {
             // Afficher une alerte
             Alert alert = new Alert(Alert.AlertType.ERROR);

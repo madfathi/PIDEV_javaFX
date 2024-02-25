@@ -98,34 +98,48 @@ public class ModifierSeance {
             if(animal.getId_seance() == currentAnimalId) {
                 animal.setType_seance(ty.getText());
                 animal.setCategorie(ca.getText());
-                int duree = Integer.parseInt(du.getText());
+                //int duree = Integer.parseInt(du.getText());
                 int nbMaximal = Integer.parseInt(nb.getText());
 
 
-                animal.setDuree_seance(duree);
+                animal.setDuree_seance(du.getText());
                 animal.setNb_maximal(nbMaximal);
-                System.out.println(
-                        duree
-                );  System.out.println(
-                        duree
-                );  System.out.println(
-                        duree
-                );
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/AjoSeance.fxml"));
 
                 Parent root = fxmlLoader.load();
                 AjoSeance controller = fxmlLoader.getController();
-                System.out.println(
-                        duree
-                );  System.out.println(
-                        duree
-                );  System.out.println(
-                        duree
-                );
+
+              /*  if (duree < 2 || duree > 4 ) {
+                    // Afficher une alerte
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur de saisie");
+                    alert.setHeaderText(null);
+                    alert.setContentText("duree doit contenir entre 2 et 4 chiffres.");
+                    alert.showAndWait();
+                    return; // Sortir de la méthode si la validation échoue
+                }*/
+                if (nbMaximal < 1 || nbMaximal > 10 ) {
+                    // Afficher une alerte
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur de saisie");
+                    alert.setHeaderText(null);
+                    alert.setContentText("nbmaximale doit etre entre 1 et 10 chiffres.");
+                    alert.showAndWait();
+                    return; // Sortir de la méthode si la validation échoue
+                }
+
                 SeanceService service = new SeanceService();
                 service.modifier(animal);
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Success");
+                alert.setContentText("Seance Modifiee");
+                alert.showAndWait();
+controller.addDataToChart();
+
 controller.updateTableView();
+
               //  controller.updateTableView(currentAnimalId);
              //   controller.updateListView(currentAnimalId,animal);
                 ty.getScene().setRoot(root);

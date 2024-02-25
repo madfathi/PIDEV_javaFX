@@ -77,12 +77,12 @@
                <top>
                   <AnchorPane onMouseClicked="#rowClicked" prefHeight="91.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
                      <children>
-                        <ImageView fitHeight="92.0" fitWidth="68.0" layoutX="1109.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="92.0" fitWidth="68.0" layoutX="1037.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../../../../../../../zeroWaste-javaFX-main/src/assets/img/assoIcon.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="234.0" layoutY="46.0" prefHeight="30.0" prefWidth="270.0" text="POWERFIT APPLICATION">
+                        <Label layoutX="261.0" layoutY="46.0" prefHeight="30.0" prefWidth="270.0" text="POWERFIT APPLICATION">
                            <textFill>
                               <LinearGradient endX="1.0" endY="1.0">
                                  <stops>
@@ -108,6 +108,11 @@
                               <Image url="@../../../../../../../../../../zeroWaste-javaFX-main/src/assets/img/user-active.png" />
                            </image>
                         </ImageView>
+                        <ImageView fitHeight="57.0" fitWidth="227.0" layoutX="14.0" layoutY="17.0">
+                           <image>
+                              <Image url="@../../../../../../../../Downloads/418218333_1603957343739600_4437491895192341723_n.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                </top>
@@ -124,7 +129,7 @@
                               <URL value="@../../../../../out/assets/style/page/dashboardDesign.css" />
                            </stylesheets>
                            <children>
-                              <AnchorPane layoutX="14.0" layoutY="430.0" prefHeight="236.0" prefWidth="933.0">
+                              <AnchorPane layoutX="14.0" layoutY="430.0" prefHeight="236.0" prefWidth="898.0">
                                  <styleClass>
                                     <String fx:value="white-bg" />
                                     <String fx:value="shadow" />
@@ -155,7 +160,7 @@
                                           <URL value="@out/assets/style/page/dashboardDesign.css" />
                                        </stylesheets>
                                     </TableView>
-                                    <ListView fx:id="user" layoutX="255.0" layoutY="17.0" prefHeight="192.0" prefWidth="190.0">
+                                    <ListView fx:id="user" layoutX="239.0" layoutY="22.0" prefHeight="192.0" prefWidth="182.0">
                                        <stylesheets>
                                           <URL value="@../../../../../assets/style/nabilStyle.css" />
                                           <URL value="@../../../../../assets/style/aliStyle.css" />
@@ -167,7 +172,7 @@
                                           <String fx:value="openProductDetailsBtn" />
                                        </styleClass>
                                     </ListView>
-                                    <ListView fx:id="emai" layoutX="471.0" layoutY="13.0" prefHeight="200.0" prefWidth="203.0">
+                                    <ListView fx:id="emai" layoutX="442.0" layoutY="18.0" prefHeight="200.0" prefWidth="190.0">
                                        <stylesheets>
                                           <URL value="@../../../../../assets/style/nabilStyle.css" />
                                           <URL value="@../../../../../assets/style/aliStyle.css" />
@@ -179,7 +184,7 @@
                                           <String fx:value="openProductDetailsBtn" />
                                        </styleClass>
                                     </ListView>
-                                    <ListView fx:id="phon" layoutX="703.0" layoutY="13.0" prefHeight="200.0" prefWidth="209.0">
+                                    <ListView fx:id="phon" layoutX="665.0" layoutY="18.0" prefHeight="200.0" prefWidth="190.0">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
@@ -193,7 +198,7 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                     </ListView>
-                                    <ListView fx:id="reserv" layoutX="30.0" layoutY="18.0" onMouseClicked="#rowClicked1" prefHeight="200.0" prefWidth="203.0">
+                                    <ListView fx:id="reserv" layoutX="30.0" layoutY="18.0" onMouseClicked="#rowClicked1" prefHeight="200.0" prefWidth="185.0">
                                        <stylesheets>
                                           <URL value="@../../../../../assets/style/nabilStyle.css" />
                                           <URL value="@../../../../../assets/style/aliStyle.css" />
@@ -317,9 +322,9 @@
                               <TextField fx:id="em" layoutX="11.0" layoutY="256.0" prefHeight="26.0" prefWidth="387.0" />
                               <TextField fx:id="ph" layoutX="507.0" layoutY="78.0" prefHeight="26.0" prefWidth="387.0" />
                               <ComboBox fx:id="is" layoutX="11.0" layoutY="72.0" prefHeight="38.0" prefWidth="359.0" promptText="choix Reservation" />
-                              <Button layoutX="497.0" layoutY="348.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="37.0" prefWidth="195.0" text="Ajouter" />
-                              <Button layoutX="744.0" layoutY="348.0" mnemonicParsing="false" onAction="#modii" prefHeight="37.0" prefWidth="203.0" text="modifier" />
-                              <ComboBox fx:id="combooo" layoutX="207.0" layoutY="354.0" prefHeight="26.0" prefWidth="184.0" promptText="              Afficher Les Id" />
+                              <Button layoutX="488.0" layoutY="263.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="37.0" prefWidth="195.0" text="Ajouter" />
+                              <Button layoutX="708.0" layoutY="263.0" mnemonicParsing="false" onAction="#modii" prefHeight="38.0" prefWidth="173.0" text="modifier" />
+                              <ComboBox fx:id="combooo" layoutX="207.0" layoutY="354.0" prefHeight="26.0" prefWidth="269.0" promptText="            Afficher Les Id" />
                               <Label layoutX="24.0" layoutY="237.0" prefHeight="27.0" prefWidth="143.0">
                                  <textFill>
                                     <LinearGradient endX="1.0" endY="1.0">
@@ -342,6 +347,7 @@
                                  </font>
                               </Label>
                               <Button layoutX="30.0" layoutY="348.0" mnemonicParsing="false" onAction="#suppt" prefHeight="38.0" prefWidth="150.0" text="supprimer" />
+                              <Button layoutX="527.0" layoutY="335.0" mnemonicParsing="false" onAction="#mail" prefHeight="26.0" prefWidth="238.0" text="Button" />
                            </children>
                         </AnchorPane>
                      </children>

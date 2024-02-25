@@ -33,7 +33,7 @@ public class SeanceService implements IService<Seance> {
     @Override
     public void ajouter(Seance seance) throws SQLException {
 
-        String req = "INSERT INTO seance (type_seance,duree_seance,nb_maximal,categorie) VALUES ('" + seance.getType_seance() + "','" + seance.getDuree_seance() + "','" + seance.getNb_maximal() + "','" + seance.getCategorie() + "')";
+        String req = "INSERT INTO seance (type_seance,duree_seance,nb_maximal,categorie,date_fin) VALUES ('" + seance.getType_seance() + "','" + seance.getDuree_seance() + "','" + seance.getNb_maximal() + "','" + seance.getCategorie() + "','" + seance.getDate_fin() + "')";
 
         Statement st = connection.createStatement();
 
@@ -51,7 +51,7 @@ public class SeanceService implements IService<Seance> {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                Seance c = new Seance(rs.getInt("ID_seance"),rs.getInt("duree_seance"),rs.getInt("nb_maximal"),rs.getString("type_seance"),rs.getString("categorie"));
+                Seance c = new Seance(rs.getInt("ID_seance"),rs.getString("duree_seance"),rs.getInt("nb_maximal"),rs.getString("type_seance"),rs.getString("categorie"),rs.getDate("date_fin"));
                 list.add(c);
             }
         } catch (SQLException ex) {
@@ -78,7 +78,7 @@ public class SeanceService implements IService<Seance> {
                 seance.setId_seance(resultSet.getInt("id"));
                 seance.setType_seance(resultSet.getString("type_seance"));
                 seance.setCategorie(resultSet.getString("categorie"));
-                seance.setDuree_seance(resultSet.getInt("duree_seance"));
+                seance.setDuree_seance(resultSet.getString("duree_seance"));
                 seance.setNb_maximal(resultSet.getInt("nb_maximal"));
                 seances.add(seance);
             }
@@ -103,7 +103,7 @@ public class SeanceService implements IService<Seance> {
             statement = connection.createStatement();
             ResultSet rs=statement.executeQuery(requete);
             while (rs.next()) {
-                Seance c = new Seance(rs.getInt("ID_seance"),rs.getInt("duree_seance"),rs.getInt("nb_maximal"),rs.getString("type_seance"),rs.getString("categorie"));
+                Seance c = new Seance(rs.getInt("ID_seance"),rs.getString("duree_seance"),rs.getInt("nb_maximal"),rs.getString("type_seance"),rs.getString("categorie"),rs.getDate("date_fin"));
                 list.add(c);  }
         } catch (SQLException e)
         {
@@ -122,7 +122,7 @@ public class SeanceService implements IService<Seance> {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                Seance c = new Seance(rs.getInt("ID_seance"),rs.getInt("duree_seance"),rs.getInt("nb_maximal"),rs.getString("type_seance"),rs.getString("categorie"));
+                Seance c = new Seance(rs.getInt("ID_seance"),rs.getString("duree_seance"),rs.getInt("nb_maximal"),rs.getString("type_seance"),rs.getString("categorie"),rs.getDate("date_fin"));
                 list.add(c);
             }
         } catch (SQLException ex) {
@@ -138,7 +138,7 @@ public class SeanceService implements IService<Seance> {
         String req = "update seance SET type_seance =?,duree_seance=?, nb_maximal=?, categorie=? where id_seance=?";
         PreparedStatement ps = connection.prepareStatement(req);
         ps.setString(1, seance.getType_seance());
-        ps.setInt(2, seance.getDuree_seance());
+        ps.setString(2, seance.getDuree_seance());
         ps.setInt(3, seance.getNb_maximal());
         ps.setString(4, seance.getCategorie());
         ps.setInt(5, seance.getId_seance());
@@ -152,6 +152,7 @@ public class SeanceService implements IService<Seance> {
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
         ps.executeUpdate();
+
     }
 
     @Override
@@ -186,8 +187,9 @@ public class SeanceService implements IService<Seance> {
             seance.setId_seance(rs.getInt("ID_Seance"));
             seance.setType_seance(rs.getString("Type_seance"));
             seance.setNb_maximal(rs.getInt("Nb_maximal"));
-            seance.setDuree_seance(rs.getInt("Duree_seance"));
+            seance.setDuree_seance(rs.getString("Duree_seance"));
             seance.setCategorie(rs.getString("categorie"));
+            seance.setDate_fin(rs.getDate("date_fin"));
             seances.add(seance);
 
         }

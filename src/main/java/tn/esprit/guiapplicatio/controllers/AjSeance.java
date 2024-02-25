@@ -116,7 +116,7 @@ public class AjSeance {
         Seance co = new Seance();
         co.setType_seance(typeTF.getText());
         co.setCategorie(categorieTF.getText());
-        co.setDuree_seance(Integer.parseInt(dureeTF.getText()));
+        co.setDuree_seance(dureeTF.getText());
         co.setNb_maximal(Integer.parseInt(nbTF.getText()));
         try {
             cs.ajouter(co);

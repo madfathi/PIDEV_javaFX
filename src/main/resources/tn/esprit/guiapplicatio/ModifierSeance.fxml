@@ -16,9 +16,9 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="700.0" prefWidth="906.0" styleClass="userProductsContainer" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplicatio.controllers.ModifierSeance">
+<AnchorPane prefHeight="700.0" prefWidth="973.0" styleClass="userProductsContainer" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplicatio.controllers.ModifierSeance">
    <children>
-      <TextField fx:id="ty" alignment="CENTER" layoutX="195.0" layoutY="179.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="522.0" promptText="Type_Seance" stylesheets="@../../../../java/tn/esprit/guiapplicatio/out/assets/style/nabilStyle.css">
+      <TextField fx:id="ty" alignment="CENTER" layoutX="294.0" layoutY="173.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="522.0" promptText="Type_Seance" stylesheets="@../../../../java/tn/esprit/guiapplicatio/out/assets/style/nabilStyle.css">
          <styleClass>
             <String fx:value="nav-links" />
             <String fx:value="activeLink" />
@@ -27,31 +27,31 @@
             <Font size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="du" alignment="CENTER" layoutX="194.0" layoutY="417.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="514.0" promptText="Duree_Seance" stylesheets="@../../../../java/tn/esprit/guiapplicatio/out/assets/style/nabilStyle.css">
+      <TextField fx:id="du" alignment="CENTER" layoutX="293.0" layoutY="411.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="514.0" promptText="Duree_Seance" stylesheets="@../../../../java/tn/esprit/guiapplicatio/out/assets/style/nabilStyle.css">
          <styleClass>
             <String fx:value="nav-links" />
             <String fx:value="activeLink" />
          </styleClass>
       </TextField>
-      <TextField fx:id="ca" alignment="CENTER" layoutX="194.0" layoutY="298.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="522.0" promptText="Categorie" stylesheets="@../../../../java/tn/esprit/guiapplicatio/out/assets/style/nabilStyle.css">
+      <TextField fx:id="ca" alignment="CENTER" layoutX="293.0" layoutY="292.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="522.0" promptText="Categorie" stylesheets="@../../../../java/tn/esprit/guiapplicatio/out/assets/style/nabilStyle.css">
          <styleClass>
             <String fx:value="nav-links" />
             <String fx:value="activeLink" />
          </styleClass>
       </TextField>
-      <TextField fx:id="nb" alignment="CENTER" layoutX="188.0" layoutY="554.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="522.0" promptText="NB_maximal" stylesheets="@../../../../java/tn/esprit/guiapplicatio/out/assets/style/nabilStyle.css">
+      <TextField fx:id="nb" alignment="CENTER" layoutX="287.0" layoutY="548.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="522.0" promptText="NB_maximal" stylesheets="@../../../../java/tn/esprit/guiapplicatio/out/assets/style/nabilStyle.css">
          <styleClass>
             <String fx:value="nav-links" />
             <String fx:value="activeLink" />
          </styleClass>
       </TextField>
-      <Text fill="#34c750" layoutX="369.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="checkoutCard" text="MODIFICATION SEANCE" wrappingWidth="328.15354919433594">
+      <Text fill="#34c750" layoutX="468.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="checkoutCard" text="MODIFICATION SEANCE" wrappingWidth="328.15354919433594">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="home__msg" text="Home |" />
-      <Label layoutX="202.0" layoutY="380.0" prefHeight="27.0" prefWidth="150.0" text="DUREE_SEANCE">
+      <Label layoutX="301.0" layoutY="374.0" prefHeight="27.0" prefWidth="150.0" text="DUREE_SEANCE">
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -72,7 +72,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="205.0" layoutY="136.0" prefHeight="27.0" prefWidth="150.0" text="TYPE_SEANCE">
+      <Label layoutX="304.0" layoutY="130.0" prefHeight="27.0" prefWidth="150.0" text="TYPE_SEANCE">
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -93,7 +93,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="205.0" layoutY="259.0" prefHeight="27.0" prefWidth="109.0" text="CATEGORIE">
+      <Label layoutX="304.0" layoutY="253.0" prefHeight="27.0" prefWidth="109.0" text="CATEGORIE">
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -114,7 +114,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="205.0" layoutY="512.0" prefHeight="27.0" prefWidth="144.0" text="NB_MAXIMAL">
+      <Label layoutX="304.0" layoutY="506.0" prefHeight="27.0" prefWidth="144.0" text="NB_MAXIMAL">
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -135,12 +135,12 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ImageView fitHeight="70.0" fitWidth="66.0" layoutX="432.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="70.0" fitWidth="66.0" layoutX="531.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../../../../../zeroWaste-javaFX-main/src/assets/img/user-active.png" />
          </image>
       </ImageView>
-      <Button layoutX="268.0" layoutY="634.0" mnemonicParsing="false" onAction="#modifier" styleClass="product__add-new-productBtn" text="Modifier" textFill="WHITE">
+      <Button layoutX="367.0" layoutY="628.0" mnemonicParsing="false" onAction="#modifier" styleClass="product__add-new-productBtn" text="Modifier" textFill="WHITE">
          <font>
             <Font name="Montserrat Regular" size="16.0" />
          </font>
@@ -148,7 +148,7 @@
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
          </padding>
       </Button>
-      <Button layoutX="498.0" layoutY="634.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="106.0" styleClass="product__add-new-productBtn" text="Clear" textFill="WHITE">
+      <Button layoutX="597.0" layoutY="628.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="106.0" styleClass="product__add-new-productBtn" text="Clear" textFill="WHITE">
          <font>
             <Font name="Montserrat Regular" size="16.0" />
          </font>
