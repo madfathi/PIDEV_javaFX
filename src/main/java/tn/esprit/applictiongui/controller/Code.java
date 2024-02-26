@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,6 +23,7 @@ import tn.esprit.applictiongui.model.commande;
 import tn.esprit.applictiongui.model.panier;
 import tn.esprit.applictiongui.model.produit;
 import tn.esprit.applictiongui.service.panierservice;
+import tn.esprit.applictiongui.test.HelloApplication;
 import util.mydatabase;
 import tn.esprit.applictiongui.controller.Validercommande;
 
@@ -31,6 +33,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -210,6 +213,15 @@ private commande co;
         System.out.println("Matrice convertie en image avec succès");
 
         return writableImage;
+    }
+    @FXML
+    void mama(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/applictiongui/mail.fxml"));
+        try {
+            qrcodebtn.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

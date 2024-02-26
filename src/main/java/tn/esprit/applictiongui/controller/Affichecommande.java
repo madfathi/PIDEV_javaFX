@@ -332,7 +332,7 @@ public String nom,pre,mail,addr,pani;
                 adresseList.add(user.getAddr());
             }
             tell.setItems(telList);
-            mmail.setItems(emailList);
+            mmtail.setItems(emailList);
             ppani.setItems(mdpList);
             nnom.setItems(nomList);
             ppre.setItems(prenomList);

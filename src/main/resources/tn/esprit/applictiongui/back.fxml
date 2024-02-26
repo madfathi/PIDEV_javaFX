@@ -3,8 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.applictiongui.controller.Back">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.applictiongui.controller.Back">
    <children>
       <Button fx:id="c" layoutX="93.0" layoutY="163.0" mnemonicParsing="false" onAction="#com" prefHeight="26.0" prefWidth="155.0" text="commande" />
       <Button layoutX="315.0" layoutY="163.0" mnemonicParsing="false" onAction="#pani" prefHeight="26.0" prefWidth="155.0" text="panier" />

@@ -182,12 +182,7 @@ public String img;
         try {
             List<panier> co=pa.recuperer();
             ObservableList<panier> ob= FXCollections.observableList(co);
-            tab.setItems(ob);
-            tabi.setCellValueFactory(new PropertyValueFactory<>("idp"));
-            tabq.setCellValueFactory(new PropertyValueFactory<>("quantite"));
-            tabn.setCellValueFactory(new PropertyValueFactory<>("nomp"));
-            tabip.setCellValueFactory(new PropertyValueFactory<>("img"));
-            tabp.setCellValueFactory(new PropertyValueFactory<>("pt"));
+
 
 
             lists.setItems(ob);

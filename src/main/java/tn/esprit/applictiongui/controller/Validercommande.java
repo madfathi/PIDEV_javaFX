@@ -6,10 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import tn.esprit.applictiongui.model.commande;
 import tn.esprit.applictiongui.model.panier;
-import tn.esprit.applictiongui.model.produit;
 import tn.esprit.applictiongui.service.commandeservice;
 import tn.esprit.applictiongui.service.panierservice;
 import tn.esprit.applictiongui.test.HelloApplication;
@@ -17,7 +15,6 @@ import util.mydatabase;
 
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,7 +22,13 @@ public class Validercommande {
     @FXML
     private Button btn;
 
+    @FXML
+    private ListView<String> pp;
 
+    @FXML
+    private ListView<String> pr;
+    @FXML
+    private ListView<String> qu;
     @FXML
     private TextField addr;
 
@@ -58,9 +61,11 @@ public class Validercommande {
     private int tota;
     private panier pro;
     private Connection connection;
-    
 
-    public Validercommande(){connection= mydatabase.getInstance().getConnection();}
+
+    public Validercommande() {
+        connection = mydatabase.getInstance().getConnection();
+    }
 
 
     @FXML
@@ -68,7 +73,7 @@ public class Validercommande {
         panierservice papaService = null;
         papaService = new panierservice();
 
-            List<panier> users = papaService.recuperer();
+        List<panier> users = papaService.recuperer();
         ObservableList<String> nomm = FXCollections.observableArrayList();
         ObservableList<String> we = FXCollections.observableArrayList();
         for (panier user : users) {
@@ -85,7 +90,7 @@ public class Validercommande {
                 prixValue = rs.getInt("pt");
             }*/
 
-            // Exit the method if no records found in the "panier" table
+        // Exit the method if no records found in the "panier" table
 
         // Input validation
         if (nom.getText().isEmpty() || pre.getText().isEmpty() || mail.getText().isEmpty() || addr.getText().isEmpty() || tel.getText().isEmpty()) {
@@ -122,7 +127,7 @@ public class Validercommande {
         co.setPre(pre.getText());
         co.setMail(mail.getText());
         co.setAddr(addr.getText());
-        co.setPani(Collections.singletonList( we+ "" + nomm+""+tota));
+        co.setPani(Collections.singletonList(we + "" + nomm + "" + tota));
 
         co.setTel(Integer.parseInt(tel.getText()));
 
@@ -146,6 +151,7 @@ public class Validercommande {
         }
 
     }
+
     @FXML
     void papa(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/applictiongui/panier.fxml"));
@@ -156,33 +162,48 @@ public class Validercommande {
         }
 
     }
-public void menutotal() throws SQLException {
-        String req="SELECT SUM(pt) FROM panier";
-    PreparedStatement pre=connection.prepareStatement(req);
-    ResultSet res=pre.executeQuery();
-    if(res.next()){
-        tota=res.getInt("SUM(pt)");
+
+    public void menutotal() throws SQLException {
+        String req = "SELECT SUM(pt) FROM panier";
+        PreparedStatement pre = connection.prepareStatement(req);
+        ResultSet res = pre.executeQuery();
+        if (res.next()) {
+            tota = res.getInt("SUM(pt)");
+
+        }
+        tot.setText(tota + "" + "DT");
 
     }
-    tot.setText(tota+""+"DT");
 
-}
     @FXML
-    void initialize() {
-        panierservice pa=new panierservice();
-        try {
-            List<panier> co=pa.recuperer();
-            ObservableList<panier> ob= FXCollections.observableList(co);
-            taborder.setItems(ob);
+    void initialize() throws SQLException {
 
-            tabq.setCellValueFactory(new PropertyValueFactory<>("quantite"));
-            tabpro.setCellValueFactory(new PropertyValueFactory<>("nomp"));
-            tabp.setCellValueFactory(new PropertyValueFactory<>("pt"));
 
-            menutotal();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
+
+
+
+
+
+        panierservice co = null;
+        co = new panierservice();
+                List<panier> coo = co.recuperer();
+                ObservableList<String> prr = FXCollections.observableArrayList();
+                ObservableList<String> quu = FXCollections.observableArrayList();
+                ObservableList<String> ppp = FXCollections.observableArrayList();
+                for (panier cot : coo) {
+                    prr.add(cot.getNomp());
+                    quu.add(String.valueOf(cot.getQuantite()));
+                    ppp.add(String.valueOf(cot.getPt()));
+
+
+
+
+
+    }
+        pr.setItems(prr);
+        qu.setItems(quu);
+        pp.setItems(ppp);
+        menutotal();
     }
 }
