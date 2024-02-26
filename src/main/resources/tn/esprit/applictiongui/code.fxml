@@ -4,10 +4,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.applictiongui.controller.Code">
    <children>
-      <Button fx:id="qrcodebtn" layoutX="49.0" layoutY="200.0" mnemonicParsing="false" onAction="#generateQrCode" prefHeight="26.0" prefWidth="164.0" text="Button" />
+      <Button fx:id="qrcodebtn" layoutX="49.0" layoutY="200.0" mnemonicParsing="false" onAction="#generateQrCode" prefHeight="26.0" prefWidth="164.0" text="Code Qr" />
       <ImageView fx:id="qrcode" fitHeight="150.0" fitWidth="200.0" layoutX="338.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="49.0" layoutY="237.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="164.0" text="E_Mail" />
    </children>
 </AnchorPane>
