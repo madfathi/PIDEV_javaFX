@@ -1,10 +1,23 @@
 package tn.esprit.guiapplicatio.models;
 
-public class commande {
-    private int idc, tel;
-    private String nom, pre, mail, addr, pani;
+import java.util.List;
 
-    public commande(int idc, int tel, String nom, String pre, String mail, String addr, String pani) {
+public class commande {
+    private int idc,tel;
+    private String nom,pre,mail,addr;
+    private List<String> pani;
+
+    // Getter
+    public List<String> getPani() {
+        return pani;
+    }
+
+    // Setter
+    public void setPani(List<String> nouvelleValeur) {
+        this.pani = nouvelleValeur;
+    }
+
+    public commande(int idc,int tel, String nom, String pre, String mail, String addr, List<String>  pani) {
         this.idc = idc;
         this.tel = tel;
         this.nom = nom;
@@ -14,24 +27,44 @@ public class commande {
         this.pani = pani;
     }
 
-    public commande(int tel, String nom, String pre, String mail, String addr, String pani) {
+    public commande( String nom, String pre) {
 
+        this.nom = nom;
+        this.pre = pre;
+    }
+
+    public commande(List<String> pani) {
+        this.pani = pani;
+    }
+
+    public commande(int tel, String nom, String pre, String mail, String addr, List<String> pani)
+    {
+
+        this.tel=tel;
+        this.nom=nom;
+        this.pre=pre;
+        this.mail=mail;
+        this.addr=addr;
+        this.pani=pani;
+
+    }
+
+    public commande(int idc, int tel, String nom, String pre, String mail, String addr) {
+        this.idc = idc;
         this.tel = tel;
         this.nom = nom;
         this.pre = pre;
         this.mail = mail;
         this.addr = addr;
-        this.pani = pani;
-
     }
 
     public commande() {
 
     }
 
-    public String getPani() {
+    /*public String getPani() {
         return pani;
-    }
+    }*/
 
 
     public int getIdc() {
@@ -82,9 +115,9 @@ public class commande {
         this.tel = tel;
     }
 
-    public void setPani(String pani) {
+   /* public void setPani(String pani) {
         this.pani = pani;
-    }
+    }*/
 
     @Override
     public String toString() {
@@ -100,5 +133,5 @@ public class commande {
     }
 
 
-}
 
+}

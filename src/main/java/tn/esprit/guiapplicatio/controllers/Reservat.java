@@ -14,7 +14,12 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 import tn.esprit.guiapplicatio.models.Reservation;
 
 import javax.mail.*;
@@ -47,6 +52,7 @@ import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.management.Notification;
 
 
 public class Reservat {
@@ -204,7 +210,7 @@ public class Reservat {
 
     }
 
-    public void rowClicked1(MouseEvent mouseEvent) {
+    public void rowClicked1(MouseEvent mouseEvent) throws SQLException {
         int selectedIndex = reserv.getSelectionModel().getSelectedIndex();
         String ty = reserv.getItems().get(selectedIndex);
         String use = user.getItems().get(selectedIndex);
@@ -219,6 +225,13 @@ public class Reservat {
         ph.setText(pho);
         ids.setText(id_s);
         id_r1.setText(id_r11);
+
+
+
+
+
+
+
 
 
 
@@ -476,12 +489,17 @@ return;
 
 
 
-
-
                     ids.setText(String.valueOf(id_seance));
+                    Image image=new Image("C:/Users/Lenovo/IdeaProjects/guiapplicatio/img/avatar.png");
+                    Notifications notification=Notifications.create();
+                    notification.graphic(new ImageView(image));
+                    notification.text(" thank you for your reservation");
+                    notification.title("success message");
+                    notification.hideAfter(Duration.seconds(4));
+                    notification.show();
 
                     ps.ajouter(new Reservation(cat,username,email,phone,id_seance));
-                    envoyer(email);
+
                     ReservationService SeanceService = new ReservationService();
                     combooo.getItems().clear();
 
@@ -491,11 +509,12 @@ return;
                         combooo.getItems().add(re.getId_reservation()); // Supposons que getId() retourne l'ID de la séance
                     }
 
-                    Alert a = new Alert(Alert.AlertType.WARNING);
+                    Alert a = new Alert(Alert.AlertType.INFORMATION);
                     a.setTitle("Succes");
-                    a.setContentText("Produit Ajoutée");
+                    a.setContentText("Reservation Ajoutée");
                     a.showAndWait();
                     System.out.println("L'ID de la séance est : " + id_seance);
+                    envoyer(email);
                 } else {
                     System.out.println("Aucune séance trouvée avec le type_seance : " + cat);
                 }
@@ -663,10 +682,25 @@ return;
         int currentAnimalId = Integer.parseInt(iddr.getText());*/
         int currentAnimalId = Integer.parseInt(id_r1.getText());
         String username = us.getText();
-        //String cat = is.getSelectionModel().getSelectedItem();
+        String cat = is.getSelectionModel().getSelectedItem();
+        int id_seancee=0 ;
+        String query = "SELECT id_seance FROM seance WHERE type_seance = ?";
+        Connection connection = MyDatabase.getInstance().getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, cat);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    System.out.println("feeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+                    id_seancee = resultSet.getInt("id_seance");
+                    System.out.println(id_seancee);
+
+                }
+            }
+        }
+
         String email = em.getText();
         String phoneStr = ph.getText();
-        if (username.isEmpty()  ||email.isEmpty()||phoneStr.isEmpty() ) {
+        if (username.isEmpty() || email.isEmpty() || phoneStr.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
 
             // Sortir de la méthode si un champ
@@ -730,61 +764,57 @@ return;
 
 
         for (Reservation animal : updatedList) {
-            if(animal.getId_reservation() == currentAnimalId) {
-                animal.setType_reservation(is.getSelectionModel().getSelectedItem());
-                animal.setUsername(us.getText());
-                animal.setEmail(em.getText());
-                int phone = Integer.parseInt(ph.getText());
-                animal.setPhone(phone);
-                animal.setId_reservation(currentAnimalId);
-                int idss = Integer.parseInt(ids.getText());
-                animal.setId_seance(idss);
-                ReservationService service = new ReservationService();
-                service.modifier(animal);
+            if (animal.getId_reservation() == currentAnimalId) {
+              animal.setId_seance(id_seancee);
+                    animal.setType_reservation(is.getSelectionModel().getSelectedItem());
+                    animal.setUsername(us.getText());
+                    animal.setEmail(em.getText());
+                    int phone = Integer.parseInt(ph.getText());
+                    animal.setPhone(phone);
+                    animal.setId_reservation(currentAnimalId);
+                    int idss = Integer.parseInt(ids.getText());
+                  //  animal.setId_seance(idss);
+                    ReservationService service = new ReservationService();
+                    service.modifier(animal);
 
 
+                }
             }
-        }
-
-
 
 
 // Initialisation de la liste observable
-        updatedList = FXCollections.observableArrayList();
+            updatedList = FXCollections.observableArrayList();
 
 // Récupération des données depuis SeanceService
-        List<Reservation> seancesList = css.recuperer();
+            List<Reservation> seancesList = css.recuperer();
 
 // Ajout des données à la liste observable
-        updatedList.addAll(seancesList);
-        tableview.setItems(updatedList);
-        ObservableList<String> typeSeanceList = updatedList.stream()
-                .map(Reservation::getType_reservation)
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+            updatedList.addAll(seancesList);
+            tableview.setItems(updatedList);
+            ObservableList<String> typeSeanceList = updatedList.stream()
+                    .map(Reservation::getType_reservation)
+                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
 
-        ObservableList<String>   usernameSeanceList   = updatedList.stream()
-                .map(Reservation::getUsername)
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-
-        ObservableList<String> emailre = updatedList.stream()
-                .map(s -> String.valueOf(s.getEmail()))
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-        ObservableList<String> pho  = updatedList.stream()
-                .map(s -> String.valueOf(s.getPhone()))
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-        reserv.setItems(typeSeanceList);
-        user.setItems(usernameSeanceList);
-        emai.setItems(emailre);
-        phon.setItems(pho);
+            ObservableList<String> usernameSeanceList = updatedList.stream()
+                    .map(Reservation::getUsername)
+                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
 
 
+            ObservableList<String> emailre = updatedList.stream()
+                    .map(s -> String.valueOf(s.getEmail()))
+                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
 
+            ObservableList<String> pho = updatedList.stream()
+                    .map(s -> String.valueOf(s.getPhone()))
+                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
+
+            reserv.setItems(typeSeanceList);
+            user.setItems(usernameSeanceList);
+            emai.setItems(emailre);
+            phon.setItems(pho);
+
+
+        }
 
 
     }
-
-
-}

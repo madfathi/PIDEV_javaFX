@@ -22,7 +22,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="851.0" prefWidth="1147.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplicatio.controllers.AjoSeance">
+<AnchorPane prefHeight="851.0" prefWidth="1147.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplicatio.controllers.AjoSeance">
    <children>
       <AnchorPane layoutX="136.0" layoutY="94.0" prefHeight="731.0" prefWidth="1124.0" styleClass="wh" AnchorPane.bottomAnchor="-85.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -58,24 +58,24 @@
                         </Label>
                         <ImageView fitHeight="92.0" fitWidth="80.0" layoutX="616.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../../../../zeroWaste-javaFX-main/src/assets/img/user-active.png" />
+                              <Image url="@../../../../../zeroWaste-javaFX-main/src/assets/img/user-active.png" />
                            </image>
                         </ImageView>
-                        <TextField fx:id="searchField" layoutX="778.0" layoutY="40.0" onKeyPressed="#addSeanceSearch" prefHeight="26.0" prefWidth="226.0" />
-                        <TextField fx:id="searchField1" layoutX="788.0" layoutY="50.0" onKeyPressed="#addSeancSearch" prefHeight="26.0" prefWidth="226.0" />
+                        <TextField fx:id="searchField1" layoutX="712.0" layoutY="32.0" onKeyPressed="#addSeancSearch" prefHeight="26.0" prefWidth="226.0" />
+                        <Button layoutX="14.0" layoutY="1.0" mnemonicParsing="false" text="BACK" />
                      </children>
                   </AnchorPane>
                </top>
                <left>
                   <AnchorPane prefHeight="834.0" prefWidth="138.0" BorderPane.alignment="CENTER">
                      <children>
-                        <ImageView fitHeight="163.0" fitWidth="184.0" layoutX="41.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="163.0" fitWidth="184.0" layoutX="30.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../../../../../../../zeroWaste-javaFX-main/src/assets/img/avatar.png" />
                            </image>
                         </ImageView>
                         <Line endX="100.0" layoutX="122.0" layoutY="265.0" startX="-100.0" stroke="#1f7321" />
-                        <HBox fx:id="dashboardBtn3" alignment="CENTER_LEFT" layoutX="30.0" layoutY="196.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#open_dashboard" prefHeight="50.0" prefWidth="200.0">
+                        <HBox fx:id="dashboardBtn3" alignment="CENTER_LEFT" layoutX="15.0" layoutY="196.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#open_dashboard" prefHeight="50.0" prefWidth="200.0">
                            <children>
                               <ImageView fx:id="dashboardIcon3" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -108,37 +108,30 @@
                               <URL value="@../../../../../out/assets/style/aliStyle.css" />
                            </stylesheets>
                         </HBox>
-                        <Button layoutX="40.0" layoutY="356.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="177.0" text="Gestion Seance">
+                        <Button layoutX="7.0" layoutY="311.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="211.0" text="Gestion Seance">
                            <stylesheets>
                               <URL value="@../../../../../assets/style/aliStyle.css" />
                               <URL value="@../../../../../assets/style/nabilStyle.css" />
                            </stylesheets>
                         </Button>
-                        <Button layoutX="40.0" layoutY="428.0" mnemonicParsing="false" onAction="#ge_re" prefHeight="40.0" prefWidth="179.0" text="Gestion Reservation">
+                        <Button layoutX="8.0" layoutY="391.0" mnemonicParsing="false" onAction="#ge_re" prefHeight="48.0" prefWidth="213.0" text="Gestion Reservation">
                            <stylesheets>
                               <URL value="@../../../../../assets/style/aliStyle.css" />
                               <URL value="@../../../../../assets/style/nabilStyle.css" />
                            </stylesheets>
                         </Button>
-                        <TableView fx:id="tableview" layoutX="228.0" layoutY="14.0" onMouseClicked="#rowclicked" prefHeight="266.0" prefWidth="9.0">
-                          <columns>
-                            <TableColumn fx:id="id" prefWidth="215.20001220703125" text="Type_Seance" />
-                            <TableColumn fx:id="ty" prefWidth="211.20004272460938" text="Categorie" />
-                              <TableColumn fx:id="ca" prefWidth="231.199951171875" text="Duree_Seance" />
-                              <TableColumn fx:id="du" minWidth="0.0" prefWidth="224.0" text="Duree_Seance" />
-                              <TableColumn fx:id="nb" minWidth="0.0" prefWidth="18.4000244140625" text="NB_Maximal" />
-                          </columns>
+                        <Button layoutX="3.0" layoutY="466.0" mnemonicParsing="false" onAction="#ge_co" prefHeight="48.0" prefWidth="215.0" text="Gestion Commande">
                            <stylesheets>
-                              <URL value="@../../../../java/tn/esprit/guiapplicatio/out/assets/style/page/dashboardDesign.css" />
-                              <URL value="@out/assets/style/nabilStyle.css" />
-                              <URL value="@out/assets/style/aliStyle.css" />
-                              <URL value="@out/assets/style/page/dashboardDesign.css" />
-                              <URL value="@../../../../../out/assets/style/page/dashboardDesign.css" />
-                              <URL value="@../../../../../out/assets/style/nabilStyle.css" />
-                              <URL value="@../../../../../out/assets/style/aliStyle.css" />
+                              <URL value="@../../../../../assets/style/aliStyle.css" />
+                              <URL value="@../../../../../assets/style/nabilStyle.css" />
                            </stylesheets>
-                        </TableView>
-                        <PieChart fx:id="pieChart" layoutX="30.0" layoutY="528.0" prefHeight="131.0" prefWidth="170.0" />
+                        </Button>
+                        <Button layoutX="3.0" layoutY="543.0" mnemonicParsing="false" onAction="#ge_pe" prefHeight="48.0" prefWidth="215.0" text="Gestion Panier">
+                           <stylesheets>
+                              <URL value="@../../../../../assets/style/aliStyle.css" />
+                              <URL value="@../../../../../assets/style/nabilStyle.css" />
+                           </stylesheets>
+                        </Button>
                      </children></AnchorPane>
                </left>
                <center>
@@ -146,7 +139,7 @@
                      <children>
                         <AnchorPane prefHeight="674.0" prefWidth="899.0" styleClass="white-bg">
                            <children>
-                              <AnchorPane layoutX="-1.0" layoutY="2.0" prefHeight="355.0" prefWidth="765.0">
+                              <AnchorPane layoutX="-1.0" layoutY="2.0" prefHeight="355.0" prefWidth="911.0">
                                  <styleClass>
                                     <String fx:value="white-bg" />
                                     <String fx:value="shadow" />
@@ -157,7 +150,7 @@
                                        <styleClass>
                                           <String fx:value="white-bg" />
                                           <String fx:value="shadow" />
-                                          <String fx:value="openProductDetailsBtn" />
+                                          <String fx:value="arrow-buttonnn" />
                                        </styleClass>
                                        <stylesheets>
                                           <URL value="@../../../../../assets/style/page/dashboardDesign.css" />
@@ -165,7 +158,7 @@
                                           <URL value="@../../../../../assets/style/nabilStyle.css" />
                                        </stylesheets>
                                     </ListView>
-                                    <ListView fx:id="categorieco" layoutX="234.0" layoutY="74.0" prefHeight="276.0" prefWidth="190.0">
+                                    <ListView fx:id="categorieco" layoutX="234.0" layoutY="74.0" prefHeight="276.0" prefWidth="196.0">
                                        <stylesheets>
                                           <URL value="@../../../../../assets/style/page/dashboardDesign.css" />
                                           <URL value="@../../../../../assets/style/aliStyle.css" />
@@ -184,12 +177,12 @@
                                           <URL value="@../../../../../assets/style/page/dashboardDesign.css" />
                                        </stylesheets>
                                        <styleClass>
-                                          <String fx:value="shadowwhite-bg" />
+                                          <String fx:value="white-bg" />
                                           <String fx:value="shadow" />
                                           <String fx:value="openProductDetailsBtn" />
                                        </styleClass>
                                     </ListView>
-                                    <ListView fx:id="nbco" layoutX="682.0" layoutY="70.0" onMouseClicked="#roww" prefHeight="276.0" prefWidth="210.0">
+                                    <ListView fx:id="nbco" layoutX="674.0" layoutY="68.0" onMouseClicked="#roww" prefHeight="276.0" prefWidth="210.0">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
@@ -200,10 +193,11 @@
                                        </stylesheets>
                                        <styleClass>
                                           <String fx:value="openProductDetailsBtn" />
+                                          <String fx:value="white-bg" />
                                           <String fx:value="shadow" />
                                        </styleClass>
                                     </ListView>
-                                    <Label layoutX="53.0" layoutY="34.0" prefHeight="27.0" prefWidth="148.0" text="TYPE_SEANCE">
+                                    <Label layoutX="45.0" layoutY="24.0" prefHeight="27.0" prefWidth="148.0" text="TYPE_SEANCE">
                                        <textFill>
                                           <LinearGradient endX="1.0" endY="1.0">
                                              <stops>
@@ -224,7 +218,7 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="273.0" layoutY="34.0" prefHeight="27.0" prefWidth="96.0" text="CATEGORIE">
+                                    <Label layoutX="276.0" layoutY="24.0" prefHeight="35.0" prefWidth="143.0" text="CATEGORIE">
                                        <textFill>
                                           <LinearGradient endX="1.0" endY="1.0">
                                              <stops>
@@ -245,7 +239,7 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="494.0" layoutY="34.0" prefHeight="27.0" prefWidth="158.0" text="DUREE_SEANCE">
+                                    <Label layoutX="494.0" layoutY="24.0" prefHeight="27.0" prefWidth="158.0" text="DISPONIBILITE">
                                        <textFill>
                                           <LinearGradient endX="1.0" endY="1.0">
                                              <stops>
@@ -266,7 +260,7 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="725.0" layoutY="34.0" prefHeight="27.0" prefWidth="124.0" text="NB_MAXIMAL">
+                                    <Label layoutX="723.0" layoutY="24.0" prefHeight="27.0" prefWidth="124.0" text="NB_MAXIMAL">
                                        <textFill>
                                           <LinearGradient endX="1.0" endY="1.0">
                                              <stops>
@@ -302,7 +296,7 @@
                               <Label fx:id="derreurLabel" layoutX="129.0" layoutY="412.0" prefHeight="18.0" prefWidth="316.0" />
                               <Label fx:id="nerreurLabel" layoutX="168.0" layoutY="465.0" prefHeight="18.0" prefWidth="248.0" />
                               <ComboBox fx:id="sortCategorieBox" layoutX="648.0" layoutY="355.0" onAction="#sortCategorie" prefHeight="38.0" prefWidth="260.0" promptText="           Trier par Nom ↑" styleClass="activeLink" stylesheets="@../../../../../assets/style/aliStyle.css" />
-                              <Button layoutX="527.0" layoutY="356.0" mnemonicParsing="false" onAction="#pdf" prefHeight="26.0" prefWidth="113.0" styleClass="activeLink" text="pdf">
+                              <Button layoutX="527.0" layoutY="356.0" mnemonicParsing="false" onAction="#pdf" prefHeight="26.0" prefWidth="113.0" text="pdf">
                                  <stylesheets>
                                     <URL value="@../../../../../out/assets/style/nabilStyle.css" />
                                     <URL value="@../../../../../out/assets/style/aliStyle.css" />
@@ -310,20 +304,14 @@
                                     <URL value="@../../../../../assets/style/nabilStyle.css" />
                                  </stylesheets>
                               </Button>
-                              <Button layoutX="345.0" layoutY="533.0" mnemonicParsing="false" onAction="#ajoSeance" prefHeight="44.0" prefWidth="182.0" stylesheets="@../../../../../assets/style/aliStyle.css" text="modifier">
-                                 <styleClass>
-                                    <String fx:value="activeLink" />
-                                    <String fx:value="nav-links" />
-                                 </styleClass>
-                              </Button>
-                              <Button layoutX="345.0" layoutY="618.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="49.0" prefWidth="182.0" stylesheets="@../../../../../assets/style/aliStyle.css" text="supprimer">
-                                 <styleClass>
-                                    <String fx:value="activeLink" />
-                                    <String fx:value="nav-links" />
-                                 </styleClass>
-                              </Button>
-                              <ComboBox fx:id="cobos" layoutX="40.0" layoutY="622.0" prefHeight="43.0" prefWidth="254.0" promptText="                 ID_Seance" styleClass="activeLink" stylesheets="@../../../../../assets/style/aliStyle.css" />
-                              <Button layoutX="406.0" layoutY="356.0" mnemonicParsing="false" onAction="#excel" prefHeight="26.0" prefWidth="113.0" styleClass="activeLink" text="Excel">
+                              <Button layoutX="345.0" layoutY="533.0" mnemonicParsing="false" onAction="#modifiar" prefHeight="44.0" prefWidth="182.0" styleClass="nav-links" stylesheets="@../../../../../assets/style/aliStyle.css" text="modifier" />
+                              <Button layoutX="345.0" layoutY="618.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="49.0" prefWidth="182.0" styleClass="nav-links" stylesheets="@../../../../../assets/style/aliStyle.css" text="supprimer" />
+                              <ComboBox fx:id="cobos" layoutX="40.0" layoutY="622.0" prefHeight="43.0" prefWidth="254.0" promptText="                     Seance">
+                                 <stylesheets>
+                                    <URL value="@../../../../../assets/style/aliStyle.css" />
+                                    <URL value="@styles.css" />
+                                 </stylesheets></ComboBox>
+                              <Button layoutX="406.0" layoutY="356.0" mnemonicParsing="false" onAction="#excel" prefHeight="26.0" prefWidth="113.0" text="Excel">
                                  <stylesheets>
                                     <URL value="@../../../../../out/assets/style/nabilStyle.css" />
                                     <URL value="@../../../../../out/assets/style/aliStyle.css" />
@@ -336,11 +324,8 @@
                                     <URL value="@../../../../../assets/style/nabilStyle.css" />
                                     <URL value="@../../../../../assets/style/aliStyle.css" />
                                  </stylesheets>
-                                 <styleClass>
-                                    <String fx:value="activeLink" />
-                                    <String fx:value="nav-links" />
-                                 </styleClass>
                               </Button>
+                              <PieChart fx:id="pieChart" layoutX="641.0" layoutY="510.0" prefHeight="131.0" prefWidth="170.0" />
                            </children>
                            <stylesheets>
                               <URL value="@../../../../../out/assets/style/page/dashboardDesign.css" />
@@ -482,5 +467,24 @@
             <URL value="@../../../../../assets/style/nabilStyle.css" />
          </stylesheets>
       </ListView>
+      <TableView fx:id="tableview" layoutX="-40.0" layoutY="190.0" onMouseClicked="#rowclicked" prefHeight="266.0" prefWidth="9.0">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="215.20001220703125" text="Type_Seance" />
+          <TableColumn fx:id="ty" prefWidth="211.20004272460938" text="Categorie" />
+            <TableColumn fx:id="ca" prefWidth="231.199951171875" text="Duree_Seance" />
+            <TableColumn fx:id="du" minWidth="0.0" prefWidth="224.0" text="Duree_Seance" />
+            <TableColumn fx:id="nb" minWidth="0.0" prefWidth="18.4000244140625" text="NB_Maximal" />
+        </columns>
+         <stylesheets>
+            <URL value="@../../../../java/tn/esprit/guiapplicatio/out/assets/style/page/dashboardDesign.css" />
+            <URL value="@out/assets/style/nabilStyle.css" />
+            <URL value="@out/assets/style/aliStyle.css" />
+            <URL value="@out/assets/style/page/dashboardDesign.css" />
+            <URL value="@../../../../../out/assets/style/page/dashboardDesign.css" />
+            <URL value="@../../../../../out/assets/style/nabilStyle.css" />
+            <URL value="@../../../../../out/assets/style/aliStyle.css" />
+         </stylesheets>
+      </TableView>
+      <TextField fx:id="searchField" layoutX="674.0" layoutY="-50.0" onKeyPressed="#addSeanceSearch" prefHeight="26.0" prefWidth="226.0" />
    </children>
 </AnchorPane>

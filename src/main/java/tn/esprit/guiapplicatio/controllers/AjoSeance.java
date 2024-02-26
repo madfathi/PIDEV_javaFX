@@ -1,11 +1,15 @@
 package tn.esprit.guiapplicatio.controllers;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.PieChart;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -15,11 +19,10 @@ import java.awt.*;
 import java.io.*;
 import java.nio.channels.FileChannel;
 import java.sql.*;
-
-
+import javafx.scene.shape.Polygon;
+import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,7 +30,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -35,20 +37,14 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-import tn.esprit.guiapplicatio.models.Reservation;
+import org.controlsfx.control.Notifications;
 import tn.esprit.guiapplicatio.models.Seance;
-import tn.esprit.guiapplicatio.services.ReservationService;
 import tn.esprit.guiapplicatio.services.SeanceService;
 import javafx.scene.image.Image;
 import javafx.scene.Parent;
 
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,15 +60,11 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.swing.*;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.sql.PreparedStatement;
 public class AjoSeance {
-    public Connection conn=MyDatabase.getInstance().getConnection();
+    public Connection conn = MyDatabase.getInstance().getConnection();
     @FXML
     private ListView<String> idsf;
     private PreparedStatement pst;
@@ -100,7 +92,7 @@ public class AjoSeance {
     private ComboBox<Integer> cobos;
     private String username = "fathimaddeh88@gmail.com";
     private String password = "wxnfnrqwjjcjzjby";
-int j=0;
+    int j = 0;
     @FXML
     private Button btnImageC;
     @FXML
@@ -146,7 +138,7 @@ int j=0;
     private TextField searchField1;
     @FXML
     private TableColumn<Seance, Integer> nb;
-Seance seance=new Seance();
+    Seance seance = new Seance();
     @FXML
     private TextField nbTF;
     @FXML
@@ -157,10 +149,10 @@ Seance seance=new Seance();
     @FXML
     private TableColumn<Seance, String> ty;
     ObservableList<String> duree = FXCollections.observableArrayList();
-String to;
-String co;
-String Do;
-String No;
+    String to;
+    String co;
+    String Do;
+    String No;
 
     @FXML
     private TextField typeTF;
@@ -170,28 +162,30 @@ String No;
     List<Seance> seances = seanceService.readCategorie();
     ObservableList<String> items = FXCollections.observableArrayList();
 
-int i=0;
+    int i = 0;
     ObservableList<Seance> list = FXCollections.observableArrayList();
 
     ObservableList<Seance> datalist;
     String uploads = "C:/Users/Lenovo/IdeaProjects/guiapplicatio/img/";
+
     public void setTypee(String type) {
-      to=type;
+        to = type;
     }
+
     public void setIde(String ide) {
         id.setText(ide);
     }
 
     public void setCategoriee(String categorie) {
-     co=categorie;
+        co = categorie;
     }
 
     public void setDuree(String duree) {
-        Do=duree;
+        Do = duree;
     }
 
     public void setNbMaximale(String nbMaximal) {
-        No=nbMaximal;
+        No = nbMaximal;
 
     }
 
@@ -225,7 +219,7 @@ int i=0;
             dureeco.setItems(duree);
             nbco.setItems(nb);
             idsf.setItems(idf);
-           // ides.setItems(iss);
+            // ides.setItems(iss);
 
 
             // Afficher les images dans la ListView
@@ -344,8 +338,8 @@ int i=0;
     public void modifiee(ActionEvent actionEvent) {
 
 
-
     }
+
     public void rowclicked(MouseEvent mouseEvent) throws IOException {
        /* FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/ModifierSeance.fxml"));
         typeTF.getScene().setRoot(fxmlLoader.load());
@@ -355,7 +349,7 @@ int i=0;
         dureeTF.setText(String.valueOf(clickedseance.getDuree_seance()));
         nbTF.setText(String.valueOf(clickedseance.getNb_maximal()));
 */
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/ModifierSeance.fxml"));
+      /*  FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/ModifierSeance.fxml"));
         Parent root = fxmlLoader.load();
         ModifierSeance controller = fxmlLoader.getController();
         Seance clickedSeance = tableview.getSelectionModel().getSelectedItem();
@@ -368,7 +362,7 @@ int i=0;
         controller.setNbMaximal(String.valueOf(clickedSeance.getNb_maximal()));
 
         typeTF.getScene().setRoot(root);
-
+*/
 
     }
 
@@ -413,8 +407,9 @@ SeanceService SeanceService=new SeanceService();
     }
 
     public void row1(MouseEvent mouseEvent) throws SQLException, IOException {
-        ObservableList<Seance> seances = FXCollections.observableArrayList();
-        SeanceService SeanceService=new SeanceService();
+
+     /*   ObservableList<Seance> seances = FXCollections.observableArrayList();
+        SeanceService SeanceService = new SeanceService();
         List<Seance> seancess = SeanceService.recuperer();
         ObservableList<Seance> seancesss = FXCollections.observableArrayList(seancess);
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/ModifierSeance.fxml"));
@@ -442,7 +437,7 @@ SeanceService SeanceService=new SeanceService();
 
             typeco.getScene().setRoot(root);
         } else {
-            System.out.println("Aucune séance trouvée avec l'ID : " );
+            System.out.println("Aucune séance trouvée avec l'ID : ");
         }
 
         typeco.getScene().setRoot(root);
@@ -480,7 +475,6 @@ SeanceService SeanceService=new SeanceService();
         typeco.getScene().setRoot(fxmlLoader.load());
 
 
-
     }
 
     public void excel(ActionEvent actionEvent) throws SQLException, IOException {
@@ -497,12 +491,11 @@ SeanceService SeanceService=new SeanceService();
         header.createCell(2).setCellValue("duree_Seance");
         header.createCell(3).setCellValue("nb_maximal");
         int index = 1;
-        while(rs.next()){
+        while (rs.next()) {
             HSSFRow row = sheet.createRow(index);
 
             row.createCell(0).setCellValue(rs.getInt("id_seance"));
             row.createCell(1).setCellValue(rs.getString("type_seance"));
-            row.createCell(2).setCellValue(rs.getInt("duree_seance"));
             row.createCell(3).setCellValue(rs.getString("nb_maximal"));
             index++;
         }
@@ -527,15 +520,12 @@ SeanceService SeanceService=new SeanceService();
     }
 
 
-
-
     @FXML
     public void ajoSeance(ActionEvent actionEvent) throws SQLException {
 
 
-
-
     }
+
     public int getTotalSeanceCount() {
         try {
             String query = "SELECT COUNT(*) FROM seance";
@@ -553,7 +543,9 @@ SeanceService SeanceService=new SeanceService();
 
     public void addDataToChart() {
         // Efface les données existantes
+
         pieChart.getData().clear();
+
 
         // Récupère les statistiques des prix
         int seanceEntre10000Et20000 = getCountByRange(1, 5);
@@ -565,9 +557,32 @@ SeanceService SeanceService=new SeanceService();
         PieChart.Data data2 = new PieChart.Data("seance entre 5 et 10", seanceEntre30000Et50000);
         PieChart.Data data3 = new PieChart.Data("Autres seances", totalProduits - seanceEntre10000Et20000 - seanceEntre30000Et50000);
         pieChart.getData().addAll(data1, data2, data3);
+        //  addLabelsToChart(pieChart);
+
+        // Ajoute les annotations
+
+        //addArrowLabel(pieChart, data3, totalProduits - seanceEntre10000Et20000 - seanceEntre30000Et50000, totalProduits, (Pane) pieChart.getParent());
 
     }
 
+    /*  private void addLabelsToChart(PieChart pieChart) {
+          ObservableList<PieChart.Data> data = pieChart.getData();
+          for (PieChart.Data slice : data) {
+              int value = (int) slice.getPieValue();
+              int total = getTotalSeanceCount(); // Assuming this method returns the total count of sessions
+
+              double percentage = (double) value / total * 100.0;
+              String text = String.format("%.1f%%", percentage);
+              Label label = new Label(text);
+              label.getStyleClass().add("pie-label");
+
+              label.setTranslateX(pieChart.getTranslateX() + pieChart.getRadius() * Math.cos(Math.toRadians(slice.getStartAngle() + slice.getAngle() / 2)));
+              label.setTranslateY(pieChart.getTranslateY() + pieChart.getRadius() * Math.sin(Math.toRadians(slice.getStartAngle() + slice.getAngle() / 2)));
+
+              pieChart.getScene().getRoot().getChildrenUnmodifiable().add(label);
+          }
+      }
+  */
     public int getCountByRange(int minPrice, int maxPrice) {
         try {
             String query = "SELECT COUNT(*) FROM seance WHERE nb_maximal BETWEEN ? AND ?";
@@ -585,6 +600,7 @@ SeanceService SeanceService=new SeanceService();
         }
         return 0;
     }
+
     private void updateDuree(ObservableList<String> duree1) {
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
@@ -631,9 +647,10 @@ SeanceService SeanceService=new SeanceService();
                 int nbm = Integer.parseInt(nbc);
                 seance.setNb_maximal(nbm);
                 seance.setId_seance(Integer.parseInt(idco));
-                if(seconds == 0 && minutes == 0 && hours == 0 && days == 0) {
+                if (seconds == 0 && minutes == 0 && hours == 0 && days == 0) {
+
                     try {
-                       //envoyer("maddeh.fathi@esprit.tn");
+                        //envoyer("maddeh.fathi@esprit.tn");
                         String query = "SELECT * FROM reservation WHERE id_seance = ?";
                         pst = conn.prepareStatement(query);
                         pst.setInt(1, Integer.parseInt(idsf.getItems().get(i)));
@@ -643,16 +660,18 @@ SeanceService SeanceService=new SeanceService();
                             String mail = ResultSet.getString("email");
                             envoyer(mail);
                         }
+                        Image image = new Image("C:/Users/Lenovo/IdeaProjects/guiapplicatio/img/avatar.png");
+                        Notifications notification = Notifications.create();
+                        notification.graphic(new ImageView(image));
+                        notification.text("seance supprimee");
+                        notification.title("success message");
+                        notification.hideAfter(Duration.seconds(4));
+                        notification.show();
                         css.supprimer(Integer.parseInt(idco));
 
 
 
-                      /*  Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                        alert1.setTitle("Séance supprimée");
-                        alert1.setHeaderText(null);
-                        alert1.setContentText("La séance " + ty + " a été supprimée.");
 
-                        alert1.showAndWait();
 
                        /* alert.setHeaderText(null);
                         alert.setContentText("La Seance "+ ty +" n'est plus disponible");
@@ -665,7 +684,7 @@ SeanceService SeanceService=new SeanceService();
                         dureeco.getItems().remove(i);
                         nbco.getItems().remove(i);
 
-                            categorieco.getItems().remove(i);
+                        categorieco.getItems().remove(i);
                         ObservableList<String> categorie = FXCollections.observableArrayList();
                         for (Seance s : seances) {
 
@@ -675,14 +694,18 @@ SeanceService SeanceService=new SeanceService();
                         categorieco.setItems(categorie);
 
 
-
                         idsf.getItems().remove(i);
 
                         css.supprimer(Integer.parseInt(idco));
 
-                     //  envoyer("maddeh.fathi@esprit.tn");
+                        //  envoyer("maddeh.fathi@esprit.tn");
 
+                        Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                        alert2.setTitle("Séance supprimée");
+                        alert2.setHeaderText(null);
+                        alert2.setContentText("La séance " + ty + " a été supprimée.");
 
+                        alert2.showAndWait();
                         return;
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
@@ -690,7 +713,7 @@ SeanceService SeanceService=new SeanceService();
 
                 }
                 try {
-                    css.modifier(seance);
+                    css.modifier2(seance);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -777,12 +800,9 @@ j++;
         }*/
 
 
-
-
-
-
 //addSeanceSearch();
-
+        //addDataToChart();
+        addDataToChart();
         updateTableView();
         SeanceService SeanceService = new SeanceService();
         try {
@@ -855,7 +875,7 @@ j++;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-         ObservableList<Seance> updatedList;
+        ObservableList<Seance> updatedList;
 
 // Initialisation de la liste observable
         updatedList = FXCollections.observableArrayList();
@@ -867,13 +887,9 @@ j++;
         updatedList.addAll(seancesList);
 
 
-        ObservableList<String>   categorieSeanceList   = updatedList.stream()
+        ObservableList<String> categorieSeanceList = updatedList.stream()
                 .map(Seance::getCategorie)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-
-
-
 
 
         categorieco.setItems(categorieSeanceList);
@@ -884,22 +900,16 @@ j++;
         sortCategorieBox.setItems(list);
 
 
-
-
-
     }
 
 
     public void refresh(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/ModifierSeance.fxml"));
-typeTF.getScene().setRoot(fxmlLoader.load());
+        typeTF.getScene().setRoot(fxmlLoader.load());
     }
 
 
-
-
     @FXML
-
     void addSeanceSearch(KeyEvent event) throws SQLException {
         FilteredList<String> filteredList = new FilteredList<>(items);
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -976,9 +986,7 @@ typeTF.getScene().setRoot(fxmlLoader.load());
 */
 
 
-        }
-
-
+    }
 
 
     public void sortCategorie(ActionEvent actionEvent) {
@@ -998,13 +1006,13 @@ typeTF.getScene().setRoot(fxmlLoader.load());
                 .map(Seance::getType_seance)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
 
-        ObservableList<String>   categorieSeanceList   = updatedList.stream()
+        ObservableList<String> categorieSeanceList = updatedList.stream()
                 .map(Seance::getCategorie)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
 
 
         ObservableList<String> duree_Senace = updatedList.stream()
-                .map(s -> s.getDuree_seance())
+                .map(Seance::getDuree_seance)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
 
         ObservableList<String> nb_maximal = updatedList.stream()
@@ -1039,8 +1047,49 @@ typeTF.getScene().setRoot(fxmlLoader.load());
     }
 
     public void supprimer(ActionEvent actionEvent) throws SQLException {
+        int selected=typeco.getSelectionModel().getSelectedIndex();
+        String catego = categorieco.getItems().get(selected);
+        String Dispo =dureeco.getItems().get(selected);
+        String id= idsf.getItems().get(selected);
 
-        SeanceService s=new SeanceService();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Voulez-Vous Supprimer cet Categorie?");
+        alert.setContentText("Supprimer?");
+        ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(okButton, noButton, cancelButton);
+        alert.showAndWait().ifPresent(type -> {
+            if (type == okButton) {
+                try {
+                    css.supprimer(Integer.parseInt(id));
+                    initialize();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (type == noButton) {
+
+                try {
+                    initialize();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+            } else {
+
+                try {
+                    initialize();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+            }
+        });
+
+       /* SeanceService s = new SeanceService();
         Integer selectedId = cobos.getSelectionModel().getSelectedItem();
 
         s.supprimer(selectedId);
@@ -1049,22 +1098,21 @@ typeTF.getScene().setRoot(fxmlLoader.load());
 
         SeanceService SeanceService = new SeanceService();
 
-            List<Seance> seances = SeanceService.recuperer();
-            ObservableList<String> type = FXCollections.observableArrayList();
-            ObservableList<String> categorie = FXCollections.observableArrayList();
-            ObservableList<String> duree = FXCollections.observableArrayList();
-            ObservableList<String> nb = FXCollections.observableArrayList();
-            //   ObservableList<String> iss = FXCollections.observableArrayList();
+        List<Seance> seances = SeanceService.recuperer();
+        ObservableList<String> type = FXCollections.observableArrayList();
+        ObservableList<String> categorie = FXCollections.observableArrayList();
+        ObservableList<String> duree = FXCollections.observableArrayList();
+        ObservableList<String> nb = FXCollections.observableArrayList();
+        //   ObservableList<String> iss = FXCollections.observableArrayList();
 
-            for (Seance sa : seances) {
-                type.add(sa.getType_seance());
-                categorie.add(sa.getCategorie());
-                duree.add(String.valueOf(sa.getDuree_seance()));
-                nb.add(String.valueOf(sa.getNb_maximal()));
-                //     iss.add(String.valueOf(s.getId_seance()));
+        for (Seance sa : seances) {
+            type.add(sa.getType_seance());
+            categorie.add(sa.getCategorie());
+            duree.add(String.valueOf(sa.getDuree_seance()));
+            nb.add(String.valueOf(sa.getNb_maximal()));
+            //     iss.add(String.valueOf(s.getId_seance()));
 
-            }
-
+        }
 
 
         ObservableList<Seance> updatedList = FXCollections.observableArrayList(css.recuperer());
@@ -1074,7 +1122,7 @@ typeTF.getScene().setRoot(fxmlLoader.load());
                 .map(Seance::getType_seance)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
 
-        ObservableList<String>   categorieSeanceList   = updatedList.stream()
+        ObservableList<String> categorieSeanceList = updatedList.stream()
                 .map(Seance::getCategorie)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
 
@@ -1091,20 +1139,22 @@ typeTF.getScene().setRoot(fxmlLoader.load());
         categorieco.setItems(categorieSeanceList);
         dureeco.setItems(duree_Senace);
         nbco.setItems(nb_maximal);
-            //ides.setItems(iss);
+        //ides.setItems(iss);
 
-initialize();
+        initialize();
 
         List<Seance> reListe = css.recuperer();
 
         for (Seance re : reListe) {
             cobos.getItems().add(re.getId_seance()); // Supposons que getId() retourne l'ID de la séance
-        }
+        }*/
     }
 
     public void pdf(ActionEvent actionEvent) {
-        ObservableList<Seance> data = tableview.getItems();
-
+        ObservableList<String> data = typeco.getItems();
+        ObservableList<String> data2 = nbco.getItems();
+        ObservableList<String> data3 = dureeco.getItems();
+        int count = data.size();
         try {
             // Créez un nouveau document PDF
             PDDocument document = new PDDocument();
@@ -1121,19 +1171,20 @@ initialize();
             contentStream.beginText();
             contentStream.newLineAtOffset(100, 700);
 
-
-           for (Seance categorie : data) {
-// Ajouter l'image
-                String imagePath = uploads + categorie.getCategorie();
+            for (int i = 0; i < count; i++) {
+                // Ajouter l'image
+            /*    String imagePath = "C:/path/to/your/image/" + seance.getCategorie() + ".jpg"; // Replace with the actual path to your image
                 PDImageXObject pdImage = PDImageXObject.createFromFile(imagePath, document);
 
-                String ligne = "ID : " + categorie.getId_seance() + "     Type_Seance : " + categorie.getType_seance()+ "     Duree_Seance : " +categorie.getDuree_seance()+ "     NB_Maximal : " +categorie.getNb_maximal();
+                // Position the image
+                contentStream.drawImage(pdImage, 100, 650, 100, 100); // Adjust the position and size as needed
+*/
+                // Ajouter les informations de la séance
+                String ligne = "ID : " + data.get(i) + "     Type_Seance : " + data2.get(i) + "  NB_Maximal : " + data3.get(i);
                 contentStream.showText(ligne);
 
-                contentStream.newLine();;
+                contentStream.newLine();
                 contentStream.newLineAtOffset(0, -15);
-
-
             }
 
             contentStream.endText();
@@ -1153,9 +1204,8 @@ initialize();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
+
     public void envoyer(String b) {
 // Etape 1 : Création de la session
         Properties props = new Properties();
@@ -1166,8 +1216,8 @@ initialize();
 
         props.put("mail.smtp.ssl.protocols", "TLSv1.2");
         props.put("mail.smtp.ssl.ciphersuites", "TLS_AES_256_GCM_SHA384");
-        props.put("mail.smtp.socketFactory.port","465");
-        props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password);
@@ -1192,28 +1242,28 @@ initialize();
     }
 
     public void roww(MouseEvent mouseEvent) throws SQLException {
-        int nb_maximale=0;
-        int nombreReservations=0;
+        int nb_maximale = 0;
+        int nombreReservations = 0;
         int selectedIndex = nbco.getSelectionModel().getSelectedIndex();
         String id_s = idsf.getItems().get(selectedIndex);
         String query = "SELECT nb_maximal FROM seance WHERE id_seance = ?";
         int idd = Integer.parseInt(id_s);
         Connection connection = MyDatabase.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1,idd);
+        statement.setInt(1, idd);
         try (ResultSet resultSet = statement.executeQuery()) {
             if (resultSet.next()) {
 
-                 nb_maximale=resultSet.getInt("nb_maximal");
+                nb_maximale = resultSet.getInt("nb_maximal");
             }
 
         }
 
         String sql = "SELECT * FROM reservation WHERE id_seance = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1,idd);
+        preparedStatement.setInt(1, idd);
         ResultSet resultSe = preparedStatement.executeQuery();
-        while(resultSe.next()) {
+        while (resultSe.next()) {
             nombreReservations++;
         }
 
@@ -1225,7 +1275,6 @@ initialize();
         alert.setHeaderText(null);
         alert.setContentText("Le Nombre Des Reservation Disponible : " + difference);
         alert.showAndWait();
-
 
 
     }
@@ -1258,11 +1307,67 @@ initialize();
         typeco.setItems(filteredList);
 
 
+    }
+
+    public void ge_co(ActionEvent actionEvent) throws IOException {
+
+
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/affichecommande.fxml"));
+        typeco.getScene().setRoot(fxmlLoader.load());
+
+
+    }
+
+
+    public void ge_pe(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/afficherpanier.fxml"));
+        typeco.getScene().setRoot(fxmlLoader.load());
+
+
+
+    }
+
+    public void modifiar(ActionEvent actionEvent) throws SQLException, IOException {
+
+        ObservableList<Seance> seances = FXCollections.observableArrayList();
+        SeanceService SeanceService=new SeanceService();
+        List<Seance> seancess = SeanceService.recuperer();
+        ObservableList<Seance> seancesss = FXCollections.observableArrayList(seancess);
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/ModifierSeance.fxml"));
+        Parent root = fxmlLoader.load();
+        ModifierSeance controller = fxmlLoader.getController();
+        String clickedSeance = typeco.getSelectionModel().getSelectedItem();
+        System.out.println("vcdvdv");
+        Optional<Seance> seanceOptional = seancess.stream()
+                .filter(seance -> seance.getType_seance().contains(clickedSeance))
+                .findFirst();
+
+
+        // Vérifier si la séance a été trouvée
+        if (seanceOptional.isPresent()) {
+            Seance seance = seanceOptional.get();
+            controller.setSeances(seancesss);
+            // Mettre à jour les autres attributs dans le contrôleur ModifierSeance
+            controller.setId(String.valueOf(seance.getId_seance()));
+            controller.setType(seance.getType_seance());
+            controller.setCategorie(seance.getCategorie());
+            controller.setDuree(String.valueOf(seance.getDuree_seance()));
+            controller.setNbMaximal(String.valueOf(seance.getNb_maximal()));
+
+            // Remplacer la scène actuelle par la scène de modification
+            typeco.getScene().setRoot(root);
+        } else {
+            System.out.println("Aucune séance trouvée avec l'ID : " );
+        }
+
+        typeco.getScene().setRoot(root);
+
+
+
 
     }
 }
-
-
 
 
 

@@ -79,33 +79,42 @@ public class ModifierSeance {
         nb.setText(nbMaximal);
 
     }
+    public void setdate(String nbMaximal) {
+        nb.setText(nbMaximal);
+
+    }
 
     public void modifier(ActionEvent actionEvent) throws IOException, SQLException {
 
 
         ObservableList<Seance> currentTableData = seances;
-        int currentAnimalId = Integer.parseInt(id.getText());;
+        int currentAnimalId = Integer.parseInt(id.getText());
+        System.out.println(currentAnimalId);
         Optional<Seance> seanceOptional = seances.stream()
                 .filter(seance -> seance.getId_seance() == currentAnimalId)
                 .findFirst();
-        System.out.println("vfvfvvfvfv");
+
         if (seanceOptional.isPresent()) {
             Seance seance = seanceOptional.get();
-            System.out.println("vfvfvvfvfv");
+
         }
 
        for (Seance animal : seances) {
             if(animal.getId_seance() == currentAnimalId) {
                 animal.setType_seance(ty.getText());
+
                 animal.setCategorie(ca.getText());
+                System.out.println(ca.getText());
                 //int duree = Integer.parseInt(du.getText());
                 int nbMaximal = Integer.parseInt(nb.getText());
-
+                System.out.println(nb.getText());
 
                 animal.setDuree_seance(du.getText());
-                animal.setNb_maximal(nbMaximal);
 
+                animal.setNb_maximal(nbMaximal);
+              // animal.setDate_fin(null);
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/AjoSeance.fxml"));
+
 
                 Parent root = fxmlLoader.load();
                 AjoSeance controller = fxmlLoader.getController();
@@ -119,6 +128,8 @@ public class ModifierSeance {
                     alert.showAndWait();
                     return; // Sortir de la méthode si la validation échoue
                 }*/
+
+
                 if (nbMaximal < 1 || nbMaximal > 10 ) {
                     // Afficher une alerte
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -131,6 +142,8 @@ public class ModifierSeance {
 
                 SeanceService service = new SeanceService();
                 service.modifier(animal);
+                System.out.println(animal.getId_seance());
+                System.out.println(animal.getNb_maximal());
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Success");

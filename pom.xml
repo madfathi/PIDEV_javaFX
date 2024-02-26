@@ -16,6 +16,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.1.0</version> <!-- Use the latest version -->
+        </dependency>
+        <dependency>
 
             <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>

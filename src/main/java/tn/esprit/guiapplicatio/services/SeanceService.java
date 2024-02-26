@@ -7,6 +7,7 @@ import tn.esprit.guiapplicatio.utils.MyDatabase;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.List;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class SeanceService implements IService<Seance> {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                Seance c = new Seance(rs.getInt("ID_seance"),rs.getString("duree_seance"),rs.getInt("nb_maximal"),rs.getString("type_seance"),rs.getString("categorie"),rs.getDate("date_fin"));
+                Seance c = new Seance(rs.getInt("id_seance"),rs.getString("duree_seance"),rs.getInt("nb_maximal"),rs.getString("type_seance"),rs.getString("categorie"),rs.getDate("date_fin"));
                 list.add(c);
             }
         } catch (SQLException ex) {
@@ -75,7 +76,7 @@ public class SeanceService implements IService<Seance> {
             // Iterate over the result set and create Seance objects
             while (resultSet.next()) {
                 Seance seance = new Seance();
-                seance.setId_seance(resultSet.getInt("id"));
+                seance.setId_seance(resultSet.getInt("id_seance"));
                 seance.setType_seance(resultSet.getString("type_seance"));
                 seance.setCategorie(resultSet.getString("categorie"));
                 seance.setDuree_seance(resultSet.getString("duree_seance"));
@@ -103,7 +104,7 @@ public class SeanceService implements IService<Seance> {
             statement = connection.createStatement();
             ResultSet rs=statement.executeQuery(requete);
             while (rs.next()) {
-                Seance c = new Seance(rs.getInt("ID_seance"),rs.getString("duree_seance"),rs.getInt("nb_maximal"),rs.getString("type_seance"),rs.getString("categorie"),rs.getDate("date_fin"));
+                Seance c = new Seance(rs.getInt("id_seance"),rs.getString("duree_seance"),rs.getInt("nb_maximal"),rs.getString("type_seance"),rs.getString("categorie"),rs.getDate("date_fin"));
                 list.add(c);  }
         } catch (SQLException e)
         {
@@ -122,7 +123,7 @@ public class SeanceService implements IService<Seance> {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                Seance c = new Seance(rs.getInt("ID_seance"),rs.getString("duree_seance"),rs.getInt("nb_maximal"),rs.getString("type_seance"),rs.getString("categorie"),rs.getDate("date_fin"));
+                Seance c = new Seance(rs.getInt("id_seance"),rs.getString("duree_seance"),rs.getInt("nb_maximal"),rs.getString("type_seance"),rs.getString("categorie"),rs.getDate("date_fin"));
                 list.add(c);
             }
         } catch (SQLException ex) {
@@ -135,14 +136,26 @@ public class SeanceService implements IService<Seance> {
 
     @Override
     public void modifier(Seance seance) throws SQLException {
-        String req = "update seance SET type_seance =?,duree_seance=?, nb_maximal=?, categorie=? where id_seance=?";
+        String req = "update seance SET type_seance = ?, duree_seance= ?, nb_maximal= ?, categorie= ?, date_fin= ? where id_seance= ?";
+
         PreparedStatement ps = connection.prepareStatement(req);
         ps.setString(1, seance.getType_seance());
         ps.setString(2, seance.getDuree_seance());
         ps.setInt(3, seance.getNb_maximal());
         ps.setString(4, seance.getCategorie());
-        ps.setInt(5, seance.getId_seance());
+        ps.setDate(5, java.sql.Date.valueOf(LocalDate.now()));
+        ps.setInt(6,seance.getId_seance());
+        ps.executeUpdate();
+    }
+    @Override
+    public void modifier2(Seance seance) throws SQLException {
+        String req = "update seance SET duree_seance= ? where id_seance= ?";
 
+        PreparedStatement ps = connection.prepareStatement(req);
+
+        ps.setString(1, seance.getDuree_seance());
+
+        ps.setInt(2,seance.getId_seance());
         ps.executeUpdate();
     }
 

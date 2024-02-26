@@ -142,6 +142,11 @@ public class ReservationService implements IService<Reservation> {
     }
 
     @Override
+    public void modifier2(Seance seance) throws SQLException {
+
+    }
+
+    @Override
     public void supprimer(int id_reservation) throws SQLException {
         String sql = "DELETE FROM reservation WHERE id_reservation = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
