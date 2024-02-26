@@ -1,5 +1,6 @@
 package tn.esprit.projet3a.services;
 
+import com.mysql.cj.xdevapi.Client;
 import tn.esprit.projet3a.models.Evenment;
 
 import java.sql.*;
@@ -132,37 +133,41 @@ public class EvenmentService implements IService<Evenment> {
         return evenments;
     }
 
-    public static List<EventElement> recherche(Integer id_event) throws SQLException {
+    public List<EventElement> rechercheEvenment(String nom_event) throws SQLException {
         List<EventElement> elements = new ArrayList<>();
-        String req = "SELECT e.id_event, e.nom_event, e.date_event, e.lieu_event, e.nom_star,e.image, r.id_review, r.nbr_star, r.description " +
-                "FROM evenment e LEFT JOIN review r ON e.id_event = r.id_event WHERE e.id_event = ?";
+        String req = "SELECT e.id_event, e.nom_event, e.date_event, e.lieu_event, e.nom_star, e.image, r.id_review, r.nbr_star, r.description " +
+                "FROM evenment e LEFT JOIN review r ON e.id_event = r.id_event WHERE e.nom_event LIKE ?";
         PreparedStatement es = connection.prepareStatement(req);
-        es.setInt(1, id_event);
+        es.setString(1, "%" + nom_event + "%"); // Use LIKE operator for partial matching
         ResultSet rs = es.executeQuery();
 
-
-
+        // Iterate over the ResultSet
         while (rs.next()) {
-                Evenment e =  new Evenment();
-                Review r = new Review();
+            Evenment e = new Evenment();
+            Review r = new Review();
 
-                e.setId_event(rs.getInt("id_event"));
-                e.setNom_event(rs.getString("nom_event"));
-                e.setDate_event(rs.getDate("date_event"));
-                e.setLieu_event(rs.getString("lieu_event"));
-                e.setNom_star(rs.getString("nom_star"));
-                e.setImage(rs.getString("image"));
-                r.setId_review(rs.getInt("id_review"));
-                r.setNbr_star(rs.getInt("nbr_star"));
-                r.setDescription(rs.getString("description"));
+            // Set event details
+            e.setId_event(rs.getInt("id_event"));
+            e.setNom_event(rs.getString("nom_event"));
+            e.setDate_event(rs.getDate("date_event"));
+            e.setLieu_event(rs.getString("lieu_event"));
+            e.setNom_star(rs.getString("nom_star"));
+            e.setImage(rs.getString("image"));
 
-                elements.add(e);
-                elements.add(r);
-            }
+            // Set review details
+            r.setId_review(rs.getInt("id_review"));
+            r.setNbr_star(rs.getInt("nbr_star"));
+            r.setDescription(rs.getString("description"));
 
+            elements.add(e);
+            elements.add(r);
+        }
 
         return elements;
     }
+
+
+
 
     public static List<EventElement> afficheravis() throws SQLException {
         List<EventElement> elements = new ArrayList<>();
@@ -186,6 +191,7 @@ public class EvenmentService implements IService<Evenment> {
 
         return elements;
     }
+
 
 
 

@@ -1,5 +1,7 @@
 package tn.esprit.projet3a.controllers;
 
+import com.mysql.cj.Session;
+import com.mysql.cj.protocol.Message;
 import com.sun.javafx.fxml.builder.JavaFXSceneBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,15 +15,27 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import tn.esprit.projet3a.models.Client;
 import tn.esprit.projet3a.models.Evenment;
+import tn.esprit.projet3a.services.ClientService;
 import tn.esprit.projet3a.services.EvenmentService;
 import tn.esprit.projet3a.test.HelloApplication;
-
-
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
 import java.sql.SQLException;
+import java.util.Properties;
+import java.util.Properties;
+import java.util.List;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+
 
 public class AjouterEvenment {
     @FXML
@@ -201,20 +215,33 @@ public class AjouterEvenment {
             evenment.setImage(path);
             try {
                 evenmentService.ajouter(evenment);
+                // Generate PDF for the event
+                File pdfFile = generatePDF(evenment);
+                ClientService clientService = ClientService.getInstance();
+                clientService.sendmail(pdfFile);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success");
                 alert.setContentText("Evenment ajouté avec succès");
                 alert.showAndWait();
                 clearFields();
                 imageTF.setImage(null);
+
+
             } catch (SQLException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setContentText(e.getMessage());
                 alert.showAndWait();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }
+
+
+
+
+
 
 
     void clearErrorLabels() {
@@ -237,4 +264,87 @@ public class AjouterEvenment {
         }
 
     }
+
+    private File generatePDF(Evenment evenment) throws IOException {
+        // Create a new PDF document
+        PDDocument document = new PDDocument();
+
+        try {
+            // Create a new page
+            PDPage page = new PDPage();
+            document.addPage(page);
+
+            // Create a new content stream
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
+            // Define font and font size for title
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
+
+            // Write title to the PDF (centered)
+            String title = "Event Details";
+            float titleWidth = PDType1Font.HELVETICA_BOLD.getStringWidth(title) / 1000f * 16;
+            float titleX = (page.getMediaBox().getWidth() - titleWidth) / 2;
+            float titleY = page.getMediaBox().getHeight() - 20; // Adjust vertical position
+            contentStream.beginText();
+            contentStream.newLineAtOffset(titleX, titleY);
+            contentStream.showText(title);
+            contentStream.endText();
+
+            // Define font and font size for event details
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+
+            // Write event details to the PDF
+            contentStream.beginText();
+            contentStream.newLineAtOffset(50, page.getMediaBox().getHeight() - 50);
+            contentStream.showText("Nom de l'événement: " + evenment.getNom_event());
+            contentStream.newLineAtOffset(0, -20); // Move to the next line
+            contentStream.showText("Lieu de l'événement: " + evenment.getLieu_event());
+            contentStream.newLineAtOffset(0, -20); // Move to the next line
+            contentStream.showText("Nom de la star: " + evenment.getNom_star());
+            contentStream.newLineAtOffset(0, -20); // Move to the next line
+            contentStream.showText("Date de l'événement: " + evenment.getDate_event());
+            contentStream.endText();
+
+            // Add image to the PDF
+            String imagePath = evenment.getImage();
+            if (imagePath != null && !imagePath.isEmpty()) {
+                File imageFile = new File(imagePath);
+                if (imageFile.exists()) {
+                    PDImageXObject pdImage = PDImageXObject.createFromFile(imagePath, document);
+                    float imageWidth = pdImage.getWidth();
+                    float imageHeight = pdImage.getHeight();
+
+                    // Calculate scale to fit image within page width
+                    float maxWidth = page.getMediaBox().getWidth() - 100; // Adjust padding
+                    float maxHeight = page.getMediaBox().getHeight() - 150; // Adjust padding and space for text
+                    float scale = Math.min(maxWidth / imageWidth, maxHeight / imageHeight);
+
+                    // Calculate coordinates for positioning image
+                    float imageX = 50; // Adjust as needed
+                    float imageY = 50; // Adjust as needed
+
+                    // Draw image
+                    contentStream.drawImage(pdImage, imageX, imageY, imageWidth * scale, imageHeight * scale);
+                }
+            }
+
+            // Close the content stream
+            contentStream.close();
+
+            // Save the document to a file
+            File pdfFile = new File("event_details.pdf");
+            document.save(pdfFile);
+
+            return pdfFile;
+        } finally {
+            // Close the PDF document
+            document.close();
+        }
+    }
+
+
+
+
+
+
 }

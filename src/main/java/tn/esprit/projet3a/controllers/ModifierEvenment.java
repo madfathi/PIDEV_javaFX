@@ -44,16 +44,11 @@ public class ModifierEvenment {
     @FXML
     private TextField nom_starTFM;
 
-    @FXML
-    private TableView<Evenment> tableview;
 
     @FXML
     private ListView<String> table;
 
-    @FXML
-    private ComboBox<Integer> combo;
-
-
+    private int selectedEventId = -1;
 
     @FXML
     void initialize() {
@@ -64,14 +59,6 @@ public class ModifierEvenment {
 
             // Create an ObservableList to store the event data
             ObservableList<String> eventDataList = FXCollections.observableArrayList();
-            ObservableList<Integer> eventIdsList = FXCollections.observableArrayList();
-
-            for (Evenment evenment : ids) {
-                eventIdsList.add(evenment.getId_event());
-            }
-
-            // Populate the ComboBox with the event IDs
-            combo.setItems(eventIdsList);
 
             // Add column titles
             String columnTitles = String.format("%-10s %-20s %-20s %-20s %-20s %-20s", "ID", "Date", "Lieu", "Nom", "Star", "Image Path");
@@ -93,6 +80,23 @@ public class ModifierEvenment {
 
             // Set custom ListCell to format the data in columns
             table.setCellFactory(listView -> new AfficherEvenment.ColumnListViewCell());
+
+            // Add listener to the ListView to store the selected event ID and fill text fields
+            table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null && !newValue.isEmpty()) {
+                    // Split the selected item's data into columns
+                    String[] columns = newValue.split("\\s+");
+
+                    // Store the ID of the selected event
+                    selectedEventId = Integer.parseInt(columns[0]);
+
+                    // Fill the text fields with the selected event's information
+                    nom_eventTFM.setText(columns[3]);
+                    date_eventTFM.setValue(LocalDate.parse(columns[1]));
+                    lieu_eventTFM.setText(columns[2]);
+                    nom_starTFM.setText(columns[4]);
+                }
+            });
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -140,13 +144,12 @@ public class ModifierEvenment {
     }
 
 
+
     @FXML
     void modifierEvenment(ActionEvent event) {
-        // Get the selected ID from the ComboBox
-        Integer selectedEventId = combo.getValue();
-
-        if (selectedEventId == null) {
-            // If no item is selected, show an error message and return
+        // Check if an event is selected from the ListView
+        if (selectedEventId == -1) {
+            // If no event is selected, show an error message and return
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText("Veuillez sélectionner un événement à modifier.");
@@ -182,11 +185,7 @@ public class ModifierEvenment {
 
             // Get the text from input fields
             String nomEventText = nom_eventTFM.getText();
-            //LocalDate localDate = date_eventTFM.getValue();
-          //  Date dateEventValue = java.sql.Date.valueOf(localDate);
             LocalDate dateEventValue = date_eventTFM.getValue();
-
-
             String lieuEventText = lieu_eventTFM.getText();
             String nomStarText = nom_starTFM.getText();
 
@@ -244,12 +243,13 @@ public class ModifierEvenment {
                 alert.setContentText("Evenement modifié avec succès");
                 alert.showAndWait();
 
-                // Clear input fields and combo box selection
+                initialize();
+
+                // Clear input fields
                 nom_eventTFM.clear();
                 date_eventTFM.setValue(null);
                 lieu_eventTFM.clear();
                 nom_starTFM.clear();
-                combo.setValue(null);
             }
 
         } catch (SQLException e) {
@@ -260,6 +260,7 @@ public class ModifierEvenment {
             alert.showAndWait();
         }
     }
+
 
     // Helper method to clear error labels
 
@@ -290,44 +291,49 @@ public class ModifierEvenment {
     }
 
 
-    @FXML
-    void supprimerEvenment(ActionEvent event) {
-        // Get the selected ID from the ComboBox
-        Integer selectedEventId = combo.getValue();
-
-        if (selectedEventId == null) {
-            // If no item is selected, show an error message and return
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("Veuillez sélectionner un événement à supprimer.");
-            alert.showAndWait();
-            return;
-        }
-
-        // Proceed with deleting the selected event
-        try {
-            EvenmentService evenmentService = new EvenmentService();
-
-            // Call the supprimer method with the selected event ID
-            evenmentService.supprimer(selectedEventId);
-
-            // Show success message
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setContentText("Événement supprimé avec succès");
-            alert.showAndWait();
-
-            // Optionally, clear the ComboBox selection after deletion
-            combo.setValue(null);
-
-        } catch (SQLException e) {
-            // Show error message if an exception occurs
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-        }
+@FXML
+void supprimerEvenment(ActionEvent event) {
+    // Check if an event is selected from the ListView
+    if (selectedEventId == -1) {
+        // If no event is selected, show an error message and return
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setContentText("Veuillez sélectionner un événement à supprimer.");
+        alert.showAndWait();
+        return;
     }
+
+    // Proceed with deleting the selected event
+    try {
+        EvenmentService evenmentService = new EvenmentService();
+
+        // Call the supprimer method with the selected event ID
+        evenmentService.supprimer(selectedEventId);
+
+        // Show success message
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setContentText("Événement supprimé avec succès");
+        alert.showAndWait();
+
+        // Clear input fields - Not applicable for deletion
+
+        // Optionally, clear the ListView selection after deletion
+        table.getSelectionModel().clearSelection();
+        selectedEventId = -1; // Reset selected event ID
+
+        // Optionally, refresh the ListView after deletion
+        initialize(); // Reinitialize to reload the ListView with updated data
+
+    } catch (SQLException e) {
+        // Show error message if an exception occurs
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setContentText(e.getMessage());
+        alert.showAndWait();
+    }
+}
+
 
 }
 

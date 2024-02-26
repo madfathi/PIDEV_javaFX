@@ -22,135 +22,94 @@ import java.util.List;
 
 public class Avis {
     @FXML
-    private ListView<EventElement> list;
+    private ListView<Review> list;
 
-    @FXML
-    private ComboBox<Integer> combo;
-
+    private int selectedReviewId = -1;
 
 
     @FXML
-    void initialize() throws SQLException {
-        EvenmentService evenmentService = new EvenmentService();
+    void initialize() {
         ReviewService reviewService = new ReviewService();
 
         try {
-            // Retrieve the list of review IDs
-            List<Review> reviews = reviewService.selectidr();
-            ObservableList<Integer> reviewIds = FXCollections.observableArrayList();
+            // Retrieve the list of reviews
+            List<Review> reviews = reviewService.recuperer();
 
-            // Add each review ID to the ComboBox
-            for (Review review : reviews) {
-                reviewIds.add(review.getId_review());
-            }
+            // Create an ObservableList to hold the reviews
+            ObservableList<Review> reviewList = FXCollections.observableArrayList(reviews);
 
-            // Set the items of the ComboBox
-            combo.setItems(reviewIds);
+            // Set the items of the ListView
+            list.setItems(reviewList);
 
-            // Populate the ListView with event data
-            List<EventElement> evenments = evenmentService.afficheravis();
-            ObservableList<EventElement> observableList = FXCollections.observableList(evenments);
-
-            // Set custom cell factory to display data in a better way
-            list.setCellFactory(param -> new CustomEventCell());
-            list.setItems(observableList);
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
-
-    public class CustomEventCell extends ListCell<EventElement> {
-
-        @Override
-        protected void updateItem(EventElement item, boolean empty) {
-            super.updateItem(item, empty);
-
-            if (empty || item == null) {
-                setText(null);
-                setGraphic(null);
-            } else {
-                VBox container = new VBox(5); // VBox to hold event name and review description
-                container.setAlignment(Pos.CENTER_LEFT);
-
-                if (item instanceof Evenment) {
-                    Evenment event = (Evenment) item;
-                    Label eventNameLabel = new Label("Event Name     : " + event.getNom_event());
-                    eventNameLabel.setFont(Font.font(14));
-                    container.getChildren().add(eventNameLabel);
-
-                } else if (item instanceof Review) {
-                    Review review = (Review) item;
-                    Label reviewLabel = new Label("AVIS               : " + review.getDescription());
-                    reviewLabel.setFont(Font.font(12));
-                    container.getChildren().add(reviewLabel);
-                    Label nbrstarlabel = new Label("NOMBRES DE STARS  : " + review.getNbr_star());
-                    reviewLabel.setFont(Font.font(12));
-                    container.getChildren().add(nbrstarlabel);
-                    Label idreviewLabel = new Label("ID Review        : " + review.getId_review());
-                   idreviewLabel.setFont(Font.font(12));
-                    container.getChildren().add(idreviewLabel);
-
+            // Add event handler to ListView to store the selected review ID
+            list.setOnMouseClicked(event -> {
+                Review selectedReview = list.getSelectionModel().getSelectedItem();
+                if (selectedReview != null) {
+                    selectedReviewId = selectedReview.getId_review();
                 }
+            });
 
-                setGraphic(container);
-                setText(null);
-            }
+            // Add custom cell factory to the ListView to display reviews properly
+            list.setCellFactory(param -> new ListCell<Review>() {
+                @Override
+                protected void updateItem(Review review, boolean empty) {
+                    super.updateItem(review, empty);
+
+                    if (empty || review == null) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        // Create a VBox to hold the review details
+                        VBox container = new VBox(5);
+                        container.setAlignment(Pos.CENTER_LEFT);
+
+                        // Add review details to the container
+                        Label descriptionLabel = new Label("Description: " + review.getDescription());
+                        Label nbrStarLabel = new Label("Nombre de Stars: " + review.getNbr_star());
+
+                        container.getChildren().addAll(descriptionLabel, nbrStarLabel);
+
+                        // Set the container as the graphic of the cell
+                        setGraphic(container);
+                        setText(null); // Make sure no text is displayed
+                    }
+                }
+            });
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle exception appropriately
         }
     }
-
-
 
     @FXML
-    void supprimerAvis(ActionEvent event) {
-        // Get the selected ID from the ComboBox
-        Integer selectedReviewId = combo.getValue();
+    public void supprimerAvis(ActionEvent event) {
+        if (selectedReviewId != -1) {
+            try {
+                ReviewService reviewService = new ReviewService();
+                reviewService.supprimerReview(selectedReviewId);
 
-        if (selectedReviewId == null) {
-            // If no item is selected, show an error message and return
+                // Optionally, refresh the ListView after deletion
+                list.getItems().removeIf(review -> review.getId_review() == selectedReviewId);
+                selectedReviewId = -1; // Reset the selected review ID
+            } catch (SQLException e) {
+                e.printStackTrace(); // Handle exception appropriately
+            }
+        } else {
+            // Show an error message if no review is selected
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText("Veuillez sélectionner un avis à supprimer.");
             alert.showAndWait();
-            return;
-        }
-
-        // Proceed with deleting the selected review
-        try {
-            ReviewService reviewService = new ReviewService();
-
-            // Call the supprimer method with the selected review ID
-            reviewService.supprimer(selectedReviewId);
-
-            // Show success message
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setContentText("Avis supprimé avec succès");
-            alert.showAndWait();
-
-            // Optionally, clear the ComboBox selection after deletion
-            combo.setValue(null);
-
-        } catch (SQLException e) {
-            // Show error message if an exception occurs
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
         }
     }
 
-
     @FXML
-    void returnA(ActionEvent event) {
+    public void returnTF(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AdminEvenment.fxml"));
         try {
             list.getScene().setRoot(fxmlLoader.load());
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-
     }
-
-
 }
+

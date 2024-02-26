@@ -8,6 +8,7 @@
     -fx-background-color: #0078D7; /* Blue color */
 }
 
+
 /*List View Styling*/
 /* styles.css */
 /* styles.css */
@@ -123,18 +124,24 @@
     -fx-border-width: 1px;
     -fx-cursor: hand; /* Change cursor to hand on hover */
 }
-#ajouterAdmin {
-    -fx-font-size: 30px; /* Change the font size to 16 pixels */
+
+
+
+
+#label:hover,
+#label1:hover,
+#label2:hover,
+#label3:hover {
+    -fx-background-color: #CEE452; /* Change background color on hover */
+    -fx-text-fill: white; /* Change text color on hover */
+    -fx-font-weight: bold; /* Make text bold on hover */
+    -fx-cursor: hand; /* Change cursor to hand on hover */
+    -fx-scale-x: 1.1; /* Scale horizontally on hover */
+    -fx-scale-y: 1.1; /* Scale vertically on hover */
+    -fx-transition: scale 0.2s; /* Add transition effect */
 }
-#modifierAdmin{
-    -fx-font-size: 30px; /* Change the font size to 16 pixels */
-}
-#rechercheAdmin{
-    -fx-font-size: 30px; /* Change the font size to 16 pixels */
-}
-#avisAdmin{
-    -fx-font-size: 30px; /* Change the font size to 16 pixels */
-}
+
+
 
 
 /* Button hover effect */
@@ -163,14 +170,15 @@
 
 
 
+
 /* Styling for labels */
-.label {
-    -fx-font-weight: bold;
-    -fx-text-fill: #000000; /* Black text color */
-    -fx-font-family: "Roboto";
-    -fx-padding: 5px;  /* Add padding for better spacing */
-    -fx-background-radius: 5px;  /* Round the corners */
-}
+/*.label {*/
+    /*-fx-font-weight: bold;*/
+   /* -fx-text-fill: #000000;*/ /* Black text color */
+   /* -fx-font-family: "Roboto";*/
+    /*-fx-padding: 5px;*/  /* Add padding for better spacing */
+    /*-fx-background-radius: 5px;*/  /* Round the corners */
+/*}*/
 
 
 /* styles.css */

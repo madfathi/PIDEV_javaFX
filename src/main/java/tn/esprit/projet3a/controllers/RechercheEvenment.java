@@ -9,7 +9,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import tn.esprit.projet3a.models.Evenment;
 import tn.esprit.projet3a.models.EventElement;
+import tn.esprit.projet3a.models.Review;
 import tn.esprit.projet3a.services.EvenmentService;
 import tn.esprit.projet3a.test.HelloApplication;
 
@@ -42,19 +44,16 @@ public class RechercheEvenment {
 
     public void rechercheEvenment(String searchText) {
         try {
-            // Parse the searchText to an integer (assuming it represents the event ID)
-            int id_event = Integer.parseInt(searchText);
-
             // Perform the search using the EvenmentService
             EvenmentService evenmentService = new EvenmentService();
-            List<EventElement> evenments = evenmentService.recherche(id_event);
+            List<EventElement> evenments = evenmentService.rechercheEvenment(searchText);
 
             // Update the ListView with the search results
             ObservableList<EventElement> observableList = FXCollections.observableList(evenments);
             list.setItems(observableList);
 
-        } catch (NumberFormatException | SQLException e) {
-            // Handle NumberFormatException (if searchText is not a valid integer) and SQLException
+        } catch (SQLException e) {
+            // Handle SQLException
             // Clear the ListView if an exception occurs
             list.getItems().clear();
             System.err.println(e.getMessage());

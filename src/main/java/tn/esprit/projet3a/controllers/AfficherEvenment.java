@@ -12,6 +12,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tn.esprit.projet3a.models.Evenment;
+import tn.esprit.projet3a.models.EventElement;
+import tn.esprit.projet3a.models.Review;
 import tn.esprit.projet3a.services.EvenmentService;
 
 import java.io.IOException;
@@ -27,7 +29,7 @@ public class AfficherEvenment {
 
     @FXML
     void returnTF(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AjouterEvenment.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AdminEvenment.fxml"));
         try {
             table.getScene().setRoot(fxmlLoader.load());
         } catch (IOException e) {
@@ -141,6 +143,10 @@ public class AfficherEvenment {
             System.err.println(e.getMessage());
         }
     }
+
+
+
+
 
 }
 
