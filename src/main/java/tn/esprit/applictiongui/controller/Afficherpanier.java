@@ -1,11 +1,14 @@
 package tn.esprit.applictiongui.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import tn.esprit.applictiongui.model.commande;
 import tn.esprit.applictiongui.model.panier;
@@ -15,6 +18,7 @@ import tn.esprit.applictiongui.test.HelloApplication;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.List;
 
 public class Afficherpanier {
@@ -29,6 +33,8 @@ public class Afficherpanier {
 
     @FXML
     private TextField qua;
+    @FXML
+    private TextField rer;
 
     @FXML
     private TableView<panier> tab;
@@ -189,6 +195,43 @@ public String img;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+    }
+    @FXML
+    void recherchecommande(KeyEvent event) {
+//Create a new FilteredList with the original list as the source
+        FilteredList<panier> filter = new FilteredList<>(lists.getItems(), ev -> true);
+
+        // Add a listener on the text property of the search field to update the predicate of the FilteredList
+        rer.textProperty().addListener((observable, oldValue, searchText) -> {
+            // Update the predicate based on the search text
+            filter.setPredicate(commande -> {
+                if (searchText == null || searchText.isEmpty()) {
+                    return true; // Show all items when the filter text is empty.
+                }
+
+                String lowerCaseFilter = searchText.toLowerCase();
+
+                if (commande.getNomp().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches nom.
+                }
+
+                return false; // Does not match.
+            });
+        });
+
+        // Create a new SortedList and attach it to the FilteredList
+        SortedList<panier> sortedList = new SortedList<>(filter);
+
+        // Set the comparator for the sorted list
+        sortedList.setComparator(Comparator.comparing(panier::getNomp));
+
+        // Set the items of the ListView to the sorted list
+        lists.setItems(sortedList);
+
+        // Refresh the ListView to update the filtered items
+        lists.refresh();
+
 
     }
 }

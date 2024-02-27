@@ -10,10 +10,8 @@
       <Button layoutX="630.0" layoutY="257.0" mnemonicParsing="false" onAction="#tridesc" prefHeight="26.0" prefWidth="131.0" text="Tri_DESC" />
       <Button layoutX="498.0" layoutY="257.0" mnemonicParsing="false" onAction="#triasc" prefHeight="26.0" prefWidth="131.0" text="Tri_ASC" />
       <Button layoutX="366.0" layoutY="257.0" mnemonicParsing="false" onAction="#supppanier" prefHeight="26.0" prefWidth="131.0" text="SUPPRIMER" />
-      <TextField fx:id="qua" layoutX="1.0" layoutY="257.0" promptText="Quantite" />
-      <TextField fx:id="prix" layoutX="176.0" layoutY="257.0" promptText="Prix_Produit" />
-      <Button layoutX="93.0" layoutY="306.0" mnemonicParsing="false" onAction="#modifierpanier" prefHeight="26.0" prefWidth="131.0" text="Modifier" />
       <Button layoutX="1.0" layoutY="1.0" mnemonicParsing="false" onAction="#back" text="BACK" />
       <ListView fx:id="lists" layoutX="5.0" layoutY="47.0" onMouseClicked="#SetValue" prefHeight="200.0" prefWidth="751.0" />
+      <TextField fx:id="rer" layoutX="14.0" layoutY="257.0" onKeyPressed="#recherchecommande" prefHeight="38.0" prefWidth="280.0" promptText="chercher" />
    </children>
 </AnchorPane>

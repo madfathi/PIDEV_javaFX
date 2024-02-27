@@ -81,13 +81,22 @@ public class panier {
 
     @Override
     public String toString() {
-        return "panier{" +
-                "idp=" + idp +
-                ", quantite=" + quantite +
-                ", pt=" + pt +
-                ", nomp='" + nomp + '\'' +
-                ", prod_id='" + prod_id + '\'' +
-                ", img='" + img + '\'' +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("panier:");
+        sb.append("\n");
+        sb.append("idp=").append(idp);
+        sb.append("\n");
+        sb.append("quantite=").append(quantite);
+        sb.append("\n");
+        sb.append("pt=").append(pt);
+        sb.append("\n");
+        sb.append("nomp='").append(nomp).append("'");
+        sb.append("\n");
+        sb.append("prod_id='").append(prod_id).append("'");
+        sb.append("\n");
+        sb.append("img='").append(img).append("'");
+        sb.append("\n");
+        sb.append(":");
+        return sb.toString();
     }
 }

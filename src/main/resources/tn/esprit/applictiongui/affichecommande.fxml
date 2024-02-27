@@ -26,5 +26,6 @@
       <Button layoutX="792.0" layoutY="353.0" mnemonicParsing="false" onAction="#pdf" prefHeight="38.0" prefWidth="123.0" text="PDF" />
       <Button layoutX="10.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="BACK" />
       <ListView fx:id="listview" layoutX="4.0" layoutY="79.0" onMouseClicked="#SetValue" prefHeight="200.0" prefWidth="912.0" />
+      <TextField fx:id="re" layoutX="685.0" layoutY="26.0" onKeyPressed="#recherchecommande" prefHeight="38.0" prefWidth="229.0" />
    </children>
 </AnchorPane>
