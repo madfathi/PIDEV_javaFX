@@ -84,7 +84,7 @@ public class main {
 
         // Test deleting a program
         try {
-            int programIdToDelete = 24; // Set the ID of the program you want to delete
+            String programIdToDelete = "Régime"; // Set the ID of the program you want to delete
             programService.supprimer(programIdToDelete);
             System.out.println("Program deleted successfully.");
         } catch (SQLException e) {

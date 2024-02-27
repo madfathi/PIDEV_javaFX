@@ -5,9 +5,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import tn.esprit.guiapplication.Cellule.ClientCell;
 import tn.esprit.guiapplication.models.Client;
 import tn.esprit.guiapplication.services.ClientService;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -59,7 +61,7 @@ public class Afficherclient {
     }
 */
 
-    @FXML
+   /* @FXML
     void initialize() {
         ClientService clientService = new ClientService();
         try {
@@ -94,8 +96,47 @@ public class Afficherclient {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-    }
+        listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                // Récupérer le client sélectionné
+                Client selectedClient = listView.getSelectionModel().getSelectedItem();
 
+                // Afficher les informations du client dans les champs de texte
+              //  idTFm.setText(String.valueOf(selectedClient.getId_c()));
+                nomTFm.setText(selectedClient.getNom());
+                prenomTFm.setText(selectedClient.getPrenom());
+                ageTFm.setText(String.valueOf(selectedClient.getAge()));
+                poidsTFm.setText(String.valueOf(selectedClient.getPoids()));
+            }
+        });
+    }
+    */
+    @FXML
+   void initialize() {
+       ClientService clientService = new ClientService();
+       try {
+           List<Client> clients = clientService.recuperer();
+           listView.setCellFactory(param -> new ClientCell());
+           ObservableList<Client> observableList = FXCollections.observableList(clients);
+
+           listView.setItems(observableList);
+       } catch (SQLException e) {
+           System.err.println(e.getMessage());
+       }
+       listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+           if (newValue != null) {
+               // Récupérer le client sélectionné
+               Client selectedClient = listView.getSelectionModel().getSelectedItem();
+
+               // Afficher les informations du client dans les champs de texte
+               nomTFm.setText(selectedClient.getNom());
+               prenomTFm.setText(selectedClient.getPrenom());
+               ageTFm.setText(String.valueOf(selectedClient.getAge()));
+               poidsTFm.setText(String.valueOf(selectedClient.getPoids()));
+           }
+       });
+
+   }
 
 
     private void refreshListView(List<Client> clients) {
@@ -119,6 +160,9 @@ public class Afficherclient {
 
 
     }
+
+/*
+
     @FXML
     void modifierClient(ActionEvent event) throws SQLException {
         String idText = idTFm.getText();
@@ -194,8 +238,51 @@ public class Afficherclient {
         // Réinitialiser les champs
         initialize();
     }
+*/
+    @FXML
+public void modifierClient(ActionEvent event) {
+    ClientService clientService = new ClientService();
 
-    // Méthode pour afficher un message d'erreur
+    // Retrieve the selected category from the ListView
+    Client selectedClient = listView.getSelectionModel().getSelectedItem();
+
+    // Check if a category is selected
+    if (selectedClient != null) {
+        // Set the name from the text field to the selected category
+        selectedClient.setNom(nomTFm.getText());
+        selectedClient.setPrenom(prenomTFm.getText());
+        selectedClient.setAge(Integer.parseInt(ageTFm.getText()));
+        selectedClient.setPoids(Integer.parseInt(poidsTFm.getText()));
+
+        try {
+            // Print debug information
+            System.out.println("Updating client with id_c: " + selectedClient.getId_c() + ", new nom_c: " + selectedClient.getNom());
+
+            // Call the modifier method with the selected category
+            clientService.modifier(selectedClient);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Succes");
+            alert.setContentText("Client modifiée");
+            alert.showAndWait();
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+
+
+    } else {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Avertissement");
+        alert.setContentText("Veuillez sélectionner une client à modifier.");
+        alert.showAndWait();
+    }
+        initialize();
+}
+
+
+    @FXML
     private void afficherMessageErreur(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Erreur de saisie");
@@ -228,9 +315,9 @@ public class Afficherclient {
     public void supprimerclient(ActionEvent actionEvent) {
         ClientService clientService = new ClientService();
         Client client = new Client();
-        client.setId_c(Integer.parseInt(idTFm.getText()));
+        client.setNom(nomTFm.getText());
         try {
-            clientService.supprimer(client.getId_c());
+            clientService.supprimer(client.getNom());
             Alert alert =new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Succes");
             alert.setContentText("Client supprimée");
@@ -243,8 +330,10 @@ public class Afficherclient {
             alert.showAndWait();
 
         }
+        initialize();
     }
 
+/*
     public void trouverClient(ActionEvent actionEvent) {
         int idClient = Integer.parseInt(idTFm.getText());
         ClientService clientService = new ClientService();
@@ -262,6 +351,23 @@ public class Afficherclient {
         }
 
     }
+*/
+public void trouverClient(ActionEvent actionEvent) {
+    String nomClient = nomTFm.getText(); // Get the name from the TextField
+    ClientService clientService = new ClientService();
+    Client clientTrouvee = clientService.getClientByID(nomClient); // Adjust the service method to retrieve by name
+
+    if (clientTrouvee != null) {
+        System.out.println("Client trouvé : " + clientTrouvee.getNom());
+       // idTFm.setText(String.valueOf(clientTrouvee.getId_c()));
+        nomTFm.setText(clientTrouvee.getNom());
+        prenomTFm.setText(clientTrouvee.getPrenom());
+        ageTFm.setText(String.valueOf(clientTrouvee.getAge()));
+        poidsTFm.setText(String.valueOf(clientTrouvee.getPoids()));
+    } else {
+        System.out.println("Aucun client trouvé avec le nom : " + nomClient);
+    }
+}
 
     public void retour(ActionEvent actionEvent) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Ajouterclient.fxml"));
@@ -272,7 +378,13 @@ public class Afficherclient {
         }
     }
 
+    public void clearFields(ActionEvent actionEvent) {
+        nomTFm.clear();
+        prenomTFm.clear();
+        ageTFm.clear();
+        poidsTFm.clear();
     }
+}
 
 
 

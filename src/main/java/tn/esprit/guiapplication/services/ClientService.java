@@ -15,10 +15,29 @@ public class ClientService implements IService<Client>{
 
       connection = MyDatabase.getInstance().getConnection();
   }
+    public Client getClientByID(String name) {
+        Client client = null;
+        String req = "SELECT * FROM client WHERE nom = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(req);
+            ps.setString(1, name);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                client = new Client();
+                //client.setId_c(rs.getInt("id_c"));
+                client.setNom(rs.getString("nom"));
+                client.setPrenom(rs.getString("prenom"));
+                client.setAge(rs.getInt("age"));
+                client.setPoids(rs.getInt("poids"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return client;
+    }
 
 
-
-
+/*
 
 
 public Client getClientById(int id){
@@ -42,13 +61,15 @@ public Client getClientById(int id){
     }
     return client;
 }
+
+*/
   public void ajouter(Client client) throws SQLException {
     String req =" INSERT INTO client (nom,prenom,age,poids) VALUES ('"+client.getNom()+"' , '"+client.getPrenom()+"','"+client.getAge()+"',"+client.getPoids()+")";
       Statement st =connection.createStatement();
       st.executeUpdate(req);
     }
 
-    @Override
+    /*@Override
     public void modifier(Client client) throws SQLException {
       String req = "UPDATE client SET nom = ?, prenom = ? , age = ? , poids = ? WHERE id_c = ? " ;
       PreparedStatement cs = connection.prepareStatement(req);
@@ -58,6 +79,36 @@ public Client getClientById(int id){
       cs.setInt(4, client.getPoids());
       cs.setInt(5, client.getId_c());
       cs.executeUpdate();
+
+    }*/
+    @Override
+    public void modifier(Client client) throws SQLException {
+        String req = "UPDATE client SET nom = ?, prenom = ? , age = ? , poids = ? WHERE id_c = ? "  ;
+
+        try {
+            connection.setAutoCommit(false);
+
+            try (PreparedStatement ps = connection.prepareStatement(req)) {
+                ps.setString(1, client.getNom());
+                ps.setString(2, client.getPrenom());
+                ps.setInt(3, client.getAge());
+                ps.setInt(4, client.getPoids());
+                ps.setInt(5, client.getId_c());
+                int rowsAffected = ps.executeUpdate();
+                System.out.println(rowsAffected + " row(s) affected.");
+            }
+
+            // Commit the changes
+            connection.commit();
+        } catch (SQLException e) {
+            // If an error occurs, print details, rollback changes, and re-throw the exception
+            e.printStackTrace();
+            connection.rollback();
+            throw e;
+        } finally {
+            // Reset auto-commit to true to avoid issues in subsequent database operations
+            connection.setAutoCommit(true);
+        }
 
     }
 
@@ -90,10 +141,10 @@ public Client getClientById(int id){
 
 
     @Override
-    public  void supprimer(int id_c) throws SQLException {
-     String req = "DELETE FROM client WHERE id_c= ?";
+    public  void supprimer( String nom) throws SQLException {
+     String req = "DELETE FROM client WHERE nom = ?";
      PreparedStatement cs = connection.prepareStatement(req);
-     cs.setInt(1, id_c);
+     cs.setString(1, nom);
     cs.executeUpdate();
     }
 
@@ -102,7 +153,7 @@ public Client getClientById(int id){
         List<Client> clients = new ArrayList<>();
         String req ="SELECT * FROM client";
         Statement st = connection.createStatement();
-      ResultSet rs = st.executeQuery(req);
+        ResultSet rs = st.executeQuery(req);
 
       while (rs.next()){
         Client client = new Client();
@@ -124,6 +175,26 @@ public Client getClientById(int id){
         for (Client client : clients) {
             System.out.println(client);
         }
+    }
+    public Client getClientByName(String clientName) throws SQLException {
+        String req = "SELECT * FROM client WHERE nom = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(req)) {
+            ps.setString(1, clientName);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Client client = new Client();
+                    client.setId_c(rs.getInt("id_c"));
+                    client.setNom(rs.getString("nom"));
+
+                    return client;
+                }
+            }
+        }
+
+        // Return null or throw an exception if the client is not found
+        return null; // You can choose a suitable default value
     }
 
 }

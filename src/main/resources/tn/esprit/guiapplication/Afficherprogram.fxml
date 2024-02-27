@@ -10,19 +10,19 @@
 <AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplication.controllers.Afficherprogram">
    <children>
       <ListView fx:id="listView2" layoutX="14.0" layoutY="137.0" prefHeight="192.0" prefWidth="354.0" />
-      <Button layoutX="498.0" layoutY="269.0" mnemonicParsing="false" onAction="#modifierProgram" prefHeight="26.0" prefWidth="90.0" text="Modifier" />
+      <Button layoutX="499.0" layoutY="220.0" mnemonicParsing="false" onAction="#modifierProgram" prefHeight="26.0" prefWidth="90.0" text="Modifier" />
       <TextField fx:id="prixTFmP" layoutX="388.0" layoutY="309.0" prefHeight="26.0" prefWidth="102.0" promptText="PRIX" />
-      <TextField fx:id="idTFmP" layoutX="389.0" layoutY="130.0" prefHeight="26.0" prefWidth="102.0" promptText="ID" />
+      <TextField fx:id="nom" layoutX="389.0" layoutY="130.0" prefHeight="26.0" prefWidth="102.0" promptText="nom client" />
       <TextField fx:id="titreTFmP" layoutX="389.0" layoutY="173.0" prefHeight="26.0" prefWidth="102.0" promptText="TITRE" />
       <TextField fx:id="niveauTFmP" layoutX="388.0" layoutY="219.0" prefHeight="26.0" prefWidth="102.0" promptText="NIVEAU" />
       <TextField fx:id="descriptionTFmP" layoutX="389.0" layoutY="268.0" prefHeight="26.0" prefWidth="102.0" promptText="DESCRIPTION" />
-      <Button layoutX="499.0" layoutY="220.0" mnemonicParsing="false" onAction="#supprimerprogram" text="supprimer" />
-      <Button layoutX="499.0" layoutY="169.0" mnemonicParsing="false" onAction="#trouverProgram" prefHeight="26.0" prefWidth="90.0" text="Trouver" />
+      <Button layoutX="499.0" layoutY="156.0" mnemonicParsing="false" onAction="#supprimerprogram" text="supprimer" />
       <Button layoutX="21.0" layoutY="20.0" mnemonicParsing="false" onAction="#retour3" text="&lt;----" />
       <ImageView fitHeight="89.0" fitWidth="332.0" layoutX="189.0" layoutY="14.0">
          <image>
             <Image url="C:\Users\salim\Downloads\418566203_1804384873376645_1434016650157370513_n.png" />
          </image>
       </ImageView>
+      <Button layoutX="499.0" layoutY="281.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="26.0" prefWidth="90.0" text="Clear" />
    </children>
 </AnchorPane>

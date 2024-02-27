@@ -69,11 +69,12 @@ public class Client {
     @Override
     public String toString() {
         return "client{" +
-                "id_c=" + id_c +
+                ", nom='" + nom +
+                ", prenom='" + prenom +
                 ", age=" + age +
                 ", poids=" + poids +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
+
                 '}';
     }
+
 }

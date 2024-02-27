@@ -13,12 +13,11 @@
    <children>
       <Button layoutX="487.0" layoutY="190.0" mnemonicParsing="false" onAction="#modifierClient" prefHeight="26.0" prefWidth="87.0" text="Modifier" />
       <TextField fx:id="poidsTFm" layoutX="374.0" layoutY="239.0" prefHeight="26.0" prefWidth="102.0" promptText="POIDS" />
-      <TextField fx:id="idTFm" layoutX="375.0" layoutY="95.0" prefHeight="26.0" prefWidth="102.0" promptText="ID" />
       <TextField fx:id="nomTFm" layoutX="375.0" layoutY="132.0" prefHeight="26.0" prefWidth="102.0" promptText="NOM" />
       <TextField fx:id="prenomTFm" layoutX="375.0" layoutY="167.0" prefHeight="26.0" prefWidth="102.0" promptText="PRENOM" />
       <TextField fx:id="ageTFm" layoutX="375.0" layoutY="203.0" prefHeight="26.0" prefWidth="102.0" promptText="AGE" />
 
-      <Button layoutX="484.0" layoutY="324.0" mnemonicParsing="false" onAction="#ajouterProgram" prefHeight="26.0" prefWidth="147.0" text="Ajouter Program" />
+      <Button layoutX="484.0" layoutY="340.0" mnemonicParsing="false" onAction="#ajouterProgram" prefHeight="26.0" prefWidth="147.0" text="Ajouter Program" />
       <ListView fx:id="listView" layoutX="26.0" layoutY="108.0" prefHeight="170.0" prefWidth="322.0" />
       <Button layoutX="487.0" layoutY="239.0" mnemonicParsing="false" onAction="#sort" prefHeight="26.0" prefWidth="87.0" text="Tri" />
       <Button layoutX="488.0" layoutY="141.0" mnemonicParsing="false" onAction="#supprimerclient" text="supprimer" />
@@ -34,5 +33,6 @@
          </image>
       </ImageView>
       <Label layoutX="85.0" layoutY="73.0" />
+      <Button layoutX="486.0" layoutY="285.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="26.0" prefWidth="87.0" text="Clear" />
    </children>
 </AnchorPane>

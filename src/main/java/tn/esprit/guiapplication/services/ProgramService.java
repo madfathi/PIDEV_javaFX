@@ -44,10 +44,10 @@ public class ProgramService implements IService<Program> {
         return null;
     }
     @Override
-    public void supprimer(int id_p) throws SQLException {
-        String req = "DELETE FROM program WHERE id_p = ?";
+    public void supprimer(String titre) throws SQLException {
+        String req = "DELETE FROM program WHERE titre = ?";
         PreparedStatement ps = connection.prepareStatement(req);
-        ps.setInt(1, id_p);
+        ps.setString(1, titre);
         ps.executeUpdate();
     }
 
@@ -122,6 +122,33 @@ public class ProgramService implements IService<Program> {
     }
 
 */
+
+
+    public Program getProgramByName(String name) throws SQLException {
+        String req = "SELECT * FROM program WHERE titre = ?";
+        ProgramService cs = new ProgramService();
+
+        try (PreparedStatement ps = connection.prepareStatement(req)) {
+            ps.setString(1, name);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Program program = new Program();
+                    program.setId_p(rs.getInt("id_p"));
+                  //  program.setClient(cs.getClientByName(rs.getString("id_c")));
+                    program.setTitre(rs.getString("titre"));
+                    program.setNiveau(rs.getString("niveau"));
+                    program.setDescription(rs.getString("description"));
+                    program.setPrix(rs.getInt("prix"));
+
+                    return program;
+                }
+            }
+        }
+
+        // Return null or throw an exception if the category is not found
+        return null; // You can choose a suitable default value
+    }
     }
 
 

@@ -14,9 +14,13 @@ import tn.esprit.guiapplication.services.ClientService;
 import tn.esprit.guiapplication.services.ProgramService;
 import tn.esprit.guiapplication.test.HelloApplication;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Properties;
 
 public class Ajouterprogram {
 
@@ -25,7 +29,7 @@ public class Ajouterprogram {
     private TextField descriptionTF;
 
     @FXML
-    private TextField id_cTF;
+    private TextField nom;
 
     @FXML
     private TextField niveauTF;
@@ -38,20 +42,20 @@ public class Ajouterprogram {
 
 
     @FXML
-    void ajouterProgram(ActionEvent event) {
+    void ajouterProgram(ActionEvent event) throws SQLException {
         ProgramService po = new ProgramService();
         Program ps = new Program();
         ClientService cs =new ClientService();
         Client c=new Client();
-        c=cs.getClientById(Integer.parseInt(id_cTF.getText()));
+        c=cs.getClientByName(nom.getText());
         ps.setTitre(titreTF.getText());
         ps.setNiveau(niveauTF.getText());
         ps.setDescription(descriptionTF.getText());
         ps.setPrix(Integer.parseInt(prixTF.getText()));
         ps.setClient(c);
-        ps.setId_p(Integer.parseInt(id_cTF.getText()));
         try {
             po.ajouter(ps);
+            envoyer(nom.getText(), titreTF.getText(), niveauTF.getText(), descriptionTF.getText(), prixTF.getText());
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION) ;
             alert.setTitle("Success");
             alert.setContentText("program ajoutée");
@@ -62,6 +66,7 @@ public class Ajouterprogram {
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
+
     }
 
     public void afficherProgram(ActionEvent actionEvent) {
@@ -82,6 +87,40 @@ public class Ajouterprogram {
             System.err.println(e.getMessage());
         }
 
+    }
+    public void envoyer(String a , String b, String c, String d , String f ) {
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        props.put("mail.smtp.ssl.ciphersuites", "TLS_AES_256_GCM_SHA384");
+        props.put("mail.smtp.socketFactory.port","465");
+        props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("salim.mahdi@esprit.tn", "msty jcvl nxpz zfci");
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("salim.mahdi@esprit.tn"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("salim.mahdi@esprit.tn"));
+            message.setSubject("welcome to gestion de coaching");
+            message.setText("Nom: " + a  + " Titre: " + b + " Niveau: " + c + " Description: " + d + " Prix: " + f);
+
+            // Enable debugging
+            session.setDebug(true);
+
+            Transport.send(message);
+            System.out.println("Message envoyé avec succès");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 

@@ -5,7 +5,7 @@ import java.util.List;
 public interface IService<T> {
     void ajouter(T t) throws SQLException;
     void modifier (T t) throws SQLException;
-    void supprimer(int id_c) throws SQLException;
+    void supprimer(String id_c) throws SQLException;
 
     List<T> recuperer() throws SQLException;
    List<T> getAll() throws SQLException;

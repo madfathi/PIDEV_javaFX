@@ -92,12 +92,12 @@ public class Program {
 
     public String toString() {
         return "Program{" +
-                "id_p=" + id_p +
-                ", titre='" + titre + '\'' +
+                "titre='" + titre + '\'' +
+                ", client=" + client +
                 ", niveau='" + niveau + '\'' +
                 ", description='" + description + '\'' +
                 ", prix=" + prix +
-                ", client=" + client + // Assuming client has a toString() method or you want to display its ID or name
+                // Assuming client has a toString() method or you want to display its ID or name
                 '}';
     }
 
