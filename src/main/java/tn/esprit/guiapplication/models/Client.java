@@ -6,22 +6,26 @@ public class Client {
     private  int poids;
     private  String nom;
     private  String prenom;
+    private int hauteur;
 
-    public Client(int age, int poids, String nom, String prenom) {
+    public Client(int age, int poids, int hauteur, String nom, String prenom) {
         this.age = age;
         this.poids = poids;
+        this.hauteur = hauteur;
         this.nom = nom;
         this.prenom = prenom;
+
     }
 
     public Client() {
 
     }
 
-    public Client(int id_c, int age, int poids, String nom, String prenom) {
+    public Client(int id_c, int age, int poids, int hauteur, String nom, String prenom) {
         this.id_c = id_c;
         this.age = age;
         this.poids = poids;
+        this.hauteur = hauteur;
         this.nom = nom;
         this.prenom = prenom;
     }
@@ -50,6 +54,10 @@ public class Client {
         this.poids = poids;
     }
 
+    public  int getHauteur() {return hauteur; }
+
+    public void setHauteur(int hauteur) {this.hauteur = hauteur;}
+
     public String getNom() {
         return nom;
     }
@@ -73,6 +81,7 @@ public class Client {
                 ", prenom='" + prenom +
                 ", age=" + age +
                 ", poids=" + poids +
+                ", hauteur='" + hauteur +
 
                 '}';
     }

@@ -36,6 +36,8 @@ public class Afficherclient {
 
     @FXML
     private TextField poidsTFm;
+    @FXML
+    private TextField hauteurTFm;
 
     @FXML
     private TextField prenomTFm;
@@ -133,6 +135,7 @@ public class Afficherclient {
                prenomTFm.setText(selectedClient.getPrenom());
                ageTFm.setText(String.valueOf(selectedClient.getAge()));
                poidsTFm.setText(String.valueOf(selectedClient.getPoids()));
+               hauteurTFm.setText(String.valueOf(selectedClient.getHauteur()));
            }
        });
 
@@ -253,6 +256,7 @@ public void modifierClient(ActionEvent event) {
         selectedClient.setPrenom(prenomTFm.getText());
         selectedClient.setAge(Integer.parseInt(ageTFm.getText()));
         selectedClient.setPoids(Integer.parseInt(poidsTFm.getText()));
+        selectedClient.setHauteur(Integer.parseInt(hauteurTFm.getText()));
 
         try {
             // Print debug information
@@ -364,6 +368,7 @@ public void trouverClient(ActionEvent actionEvent) {
         prenomTFm.setText(clientTrouvee.getPrenom());
         ageTFm.setText(String.valueOf(clientTrouvee.getAge()));
         poidsTFm.setText(String.valueOf(clientTrouvee.getPoids()));
+        hauteurTFm.setText(String.valueOf(clientTrouvee.getHauteur()));
     } else {
         System.out.println("Aucun client trouvé avec le nom : " + nomClient);
     }
@@ -383,6 +388,7 @@ public void trouverClient(ActionEvent actionEvent) {
         prenomTFm.clear();
         ageTFm.clear();
         poidsTFm.clear();
+        hauteurTFm.clear();
     }
 }
 

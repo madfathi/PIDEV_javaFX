@@ -28,7 +28,9 @@ public class ClientCell extends ListCell<Client> {
                         sb.append("Nom: ").append(client.getNom()).append("\n")
                         .append("Prénom: ").append(client.getPrenom()).append("\n")
                         .append("Age: ").append(client.getAge()).append("\n")
-                        .append("Poids: ").append(client.getPoids());
+                        .append("Poids: ").append(client.getPoids()).append("\n")
+                        .append("Hauteur: ").append(client.getHauteur());
+
 
                 // Définition du texte du label
                 label.setText(sb.toString());

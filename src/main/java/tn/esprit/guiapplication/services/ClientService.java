@@ -29,6 +29,7 @@ public class ClientService implements IService<Client>{
                 client.setPrenom(rs.getString("prenom"));
                 client.setAge(rs.getInt("age"));
                 client.setPoids(rs.getInt("poids"));
+                client.setHauteur(rs.getInt("hauteur"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,7 +65,7 @@ public Client getClientById(int id){
 
 */
   public void ajouter(Client client) throws SQLException {
-    String req =" INSERT INTO client (nom,prenom,age,poids) VALUES ('"+client.getNom()+"' , '"+client.getPrenom()+"','"+client.getAge()+"',"+client.getPoids()+")";
+    String req =" INSERT INTO client (nom,prenom,age,poids,hauteur) VALUES ('"+client.getNom()+"' , '"+client.getPrenom()+"','"+client.getAge()+"','"+client.getPoids()+"','"+client.getHauteur()+"')";
       Statement st =connection.createStatement();
       st.executeUpdate(req);
     }
@@ -83,7 +84,7 @@ public Client getClientById(int id){
     }*/
     @Override
     public void modifier(Client client) throws SQLException {
-        String req = "UPDATE client SET nom = ?, prenom = ? , age = ? , poids = ? WHERE id_c = ? "  ;
+        String req = "UPDATE client SET nom = ?, prenom = ? , age = ? , poids = ? , hauteur = ? WHERE id_c = ? "  ;
 
         try {
             connection.setAutoCommit(false);
@@ -93,7 +94,8 @@ public Client getClientById(int id){
                 ps.setString(2, client.getPrenom());
                 ps.setInt(3, client.getAge());
                 ps.setInt(4, client.getPoids());
-                ps.setInt(5, client.getId_c());
+                ps.setInt(5, client.getHauteur());
+                ps.setInt(6, client.getId_c());
                 int rowsAffected = ps.executeUpdate();
                 System.out.println(rowsAffected + " row(s) affected.");
             }
@@ -130,6 +132,7 @@ public Client getClientById(int id){
                 c.setPrenom(res.getString("prenom"));
                 c.setAge(res.getInt("age"));
                 c.setPoids(res.getInt("poids"));
+                c.setHauteur(res.getInt("hauteur"));
                 L.add(c);
                 System.out.println(c);
             }
@@ -160,6 +163,7 @@ public Client getClientById(int id){
         client.setId_c(rs.getInt("id_c"));
         client.setAge(rs.getInt("age"));
         client.setPoids(rs.getInt("poids"));
+        client.setHauteur(rs.getInt("hauteur"));
         client.setNom(rs.getString("nom"));
         client.setPrenom(rs.getString("prenom"));
 
