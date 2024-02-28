@@ -34,7 +34,6 @@ public class Ajouterclient {
     private Label BMR;
 
 
-
     @FXML
     void afficherClient(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Afficherclient.fxml"));
@@ -254,8 +253,17 @@ public class Ajouterclient {
         alert.showAndWait();
     }
 
+    @FXML
+    public void ajouterProgram(ActionEvent actionEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Ajouterprogram.fxml"));
+        try {
+            ageTF.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
 
     }
+}
 
 
 
