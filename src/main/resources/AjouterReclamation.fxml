@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AjouterReclamationController">
+    <children>
+        <AnchorPane id="AnchorPane" layoutX="3.0" layoutY="-1.0" prefHeight="620.0" prefWidth="1200.0" styleClass="right-bar">
+            <children>
+                <Text id="h" fill="#878787" layoutX="460.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faire une réclamation">
+                </Text>
+                <TextArea fx:id="fxprenom_d" layoutX="325.0" layoutY="244.0" opacity="0.51" prefHeight="40.0" prefWidth="238.0">
+                    <styleClass>
+                        <String fx:value="text-fieldform" />
+                        <String fx:value="date-picker" />
+                    </styleClass></TextArea>
+                <Button fx:id="retour" layoutX="463.0" layoutY="530.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="190.0" style="-fx-background-color: transparent;" text="Retour">
+                    <graphic>
+                        <ImageView fitHeight="57.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Photos/retour.jpg" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="Cambria" size="14.0" />
+                    </font></Button>
+                <Label layoutX="149.0" layoutY="124.0" prefHeight="7.0" prefWidth="157.0" text="Reference ">
+                    <font>
+                        <Font name="Cambria" size="17.0" />
+                    </font></Label>
+                <Label layoutX="149.0" layoutY="190.0" prefHeight="26.0" prefWidth="169.0" text="Nom demandeur">
+                    </Label>
+                <TextArea fx:id="fxnom_d" layoutX="325.0" layoutY="176.0" opacity="0.51" prefHeight="40.0" prefWidth="238.0">
+                    <styleClass>
+                        <String fx:value="date-picker" />
+                        <String fx:value="text-fieldform" />
+                    </styleClass></TextArea>
+                <Label layoutX="149.0" layoutY="326.0" prefHeight="26.0" prefWidth="150.0" text="CIN">
+                    <font>
+                        <Font name="Cambria" size="17.0" />
+                    </font></Label>
+                <Label layoutX="711.0" layoutY="124.0" prefHeight="22.0" prefWidth="109.0" text="Commentaire">
+                    <font>
+                        <Font name="Cambria" size="17.0" />
+                    </font></Label>
+                <Label layoutX="149.0" layoutY="477.0" prefHeight="22.0" prefWidth="109.0" text="N° Tel">
+                    <font>
+                        <Font name="Cambria" size="17.0" />
+                    </font></Label>
+                <TextArea fx:id="fxcin" layoutX="325.0" layoutY="311.0" opacity="0.51" prefHeight="39.0" prefWidth="238.0">
+                    <styleClass>
+                        <String fx:value="date-picker" />
+                        <String fx:value="text-fieldform" />
+                    </styleClass></TextArea>
+                <TextArea fx:id="fxcommentaire" layoutX="851.0" layoutY="108.0" opacity="0.51" prefHeight="39.0" prefWidth="238.0">
+                    <styleClass>
+                        <String fx:value="date-picker" />
+                        <String fx:value="text-fieldform" />
+                    </styleClass></TextArea>
+                <TextArea fx:id="fxtel" layoutX="325.0" layoutY="459.0" opacity="0.51" prefHeight="39.0" prefWidth="238.0">
+                    <styleClass>
+                        <String fx:value="text-fieldform" />
+                        <String fx:value="date-picker" />
+                    </styleClass></TextArea>
+                <ButtonBar layoutX="217.0" layoutY="542.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: transparent;">
+               <buttons>
+                      <Button fx:id="ajout" mnemonicParsing="false" prefHeight="65.0" prefWidth="224.0" style="-fx-background-color: transparent;" text="Ajouter">
+                          <graphic>
+                              <ImageView fitHeight="60.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                      <Image url="@Photos/ajouter.jpg" />
+                                  </image>
+                              </ImageView>
+                          </graphic>
+                  </Button>
+               </buttons></ButtonBar>
+                <Label layoutX="149.0" layoutY="396.0" prefHeight="22.0" prefWidth="109.0" text="E-mail">
+                    </Label>
+                <TextArea fx:id="fxemail" layoutX="325.0" layoutY="381.0" opacity="0.51" prefHeight="39.0" prefWidth="238.0">
+                    <styleClass>
+                        <String fx:value="date-picker" />
+                        <String fx:value="text-fieldform" />
+                    </styleClass></TextArea>
+                <Label layoutX="149.0" layoutY="259.0" prefHeight="22.0" prefWidth="170.0" text="Prenom demandeur">
+                    </Label>
+                <Label fx:id="fxreference" layoutX="325.0" layoutY="108.0" prefHeight="51.0" prefWidth="238.0">
+                    <styleClass>
+                        <String fx:value="text-fieldform" />
+                        <String fx:value="date-picker" />
+                    </styleClass></Label>
+            </children>
+        </AnchorPane>
+    </children>
+
+</AnchorPane>

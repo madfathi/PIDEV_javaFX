@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane fx:id="pageFront" prefHeight="694.0" prefWidth="1168.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontProduitController">
+   <children>
+      <ComboBox fx:id="ComboProduitC" layoutX="556.0" layoutY="26.0" onAction="#filtrerProduit" prefHeight="25.0" prefWidth="114.0" promptText="Catégories" />
+      <ImageView fitHeight="427.0" fitWidth="298.0" layoutX="-18.0" layoutY="-110.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Photos/powerfit-logo-web-large-400x93.png" />
+         </image>
+      </ImageView>
+      <ListView fx:id="listView" layoutX="274.0" layoutY="131.0" prefHeight="563.0" prefWidth="894.0" />
+      <TextField layoutX="289.0" layoutY="23.0" prefHeight="31.0" prefWidth="254.0" promptText="Rechercher" />
+      <Line endX="114.8309326171875" layoutX="124.0" layoutY="81.0" startX="-100.0" stroke="#ffa01a" />
+      <Button fx:id="recla" layoutX="89.0" layoutY="540.0" mnemonicParsing="false" onAction="#AjouterReclamation" prefHeight="46.0" prefWidth="122.0" text="Reclamer" />
+      <Button fx:id="chat" layoutX="79.0" layoutY="281.0" mnemonicParsing="false" onAction="#sendchatproduit" prefHeight="46.0" prefWidth="122.0" text="Chat" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="550.0" prefWidth="823.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ListViewTest">
+   <children>
+      <ListView fx:id="idCol" layoutX="14.0" layoutY="94.0" onMouseClicked="#row" prefHeight="212.0" prefWidth="108.0" />
+      <ListView fx:id="nomCol" layoutX="122.0" layoutY="94.0" prefHeight="212.0" prefWidth="108.0" />
+      <ListView fx:id="quantiteCol" layoutX="230.0" layoutY="94.0" prefHeight="212.0" prefWidth="108.0" />
+      <ListView fx:id="prixCol" layoutX="338.0" layoutY="93.0" prefHeight="212.0" prefWidth="108.0" />
+      <ListView fx:id="imageCol" layoutX="446.0" layoutY="92.0" prefHeight="212.0" prefWidth="183.0" />
+      <Button layoutX="559.0" layoutY="304.0" mnemonicParsing="false" onAction="#AfficherProduit" prefHeight="26.0" prefWidth="71.0" text="Afficher" />
+      <Label layoutX="35.0" layoutY="61.0" prefHeight="18.0" prefWidth="93.0" text="id produit" />
+      <Label layoutX="129.0" layoutY="61.0" prefHeight="18.0" prefWidth="93.0" text="nom du produit" />
+      <Label layoutX="259.0" layoutY="61.0" prefHeight="18.0" prefWidth="50.0" text="quantite" />
+      <Label layoutX="382.0" layoutY="61.0" prefHeight="18.0" prefWidth="20.0" text="prix" />
+      <Label layoutX="494.0" layoutY="61.0" prefHeight="18.0" prefWidth="93.0" text="image associé" />
+      <Button fx:id="modifybutton" layoutX="436.0" layoutY="476.0" mnemonicParsing="false" onAction="#modifier" text="Modifier" />
+      <TextField fx:id="idp" layoutX="101.0" layoutY="345.0" />
+      <TextField fx:id="pp" layoutX="101.0" layoutY="485.0" />
+      <TextField fx:id="np" layoutX="101.0" layoutY="390.0" />
+      <TextField fx:id="imagep" layoutX="392.0" layoutY="416.0" />
+      <TextField fx:id="qp" layoutX="101.0" layoutY="441.0" />
+      <Label layoutX="14.0" layoutY="347.0" prefHeight="18.0" prefWidth="93.0" text="id produit" />
+      <Label layoutX="-1.0" layoutY="394.0" prefHeight="18.0" prefWidth="93.0" text="nom du produit" />
+      <Label layoutX="21.0" layoutY="444.0" prefHeight="18.0" prefWidth="50.0" text="quantite" />
+      <Label layoutX="25.0" layoutY="489.0" prefHeight="18.0" prefWidth="20.0" text="prix" />
+      <Label layoutX="284.0" layoutY="419.0" prefHeight="18.0" prefWidth="93.0" text="image associé" />
+      <Hyperlink layoutX="14.0" layoutY="3.0" onAction="#backProduit" text="Retour" />
+      <Button fx:id="supprimer" layoutX="737.0" layoutY="216.0" mnemonicParsing="false" onAction="#supprimerProduit" text="Supprimer" />
+      <TextField fx:id="supprimertf" layoutX="631.0" layoutY="216.0" prefHeight="26.0" prefWidth="94.0" />
+   </children>
+</AnchorPane>
