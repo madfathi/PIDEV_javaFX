@@ -85,7 +85,7 @@ public void add(ActionEvent actionEvent){
           alert=new Alert(Alert.AlertType.INFORMATION);
           alert.setTitle("messsage ");
           alert.setHeaderText(null);
-          alert.setContentText("jawek behi");
+          alert.setContentText("succes");
           alert.showAndWait();
 
       } catch (SQLException e) {

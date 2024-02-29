@@ -130,7 +130,7 @@ private commande co;
     }
     public void generateQrCode(ActionEvent actionEvent) throws SQLException {
 
-       String sql= "SELECT *FROM commande WHERE idc= 39";
+       String sql= "SELECT *FROM commande WHERE idc= 50";
         ObservableList<commande> qrcode= FXCollections.observableArrayList();
 
         PreparedStatement prepare = null;

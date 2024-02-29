@@ -89,8 +89,8 @@ public String img;
 
         }
     }
-    @FXML
-    void modifierpanier(ActionEvent event) {
+
+    /*void modifierpanier(ActionEvent event) {
        int qantite = Integer.parseInt(qua.getText());
         int prixx = Integer.parseInt(prix.getText());
         panier p = new panier(idp,qantite,nomp,img,prixx,"");
@@ -105,7 +105,7 @@ public String img;
         a.setContentText("Cateygorie Modifiée");
         a.showAndWait();
         initialize();
-    }
+    }*/
     @FXML
     void back(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/applictiongui/back.fxml"));
@@ -205,14 +205,14 @@ public String img;
         // Add a listener on the text property of the search field to update the predicate of the FilteredList
         rer.textProperty().addListener((observable, oldValue, searchText) -> {
             // Update the predicate based on the search text
-            filter.setPredicate(commande -> {
+            filter.setPredicate(panier -> {
                 if (searchText == null || searchText.isEmpty()) {
                     return true; // Show all items when the filter text is empty.
                 }
 
                 String lowerCaseFilter = searchText.toLowerCase();
 
-                if (commande.getNomp().toLowerCase().contains(lowerCaseFilter)) {
+                if (panier.getNomp().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Filter matches nom.
                 }
 

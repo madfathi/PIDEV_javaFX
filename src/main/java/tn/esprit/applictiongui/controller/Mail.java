@@ -45,7 +45,7 @@ public class Mail extends Application{
         String subject = subjectField.getText();
         String mmessage = messageArea.getText();
         String username = "khaled.tebourbi69@gmail.com";
-        String password = "aqwxszAZS123";
+        String password = "";
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
