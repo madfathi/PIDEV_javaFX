@@ -169,8 +169,7 @@
                <stylesheets>
                   <URL value="@../../../../../assets/style/nabilStyle.css" />
                   <URL value="@../../../../../assets/style/aliStyle.css" />
-                  <URL value="@../../../../../out/assets/style/nabilStyle.css" />
-                  <URL value="@../../../../../out/assets/style/aliStyle.css" />
+
                </stylesheets>
                <font>
                   <Font size="17.0" />

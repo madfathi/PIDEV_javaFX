@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
+import java.util.*;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -13,13 +13,18 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
+import tn.esprit.guiapplicatio.Cellule.resevationcell;
 import tn.esprit.guiapplicatio.models.Reservation;
 
 import javax.mail.*;
@@ -38,8 +43,6 @@ import tn.esprit.guiapplicatio.models.Seance;
 import tn.esprit.guiapplicatio.services.SeanceService;
 import tn.esprit.guiapplicatio.services.ReservationService;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
@@ -58,9 +61,14 @@ import javax.management.Notification;
 public class Reservat {
     @FXML
     private ComboBox<Integer> combooo;
+
+    @FXML
+    private TextField re;
     private final ReservationService ps = new ReservationService();
     @FXML
     private TableColumn<tn.esprit.guiapplicatio.models.Seance,String> usr;
+    @FXML
+    private ListView<Reservation> rese;
 
     @FXML
     private TableColumn<tn.esprit.guiapplicatio.models.Seance,String> ema;
@@ -115,8 +123,7 @@ public class Reservat {
 
     @FXML
     private ListView<String> idse;
-
-
+    Connection connection=MyDatabase.getInstance().getConnection();
     @FXML
     private TextField us;
 
@@ -207,6 +214,37 @@ public class Reservat {
         tableview.getColumns().add(btnCol);
        ObservableList<Reservation> list1 = css.readCategorie();
         tableview.setItems(list1);
+        ReservationService programService = new ReservationService();
+        try {
+            List<Reservation> programs = programService.recuperer();
+            rese.setCellFactory(param -> new resevationcell());
+            ObservableList<Reservation> observableList = FXCollections.observableList(programs);
+            rese.setItems(observableList);
+
+            // Gestionnaire d'événements pour la sélection d'un élément dans la liste
+            rese.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1) { // Vérifie un simple clic
+                    Reservation selectedreservation = rese.getSelectionModel().getSelectedItem();
+                    if (selectedreservation != null) {
+
+                        // Remplir les champs de texte avec les coordonnées du programme sélectionné
+                        is.getSelectionModel().select(selectedreservation.getType_reservation());
+                        us.setText(selectedreservation.getUsername());
+                        em.setText(selectedreservation.getEmail());
+                        ph.setText(String.valueOf(selectedreservation.getPhone()));
+                        ids.setText(String.valueOf(selectedreservation.getId_seance()));
+                        iddr.setText(String.valueOf(selectedreservation.getId_reservation()));
+
+
+
+                    }
+                }
+            });
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+
 
     }
 
@@ -233,50 +271,32 @@ public class Reservat {
 
 
 
-
-
     }
 
     public void suppt(ActionEvent actionEvent) throws SQLException {
 ReservationService s=new ReservationService();
-        Integer selectedId = combooo.getSelectionModel().getSelectedItem();
-        s.supprimer(selectedId);
+       Integer selectedId = combooo.getSelectionModel().getSelectedItem();
+        //s.supprimer(selectedId);
         combooo.getItems().remove(selectedId);
+        ReservationService reservationService = new ReservationService();
+        Reservation reserv = new Reservation();
+        reserv.setId_reservation(Integer.parseInt(iddr.getText()));
+        try {
+            reservationService.supprimer(reserv.getId_reservation());
+            Alert alert =new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Succes");
+            alert.setContentText(" supprimée");
+            alert.showAndWait();
+            initialize();
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+
+        }
 
         //combooo.getSelectionModel().getSelectedItem();
-
-        ObservableList<Reservation> updatedList;
-
-// Initialisation de la liste observable
-        updatedList = FXCollections.observableArrayList();
-
-// Récupération des données depuis SeanceService
-        List<Reservation> seancesList = css.recuperer();
-
-// Ajout des données à la liste observable
-        updatedList.addAll(seancesList);
-        tableview.setItems(updatedList);
-        ObservableList<String> typeSeanceList = updatedList.stream()
-                .map(Reservation::getType_reservation)
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-        ObservableList<String>   usernameSeanceList   = updatedList.stream()
-                .map(Reservation::getUsername)
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-
-        ObservableList<String> emailre = updatedList.stream()
-                .map(r -> String.valueOf(r.getEmail()))
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-        ObservableList<String> pho  = updatedList.stream()
-                .map(r-> String.valueOf(r.getPhone()))
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-        reserv.setItems(typeSeanceList);
-        user.setItems(usernameSeanceList);
-        emai.setItems(emailre);
-        phon.setItems(pho);
 
 
 
@@ -323,6 +343,7 @@ ReservationService s=new ReservationService();
             });
         }
 
+
         // Affiche le bouton uniquement pour les lignes non vides
         @Override
         protected void updateItem(Boolean item, boolean empty) {
@@ -334,6 +355,45 @@ ReservationService s=new ReservationService();
             }
         }
     }
+    @FXML
+    void  rechercheseance(KeyEvent event) {
+
+        FilteredList<Reservation> filter = new FilteredList<>(rese.getItems(), ev -> true);
+
+        // Add a listener on the text property of the search field to update the predicate of the FilteredList
+        re.textProperty().addListener((observable, oldValue, searchText) -> {
+            // Update the predicate based on the search text
+            filter.setPredicate(reservation -> {
+                if (searchText == null || searchText.isEmpty()) {
+                    return true; // Show all items when the filter text is empty.
+                }
+
+                String lowerCaseFilter = searchText.toLowerCase();
+
+                if (reservation.getUsername().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches nom.
+                }
+
+                return false; // Does not match.
+            });
+        });
+
+        // Create a new SortedList and attach it to the FilteredList
+        SortedList<Reservation> sortedList = new SortedList<>(filter);
+
+        // Set the comparator for the sorted list
+        sortedList.setComparator(Comparator.comparing(Reservation::getUsername));
+
+        // Set the items of the ListView to the sorted list
+        rese.setItems(sortedList);
+
+        // Refresh the ListView to update the filtered items
+        rese.refresh();
+
+
+
+    }
+
 
     public void setCombo() {
         List<String> type = new ArrayList<>();
@@ -534,40 +594,10 @@ return;
             System.err.println(e.getMessage());
 
         }
-        ObservableList<Reservation> updatedList;
-
-// Initialisation de la liste observable
-        updatedList = FXCollections.observableArrayList();
-
-// Récupération des données depuis SeanceService
-        List<Reservation> seancesList = css.recuperer();
-
-// Ajout des données à la liste observable
-        updatedList.addAll(seancesList);
-        tableview.setItems(updatedList);
-        ObservableList<String> typeSeanceList = updatedList.stream()
-                .map(Reservation::getType_reservation)
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-        ObservableList<String>   usernameSeanceList   = updatedList.stream()
-                .map(Reservation::getUsername)
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
 
 
-        ObservableList<String> emailre = updatedList.stream()
-                .map(s -> String.valueOf(s.getEmail()))
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
 
-        ObservableList<String> pho  = updatedList.stream()
-                .map(s -> String.valueOf(s.getPhone()))
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-        reserv.setItems(typeSeanceList);
-        user.setItems(usernameSeanceList);
-        emai.setItems(emailre);
-        phon.setItems(pho);
-
-
+initialize();
 
 
 /*
@@ -578,33 +608,7 @@ return;
         a.showAndWait();*/
 
 
-        idr.setCellValueFactory(new PropertyValueFactory<>("id_reservation"));
-        typ.setCellValueFactory(new PropertyValueFactory<>("type_reservation"));
-        usr.setCellValueFactory(new PropertyValueFactory<>("username"));
-        ema.setCellValueFactory(new PropertyValueFactory<>("email"));
-      //  pho.setCellValueFactory(new PropertyValueFactory<>("phone"));
-       /* ca.setCellFactory(column -> new TableCell<Seance, String>() {
-            private final ImageView imageView = new ImageView();
 
-            @Override
-            protected void updateItem(String imagePath, boolean empty) {
-                super.updateItem(imagePath, empty);
-
-                if (empty || imagePath == null) {
-                    setGraphic(null);
-                } else {
-                    // Charger et afficher l'image
-                    Image image = new Image("file:///" + uploads + imagePath);
-                    imageView.setImage(image);
-                    imageView.setFitWidth(120); // Réglez la largeur de l'image selon vos besoins
-                    imageView.setFitHeight(100); // Réglez la hauteur de l'image selon vos besoins
-                    setGraphic(imageView);
-                }
-            }
-        });
-        ca.setCellValueFactory(new PropertyValueFactory<>("categorie"));*/
-        ObservableList<Reservation> list1 = css.readCategorie();
-        tableview.setItems(list1);
     }
   /*  public void setValue(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
         Reservation selected = tableview.getSelectionModel().getSelectedItem();
@@ -669,7 +673,7 @@ return;
 
 
     public void modii(ActionEvent actionEvent) throws SQLException {
-        ObservableList<Reservation> updatedList;
+       ObservableList<Reservation> updatedList;
         updatedList = FXCollections.observableArrayList();
 
 // Récupération des données depuis SeanceService
@@ -678,10 +682,10 @@ return;
 // Ajout des données à la liste observable
         updatedList.addAll(seancesListe);
 
-        /*ObservableList<Reservation> currentTableData = tableview.getItems();
-        int currentAnimalId = Integer.parseInt(iddr.getText());*/
-        int currentAnimalId = Integer.parseInt(id_r1.getText());
+
+        int currentAnimalId = Integer.parseInt(iddr.getText());
         String username = us.getText();
+        System.out.println(username);
         String cat = is.getSelectionModel().getSelectedItem();
         int id_seancee=0 ;
         String query = "SELECT id_seance FROM seance WHERE type_seance = ?";
@@ -783,38 +787,7 @@ return;
 
 
 // Initialisation de la liste observable
-            updatedList = FXCollections.observableArrayList();
 
-// Récupération des données depuis SeanceService
-            List<Reservation> seancesList = css.recuperer();
+initialize();
 
-// Ajout des données à la liste observable
-            updatedList.addAll(seancesList);
-            tableview.setItems(updatedList);
-            ObservableList<String> typeSeanceList = updatedList.stream()
-                    .map(Reservation::getType_reservation)
-                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-            ObservableList<String> usernameSeanceList = updatedList.stream()
-                    .map(Reservation::getUsername)
-                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-
-            ObservableList<String> emailre = updatedList.stream()
-                    .map(s -> String.valueOf(s.getEmail()))
-                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-            ObservableList<String> pho = updatedList.stream()
-                    .map(s -> String.valueOf(s.getPhone()))
-                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-            reserv.setItems(typeSeanceList);
-            user.setItems(usernameSeanceList);
-            emai.setItems(emailre);
-            phon.setItems(pho);
-
-
-        }
-
-
-    }
+    }}

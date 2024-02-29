@@ -1,19 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="357.0" prefWidth="762.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplicatio.controllers.Afficherpanier">
    <children>
-      <Button layoutX="630.0" layoutY="257.0" mnemonicParsing="false" onAction="#tridesc" prefHeight="26.0" prefWidth="131.0" text="Tri_DESC" />
-      <Button layoutX="498.0" layoutY="257.0" mnemonicParsing="false" onAction="#triasc" prefHeight="26.0" prefWidth="131.0" text="Tri_ASC" />
-      <Button layoutX="366.0" layoutY="257.0" mnemonicParsing="false" onAction="#supppanier" prefHeight="26.0" prefWidth="131.0" text="SUPPRIMER" />
-      <TextField fx:id="qua" layoutX="1.0" layoutY="257.0" promptText="Quantite" />
-      <TextField fx:id="prix" layoutX="176.0" layoutY="257.0" promptText="Prix_Produit" />
-      <Button layoutX="93.0" layoutY="306.0" mnemonicParsing="false" onAction="#modifierpanier" prefHeight="26.0" prefWidth="131.0" text="Modifier" />
-      <Button layoutX="1.0" layoutY="1.0" mnemonicParsing="false" onAction="#back" text="BACK" />
-      <ListView fx:id="lists" layoutX="5.0" layoutY="47.0" onMouseClicked="#SetValue" prefHeight="200.0" prefWidth="751.0" />
+      <AnchorPane layoutX="236.0" layoutY="139.0" prefHeight="546.0" prefWidth="872.0" styleClass="white-bg" stylesheets="@dashboardDesign.css">
+         <children>
+            <TextField fx:id="rer" layoutX="573.0" layoutY="69.0" onKeyPressed="#recherchecommande" prefHeight="26.0" prefWidth="214.0" />
+            <Button layoutX="641.0" layoutY="422.0" mnemonicParsing="false" onAction="#tridesc" prefHeight="26.0" prefWidth="131.0" stylesheets="@styles.css" text="Tri_DESC" />
+            <Button layoutX="391.0" layoutY="422.0" mnemonicParsing="false" onAction="#triasc" prefHeight="26.0" prefWidth="131.0" stylesheets="@styles.css" text="Tri_ASC" />
+            <Button layoutX="134.0" layoutY="422.0" mnemonicParsing="false" onAction="#supppanier" prefHeight="26.0" prefWidth="131.0" stylesheets="@styles.css" text="SUPPRIMER" />
+            <ListView fx:id="lists" layoutX="73.0" layoutY="118.0" onMouseClicked="#SetValue" prefHeight="286.0" prefWidth="750.0" styleClass="shadow">
+               <stylesheets>
+                  <URL value="@styles.css" />
+                  <URL value="@dashboardDesign.css" />
+               </stylesheets>
+            </ListView>
+         </children>
+      </AnchorPane>
+      <Button layoutX="28.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" stylesheets="@styles.css" text="BACK" />
+      <Label layoutX="489.0" layoutY="168.0" text="GESTION PANIER" textAlignment="CENTER">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="163.0" fitWidth="184.0" layoutX="32.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../zeroWaste-javaFX-main/src/assets/img/avatar.png" />
+         </image>
+      </ImageView>
+      <Line endX="100.0" layoutX="114.0" layoutY="288.0" startX="-100.0" stroke="#1f7321" />
+      <HBox fx:id="dashboardBtn3" alignment="CENTER_LEFT" layoutX="14.0" layoutY="226.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#open_dashboard" prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="dashboardIcon3" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../../zeroWaste-javaFX-main/src/assets/img/menu-active.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="25.0" />
+               </HBox.margin>
+            </ImageView>
+            <Label fx:id="dashboardText3" text="Dashboard" textFill="WHITE">
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="text" />
+                  <String fx:value="activeText" />
+               </styleClass>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+         <styleClass>
+            <String fx:value="nav-links" />
+            <String fx:value="activeLink" />
+         </styleClass>
+         <stylesheets>
+            <URL value="@../../../../java/tn/esprit/guiapplicatio/out/assets/style/aliStyle.css" />
+            <URL value="@../../../../java/tn/esprit/guiapplicatio/out/assets/style/aliStyle.css" />
+            <URL value="@../../../../../out/assets/style/aliStyle.css" />
+         </stylesheets>
+      </HBox>
+      <Button layoutX="8.0" layoutY="338.0" mnemonicParsing="false" onAction="#ge_see" prefHeight="48.0" prefWidth="211.0" text="Gestion Seance">
+         <stylesheets>
+            <URL value="@../../../../../assets/style/aliStyle.css" />
+            <URL value="@../../../../../assets/style/nabilStyle.css" />
+         </stylesheets>
+      </Button>
+      <Button layoutX="6.0" layoutY="410.0" mnemonicParsing="false" onAction="#ge_co" prefHeight="48.0" prefWidth="215.0" text="Gestion Commande">
+         <stylesheets>
+            <URL value="@../../../../../assets/style/aliStyle.css" />
+            <URL value="@../../../../../assets/style/nabilStyle.css" />
+         </stylesheets>
+      </Button>
+      <Button layoutX="6.0" layoutY="481.0" mnemonicParsing="false" onAction="#ge_pe" prefHeight="48.0" prefWidth="215.0" text="Gestion Panier">
+         <stylesheets>
+            <URL value="@../../../../../assets/style/aliStyle.css" />
+            <URL value="@../../../../../assets/style/nabilStyle.css" />
+         </stylesheets>
+      </Button>
+      <Button layoutX="6.0" layoutY="553.0" mnemonicParsing="false" onAction="#ge_us" prefHeight="48.0" prefWidth="215.0" text="Gestion User">
+         <stylesheets>
+            <URL value="@../../../../../assets/style/aliStyle.css" />
+            <URL value="@../../../../../assets/style/nabilStyle.css" />
+         </stylesheets>
+      </Button>
    </children>
 </AnchorPane>

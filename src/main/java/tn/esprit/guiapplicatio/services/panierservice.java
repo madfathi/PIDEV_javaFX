@@ -2,7 +2,7 @@
 
 package tn.esprit.guiapplicatio.services;
 import tn.esprit.guiapplicatio.models.commande;
-import tn.esprit.applictiongui.model.panier;
+import tn.esprit.guiapplicatio.models.panier;
 
 
 import java.sql.*;

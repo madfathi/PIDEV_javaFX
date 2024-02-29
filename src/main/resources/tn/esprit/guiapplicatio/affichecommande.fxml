@@ -44,6 +44,7 @@
                         <Font size="28.0" />
                      </font>
                   </Label>
+                  <TextField fx:id="re" layoutX="642.0" layoutY="22.0" onKeyPressed="#recherchecommande" />
                </children>
                <styleClass>
                   <String fx:value="white-bg" />

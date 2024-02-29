@@ -121,16 +121,27 @@ public class commande {
 
     @Override
     public String toString() {
-        return "commande{" +
-                "idc=" + idc +
-                ", tel=" + tel +
-                ", nom='" + nom + '\'' +
-                ", pre='" + pre + '\'' +
-                ", mail='" + mail + '\'' +
-                ", add='" + addr + '\'' +
-                ", pani='" + pani + '\'' +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("commande :");
+        sb.append("\n");
+        //sb.append("idc=").append(idc);
+        sb.append("\n");
+        sb.append("tel=").append(tel);
+        sb.append("\n");
+        sb.append("nom='").append(nom).append("'");
+        sb.append("\n");
+        sb.append("pre='").append(pre).append("'");
+        sb.append("\n");
+        sb.append("mail='").append(mail).append("'");
+        sb.append("\n");
+        sb.append("add='").append(addr).append("'");
+        sb.append("\n");
+        sb.append("pani='").append(pani).append("'");
+        sb.append("\n");
+        sb.append(":");
+        return sb.toString();
     }
+
 
 
 

@@ -1,34 +1,30 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
+package tn.esprit.guiapplicatio.models;
 
-package tn.esprit.guiapplication.models;
+
 
 public class User {
     private int id;
-    private String nom;
-    private String prenom;
-    private String mdp;
+    private String nom,prenom,adresse,email,mdp;
 
-    public User(int id, String nom, String prenom, String mdp) {
+    public User(){
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
+        this.adresse = adresse;
+        this.email = email;
         this.mdp = mdp;
     }
-
-    public User(String nom, String prenom, String mdp) {
+    public User(int id , String nom , String prenom , String adresse , String email , String mdp){
+        this.id = id;
         this.nom = nom;
         this.prenom = prenom;
+        this.adresse = adresse;
+        this.email = email;
         this.mdp = mdp;
-    }
-
-    public User() {
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(int id) {
@@ -36,7 +32,7 @@ public class User {
     }
 
     public String getNom() {
-        return this.nom;
+        return nom;
     }
 
     public void setNom(String nom) {
@@ -44,22 +40,50 @@ public class User {
     }
 
     public String getPrenom() {
-        return this.prenom;
+        return prenom;
     }
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
 
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getMdp() {
-        return this.mdp;
+        return mdp;
     }
 
     public void setMdp(String mdp) {
         this.mdp = mdp;
     }
 
+    @Override
     public String toString() {
-        return "User{id=" + this.id + ", nom=" + this.nom + ", prenom=" + this.prenom + ", mdp=" + this.mdp + "}";
+        return "User{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", adresse='" + adresse + '\'' +
+                ", email='" + email + '\'' +
+                ", mdp='" + mdp + '\'' +
+                '}';
     }
+
 }
+
+
+

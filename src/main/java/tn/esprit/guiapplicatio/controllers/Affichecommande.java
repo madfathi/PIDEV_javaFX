@@ -26,11 +26,14 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Affichecommande {
     @FXML
     private ListView<commande> listview;
+    @FXML
+    private TextField re;
 
     @FXML
     private TextField ID_c;
@@ -149,6 +152,45 @@ public String nom,pre,mail,addr,pani;
         this.pani = pani;
     }
 
+
+    @FXML
+    void recherchecommande(KeyEvent event) {
+// Create a new FilteredList with the original list as the source
+        FilteredList<commande> filter = new FilteredList<>(listview.getItems(), ev -> true);
+
+        // Add a listener on the text property of the search field to update the predicate of the FilteredList
+        re.textProperty().addListener((observable, oldValue, searchText) -> {
+            // Update the predicate based on the search text
+            filter.setPredicate(commande -> {
+                if (searchText == null || searchText.isEmpty()) {
+                    return true; // Show all items when the filter text is empty.
+                }
+
+                String lowerCaseFilter = searchText.toLowerCase();
+
+                if (commande.getNom().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches nom.
+                }
+
+                return false; // Does not match.
+            });
+        });
+
+        // Create a new SortedList and attach it to the FilteredList
+        SortedList<commande> sortedList = new SortedList<>(filter);
+
+        // Set the comparator for the sorted list
+        sortedList.setComparator(Comparator.comparing(commande::getNom));
+
+        // Set the items of the ListView to the sorted list
+        listview.setItems(sortedList);
+
+        // Refresh the ListView to update the filtered items
+        listview.refresh();
+
+
+
+    }
 
     public void SetValue(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
         commande selected =listview.getSelectionModel().getSelectedItem();

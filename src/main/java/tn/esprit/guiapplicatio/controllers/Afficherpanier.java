@@ -1,29 +1,35 @@
 package tn.esprit.guiapplicatio.controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import tn.esprit.guiapplicatio.models.commande;
-import tn.esprit.applictiongui.model.panier;
+import tn.esprit.guiapplicatio.models.panier;
 import tn.esprit.guiapplicatio.services.commandeservice;
 import tn.esprit.guiapplicatio.services.panierservice;
 import tn.esprit.guiapplicatio.test.HelloApplication;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.List;
 
 public class Afficherpanier {
     @FXML
     private ListView<panier> lists;
+    @FXML
+    private TextField rer;
 
     ObservableList<panier> list = FXCollections.observableArrayList();
-    private final panierservice cs =new panierservice();
-    private panierservice css =new panierservice();
+    private final panierservice cs = new panierservice();
+    private panierservice css = new panierservice();
     @FXML
     private TextField prix;
 
@@ -48,26 +54,33 @@ public class Afficherpanier {
     @FXML
     private TableColumn<?, ?> tabq;
     public int idp;
-public String nomp;
-public String img;
-    public String getImg(){
+    public String nomp;
+    public String img;
+
+    public String getImg() {
         return img;
     }
+
     public void setImg(String img) {
         this.img = img;
     }
-    public String getNomp(){
+
+    public String getNomp() {
         return nomp;
     }
-    public int getIdp(){
+
+    public int getIdp() {
         return idp;
     }
+
     public void setNomp(String nomp) {
         this.nomp = nomp;
     }
+
     public void setIdp(int id) {
         this.idp = id;
     }
+
     public void SetValue(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
         panier selected = lists.getSelectionModel().getSelectedItem();
 
@@ -80,14 +93,15 @@ public String img;
             img = selected.getImg();
 
 
-
         }
     }
+
+
     @FXML
     void modifierpanier(ActionEvent event) {
-       int qantite = Integer.parseInt(qua.getText());
+        int qantite = Integer.parseInt(qua.getText());
         int prixx = Integer.parseInt(prix.getText());
-        panier p = new panier(idp,qantite,nomp,img,prixx,"");
+        panier p = new panier(idp, qantite, nomp, img, prixx, "");
         try {
             css.modifier(p);
         } catch (SQLException e) {
@@ -100,6 +114,7 @@ public String img;
         a.showAndWait();
         initialize();
     }
+
     @FXML
     void back(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/applictiongui/back.fxml"));
@@ -110,11 +125,11 @@ public String img;
         }
 
     }
+
     @FXML
     void supppanier(ActionEvent event) {
-        panier selected=lists.getSelectionModel().getSelectedItem();
-        if(selected!=null)
-        {
+        panier selected = lists.getSelectionModel().getSelectedItem();
+        if (selected != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Voulez-Vous Supprimer cet panier?");
             alert.setContentText("Supprimer?");
@@ -133,7 +148,6 @@ public String img;
                 } else if (type == noButton) {
 
                     initialize();
-
 
 
                 } else {
@@ -178,17 +192,80 @@ public String img;
 
     @FXML
     void initialize() {
-        panierservice pa=new panierservice();
+        panierservice pa = new panierservice();
         try {
-            List<panier> co=pa.recuperer();
-            ObservableList<panier> ob= FXCollections.observableList(co);
-
+            List<panier> co = pa.recuperer();
+            ObservableList<panier> ob = FXCollections.observableList(co);
 
 
             lists.setItems(ob);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+    }
+
+    @FXML
+    void recherchecommande(KeyEvent event) {
+        FilteredList<panier> filter = new FilteredList<>(lists.getItems(), ev -> true);
+
+        // Add a listener on the text property of the search field to update the predicate of the FilteredList
+        rer.textProperty().addListener((observable, oldValue, searchText) -> {
+            // Update the predicate based on the search text
+            filter.setPredicate(panier -> {
+                if (searchText == null || searchText.isEmpty()) {
+                    return true; // Show all items when the filter text is empty.
+                }
+
+                String lowerCaseFilter = searchText.toLowerCase();
+
+                if (panier.getNomp().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches nom.
+                }
+
+                return false; // Does not match.
+            });
+        });
+
+        // Create a new SortedList and attach it to the FilteredList
+        SortedList<panier> sortedList = new SortedList<>(filter);
+
+        // Set the comparator for the sorted list
+        sortedList.setComparator(Comparator.comparing(panier::getNomp));
+
+        // Set the items of the ListView to the sorted list
+        lists.setItems(sortedList);
+
+        // Refresh the ListView to update the filtered items
+        lists.refresh();
+
+    }
+
+    public void open_dashboard(MouseEvent mouseEvent) {
+    }
+
+    public void ge_co(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Affichecommande.fxml"));
+        lists.getScene().setRoot(fxmlLoader.load());
+
+    }
+
+    public void ge_pe(ActionEvent actionEvent) throws IOException {
+      /*  FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/commande.fxml"));
+        lists.getScene().setRoot(fxmlLoader.load());*/
+
+    }
+
+    public void ge_us(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/AfficherUsers.fxml"));
+        lists.getScene().setRoot(fxmlLoader.load());
+
+    }
+
+    public void ge_see(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/AjoSeance.fxml"));
+        lists.getScene().setRoot(fxmlLoader.load());
 
     }
 }

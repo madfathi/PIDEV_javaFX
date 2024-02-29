@@ -83,6 +83,8 @@ public class AjoSeance {
     @FXML
     private TextField searchField;
     @FXML
+    private PieChart stat;
+    @FXML
     private ListView<String> ides;
     @FXML
     private Label erreurLabel;
@@ -730,81 +732,12 @@ SeanceService SeanceService=new SeanceService();
 
     @FXML
     void initialize() throws SQLException {
-      /*  ides.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                int selectedIndex = ides.getSelectionModel().getSelectedIndex();
-                updateListView(selectedIndex, newValue);
-            }
-        });*/
-    /*    ObservableList<String> daa = FXCollections.observableArrayList();
-        if(j==0)
-        {
+       // addToPieChartData(pieChartData, repas.getType());
 
-
-            for (Seance s : seances) {
-                dure.add(s.getDuree_seance());
-                daa.add(String.valueOf(s.getDate_fin()));
-
-            }
-            date.setItems(daa);
-
-            for (int i = 0; i < dure.size(); i++) {
-
-                String dat = date.getItems().get(i);
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate date = LocalDate.parse(dat, formatter);
-                LocalDate currentDate = LocalDate.now();
-                LocalDateTime currentDateTime = LocalDateTime.of(currentDate, LocalTime.now());
-                LocalDateTime selectedDateTime = LocalDateTime.of(date, LocalTime.MIDNIGHT);
-                java.time.Duration duration = java.time.Duration.between(currentDateTime, selectedDateTime);
-
-                long days = duration.toDays();
-                long hours = duration.toHours() % 24;
-                long minutes = duration.toMinutes() % 60;
-                long seconds = duration.getSeconds() % 60;
-
-                String formattedDuration = String.format("%d jours, %d heures, %d minutes, %d secondes", days, hours, minutes, seconds);
-                dure.set(i,formattedDuration);
-                String ty = typeco.getItems().get(i);
-                String duu = dureeco.getItems().get(i);
-                String nbc = nbco.getItems().get(i);
-                String ca = categorieco.getItems().get(i);
-                String idco = idsf.getItems().get(i);
-                seance.setDuree_seance(duu);
-                seance.setType_seance(ty);
-                seance.setCategorie(ca);
-                int nbm = Integer.parseInt(nbc);
-                seance.setNb_maximal(nbm);
-                seance.setId_seance(Integer.parseInt(idco));
-                css.modifier(seance);
-
-
-            }
-
-            dureeco.setItems(dure);
-j++;
-        }
-        conn =MyDatabase.getInstance().getConnection();
-        for (Seance seance : seances) {
-            items.add(seance.getType_seance()); // Ajoutez ici les propriétés de Seance que vous souhaitez afficher dans la ListView
-        }
-
-        addDataToChart();
-        //SeanceService SeanceService1 = new SeanceService();
-
-      /*  List<Seance> reListe = css.recuperer();
-
-        for (Seance re : reListe) {
-            cobos.getItems().add(re.getId_seance()); // Supposons que getId() retourne l'ID de la séance
-        }*/
-
-
-//addSeanceSearch();
-        //addDataToChart();
         addDataToChart();
         updateTableView();
         SeanceService SeanceService = new SeanceService();
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
         try {
             List<Seance> seances = SeanceService.recuperer();
             ObservableList<String> type = FXCollections.observableArrayList();
@@ -815,6 +748,8 @@ j++;
             ObservableList<String> da = FXCollections.observableArrayList();
 
             //   ObservableList<String> iss = FXCollections.observableArrayList();
+            // Creating ObservableList for PieChart
+
 
             for (Seance s : seances) {
                 type.add(s.getType_seance());
@@ -825,24 +760,10 @@ j++;
                 da.add(String.valueOf(s.getDate_fin()));
                 duree1.add(s.getDuree_seance());
 
-               /* LocalDate currentDate = LocalDate.now();
-                java.sql.Date date = (Date) s.getDate_fin();
-                LocalDate selectedDate = date.toLocalDate();
-               // LocalDate selectedDate = s.getDate_fin().toLocalDate();
-                LocalDateTime currentDateTime = LocalDateTime.of(currentDate, LocalTime.now());
-                LocalDateTime selectedDateTime = LocalDateTime.of(selectedDate, LocalTime.MIDNIGHT);
-                Duration duration = Duration.between(currentDateTime, selectedDateTime);
 
-                long days = duration.toDays();
-                long hours = duration.toHours() % 24;
-                long minutes = duration.toMinutes() % 60;
-                long seconds = duration.getSeconds() % 60;
-
-                String formattedDuration = String.format("%d jours, %d heures, %d minutes, %d secondes", days, hours, minutes, seconds);
-              // iss.add(String.valueOf(s.getId_seance()));
-                duree.add(formattedDuration);*/
-
+                addToPieChartData(pieChartData, String.valueOf(s.getNb_maximal()));
             }
+
             updateDuree(duree1);
             typeco.setItems(type);
             date.setItems(da);
@@ -876,6 +797,7 @@ j++;
             System.err.println(e.getMessage());
         }
         ObservableList<Seance> updatedList;
+        stat.setData(pieChartData);
 
 // Initialisation de la liste observable
         updatedList = FXCollections.observableArrayList();
@@ -904,8 +826,7 @@ j++;
 
 
     public void refresh(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/ModifierSeance.fxml"));
-        typeTF.getScene().setRoot(fxmlLoader.load());
+
     }
 
 
@@ -1089,65 +1010,7 @@ j++;
             }
         });
 
-       /* SeanceService s = new SeanceService();
-        Integer selectedId = cobos.getSelectionModel().getSelectedItem();
 
-        s.supprimer(selectedId);
-        addDataToChart();
-        cobos.getItems().remove(selectedId);
-
-        SeanceService SeanceService = new SeanceService();
-
-        List<Seance> seances = SeanceService.recuperer();
-        ObservableList<String> type = FXCollections.observableArrayList();
-        ObservableList<String> categorie = FXCollections.observableArrayList();
-        ObservableList<String> duree = FXCollections.observableArrayList();
-        ObservableList<String> nb = FXCollections.observableArrayList();
-        //   ObservableList<String> iss = FXCollections.observableArrayList();
-
-        for (Seance sa : seances) {
-            type.add(sa.getType_seance());
-            categorie.add(sa.getCategorie());
-            duree.add(String.valueOf(sa.getDuree_seance()));
-            nb.add(String.valueOf(sa.getNb_maximal()));
-            //     iss.add(String.valueOf(s.getId_seance()));
-
-        }
-
-
-        ObservableList<Seance> updatedList = FXCollections.observableArrayList(css.recuperer());
-
-
-        ObservableList<String> typeSeanceList = updatedList.stream()
-                .map(Seance::getType_seance)
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-        ObservableList<String> categorieSeanceList = updatedList.stream()
-                .map(Seance::getCategorie)
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-
-        ObservableList<String> duree_Senace = updatedList.stream()
-                .map(v -> String.valueOf(v.getDuree_seance()))
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-        ObservableList<String> nb_maximal = updatedList.stream()
-                .map(v -> String.valueOf(v.getNb_maximal()))
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-        typeco.setItems(typeSeanceList);
-        categorieco.setItems(categorieSeanceList);
-        dureeco.setItems(duree_Senace);
-        nbco.setItems(nb_maximal);
-        //ides.setItems(iss);
-
-        initialize();
-
-        List<Seance> reListe = css.recuperer();
-
-        for (Seance re : reListe) {
-            cobos.getItems().add(re.getId_seance()); // Supposons que getId() retourne l'ID de la séance
-        }*/
     }
 
     public void pdf(ActionEvent actionEvent) {
@@ -1278,6 +1141,18 @@ j++;
 
 
     }
+    private void addToPieChartData(ObservableList<PieChart.Data> pieChartData, String type) {
+        // Searching for existing PieChart data with the same type
+        for (PieChart.Data data : pieChartData) {
+            if (data.getName().equals(type)) {
+                data.setPieValue(data.getPieValue() + 1);
+                return;
+            }
+        }
+        // Adding new data for new types
+        pieChartData.add(new PieChart.Data(type, 1));
+    }
+
 
     public void addSeancSearch(KeyEvent keyEvent) throws SQLException {
 
@@ -1362,6 +1237,16 @@ j++;
         }
 
         typeco.getScene().setRoot(root);
+
+
+
+
+    }
+
+    public void ge_us(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/AfficherUsers.fxml"));
+        typeco.getScene().setRoot(fxmlLoader.load());
+
 
 
 
