@@ -97,9 +97,9 @@
                   <Font size="17.0" />
                </font>
             </Button>
-            <Label fx:id="erreurLabel" layoutX="461.0" layoutY="178.0" prefHeight="18.0" prefWidth="378.0" />
+            <Label fx:id="erreurLabel" layoutX="453.0" layoutY="204.0" prefHeight="18.0" prefWidth="378.0" />
             <Label fx:id="derreurLabel" layoutX="472.0" layoutY="102.0" prefHeight="18.0" prefWidth="316.0" />
-            <Label fx:id="nerreurLabel" layoutX="470.0" layoutY="255.0" prefHeight="18.0" prefWidth="334.0" />
+            <Label fx:id="nerreurLabel" layoutX="448.0" layoutY="282.0" prefHeight="18.0" prefWidth="334.0" />
             <Label layoutX="533.0" layoutY="87.0" prefHeight="30.0" prefWidth="270.0" text="Ajouter Seance">
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0">

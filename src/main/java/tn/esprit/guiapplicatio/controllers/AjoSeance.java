@@ -1252,6 +1252,12 @@ SeanceService SeanceService=new SeanceService();
 
 
     }
+
+    public void ge_coach(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Afficherprogram.fxml"));
+        typeco.getScene().setRoot(fxmlLoader.load());
+
+    }
 }
 
 
