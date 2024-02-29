@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="512.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplicatio.controllers.AfficherUsers">
+   <children>
+      <AnchorPane prefHeight="554.0" prefWidth="210.0" stylesheets="@styles.css" />
+      <AnchorPane layoutX="274.4" layoutY="180.0" prefHeight="426.0" prefWidth="871.0" styleClass="white-bg" AnchorPane.bottomAnchor="-52.0" AnchorPane.leftAnchor="274.0" AnchorPane.rightAnchor="-221.0" AnchorPane.topAnchor="180.0">
+         <stylesheets>
+            <URL value="@styles.css" />
+            <URL value="@dashboardDesign.css" />
+         </stylesheets>
+      </AnchorPane>
+      <AnchorPane layoutX="14.0" layoutY="34.0" prefHeight="426.0" prefWidth="816.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <stylesheets>
+            <URL value="@styles.css" />
+            <URL value="@styles.css" />
+         </stylesheets>
+         <children>
+            <AnchorPane layoutX="55.0" layoutY="6.0" prefHeight="554.4" prefWidth="924.0" styleClass="root" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane layoutX="280.0" layoutY="152.0" prefHeight="598.0" prefWidth="899.0" styleClass="white-bg" AnchorPane.bottomAnchor="-195.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="-255.0" AnchorPane.topAnchor="152.0">
+                     <children>
+                        <Button layoutX="88.0" layoutY="373.0" mnemonicParsing="false" onAction="#ReturnToAjouter" prefHeight="40.0" prefWidth="146.0" text="Ajouter">
+                  
+                                             <stylesheets>
+
+         </stylesheets>
+                           <styleClass>
+                              <String fx:value="nav-links" />
+                              <String fx:value="activeLink" />
+                           </styleClass>
+                        </Button>
+                        <Button layoutX="296.0" layoutY="373.0" mnemonicParsing="false" onAction="#PageSupprimer" prefHeight="40.0" prefWidth="146.0" text="Supprimer ">
+                           <stylesheets>
+
+         </stylesheets>
+                           <styleClass>
+                              <String fx:value="activeLink" />
+                              <String fx:value="nav-links" />
+                           </styleClass>
+                        </Button>
+                        <Button layoutX="512.0" layoutY="373.0" mnemonicParsing="false" onAction="#PageModifier" prefHeight="40.0" prefWidth="146.0" text="Modifier">
+                           <stylesheets>
+
+         </stylesheets>
+                           <styleClass>
+                              <String fx:value="nav-links" />
+                              <String fx:value="activeLink" />
+                           </styleClass>
+                        </Button>
+                        <Button layoutX="708.0" layoutY="373.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="146.0" text="Trie">
+                           <styleClass>
+                              <String fx:value="nav-links" />
+                              <String fx:value="activeLink" />
+                           </styleClass>
+                           <stylesheets>
+
+         </stylesheets>
+                        </Button>
+                        <Label layoutX="412.0" layoutY="62.0" text="Adresse" />
+                        <Label layoutX="277.0" layoutY="62.0" text="Role" />
+                        <Label layoutX="174.0" layoutY="61.0" text="Nom" />
+                        <Label layoutX="62.0" layoutY="62.0" text="ID" />
+                        <Label layoutX="571.0" layoutY="63.0" text="Email" />
+                        <Label layoutX="709.0" layoutY="62.0" text="Mot De Passe" />
+                        <ListView fx:id="mdpCol" layoutX="726.0" layoutY="95.0" prefHeight="250.0" prefWidth="158.0" />
+                        <ListView fx:id="emailCol" layoutX="550.0" layoutY="95.0" prefHeight="250.0" prefWidth="157.0">
+                           <styleClass>
+                              <String fx:value="white-bg" />
+                              <String fx:value="shadow" />
+                              <String fx:value="openProductDetailsBtn" />
+                           </styleClass>
+                           <stylesheets>
+
+         </stylesheets>
+                        </ListView>
+                        <ListView fx:id="adresseCol" layoutX="386.0" layoutY="95.0" prefHeight="250.0" prefWidth="146.0">
+                           <styleClass>
+                              <String fx:value="white-bg" />
+                              <String fx:value="shadow" />
+                              <String fx:value="openProductDetailsBtn" />
+                           </styleClass>
+                           <stylesheets>
+
+         </stylesheets>
+                        </ListView>
+                        <ListView fx:id="prenomCol" layoutX="267.0" layoutY="95.0" prefHeight="250.0" prefWidth="102.0">
+                           <styleClass>
+                              <String fx:value="white-bg" />
+                              <String fx:value="shadow" />
+                              <String fx:value="openProductDetailsBtn" />
+                           </styleClass>
+                           <stylesheets>
+
+         </stylesheets>
+                        </ListView>
+                        <ListView fx:id="nomCol" layoutX="149.0" layoutY="95.0" prefHeight="250.0" prefWidth="102.0">
+                           <styleClass>
+                              <String fx:value="white-bg" />
+                              <String fx:value="shadow" />
+                              <String fx:value="openProductDetailsBtn" />
+                           </styleClass>
+                           <stylesheets>
+
+         </stylesheets>
+                        </ListView>
+                        <ListView fx:id="idCol" layoutX="6.0" layoutY="95.0" prefHeight="250.0" prefWidth="129.0">
+                           <styleClass>
+                              <String fx:value="white-bg" />
+                              <String fx:value="shadow" />
+                              <String fx:value="openProductDetailsBtn" />
+                           </styleClass>
+                           <stylesheets>
+
+         </stylesheets>
+                        </ListView>
+                     </children>
+                     <stylesheets>
+                        <URL value="@styles.css" />
+                        <URL value="@dashboardDesign.css" />
+                     </stylesheets>
+                  </AnchorPane>
+                  <Button layoutX="14.0" layoutY="373.0" mnemonicParsing="false" onAction="#RetourMenu" prefHeight="39.0" prefWidth="242.0" text="Gestion Seance" />
+                  <ImageView fitHeight="163.0" fitWidth="184.0" layoutX="34.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../../../../zeroWaste-javaFX-main/src/assets/img/avatar.png" />
+                     </image>
+                  </ImageView>
+                  <Line endX="100.0" startX="-100.0" stroke="#1f7321" />
+                  <HBox fx:id="dashboardBtn3" alignment="CENTER_LEFT" layoutX="18.0" layoutY="266.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#open_dashboard" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="dashboardIcon3" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../../zeroWaste-javaFX-main/src/assets/img/menu-active.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="25.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="dashboardText3" text="Dashboard" textFill="WHITE">
+                           <font>
+                              <Font name="Montserrat Regular" size="14.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="text" />
+                              <String fx:value="activeText" />
+                           </styleClass>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                     <styleClass>
+                        <String fx:value="nav-links" />
+                        <String fx:value="activeLink" />
+                     </styleClass>
+                     <stylesheets>
+                        <URL value="@../../../../java/tn/esprit/guiapplicatio/out/assets/style/aliStyle.css" />
+                        <URL value="@../../../../java/tn/esprit/guiapplicatio/out/assets/style/aliStyle.css" />
+                        <URL value="@../../../../../out/assets/style/aliStyle.css" />
+                     </stylesheets>
+                  </HBox>
+                  <Label fx:id="dashboardText3" text="Dashboard" textFill="WHITE">
+                     <font>
+                        <Font name="Montserrat Regular" size="14.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="text" />
+                        <String fx:value="activeText" />
+                     </styleClass>
+                  </Label>
+                  <Button layoutX="14.0" layoutY="439.0" mnemonicParsing="false" onAction="#ge_re" prefHeight="40.0" prefWidth="242.0" text="Gestion Commande" />
+                  <Label layoutX="575.0" layoutY="92.0" prefHeight="39.0" prefWidth="226.0" text="Liste Des Utilisateurs">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+               <stylesheets>
+                  <URL value="@styles.css" />
+                  <URL value="@styles.css" />
+                  <URL value="@dashboardDesign.css" />
+               </stylesheets>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+   <stylesheets>
+
+   </stylesheets>
+</AnchorPane>
