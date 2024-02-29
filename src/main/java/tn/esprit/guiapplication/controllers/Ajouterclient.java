@@ -10,7 +10,13 @@ import javafx.scene.control.TextField;
 import tn.esprit.guiapplication.services.ClientService;
 import tn.esprit.guiapplication.models.Client;
 import tn.esprit.guiapplication.test.HelloApplication;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -147,6 +153,7 @@ public class Ajouterclient {
         }
 
 */
+
     @FXML
     void ajouterClient(ActionEvent event) {
         ClientService cs = new ClientService();
@@ -263,6 +270,66 @@ public class Ajouterclient {
         }
 
     }
+
+    public void PdfClient(ActionEvent actionEvent) {
+    String nomTf = nomTF.getText();
+    String prenomTf = prenomTF.getText();
+    String ageTf = ageTF.getText();
+    String poidsTf = poidsTF.getText();
+    String hauteurTf = hauteurTF.getText();
+    String bmrTf = BMR.getText();
+        try {
+        // Créez un nouveau document PDF
+        PDDocument document = new PDDocument();
+
+        // Créez une page dans le document
+        PDPage page = new PDPage();
+        document.addPage(page);
+
+        // Obtenez le contenu de la page
+        PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
+        // Écrivez du texte dans le document
+        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+        contentStream.beginText();
+        contentStream.newLineAtOffset(100, 700);
+
+
+        // Ajouter l'image
+            /*    String imagePath = "C:/path/to/your/image/" + seance.getCategorie() + ".jpg"; // Replace with the actual path to your image
+                PDImageXObject pdImage = PDImageXObject.createFromFile(imagePath, document);
+
+                // Position the image
+                contentStream.drawImage(pdImage, 100, 650, 100, 100); // Adjust the position and size as needed
+*/
+        // Ajouter les informations de la séance
+        String ligne = "nom :" + nomTf + "  Prenom : " + prenomTf + "  Age : " + ageTf + "  Poids : " + poidsTf + "  Hauteur : " + hauteurTf + "  : " + bmrTf;
+        contentStream.showText(ligne);
+
+        contentStream.newLine();
+        contentStream.newLineAtOffset(0, -15);
+
+
+        contentStream.endText();
+
+        // Fermez le contenu de la page
+        contentStream.close();
+
+        String outputPath = "C:/Users/salim/IdeaProjects/guiapplication/PIDEV_javaFX/src/pdf.pdf";
+        File file = new File(outputPath);
+        document.save(file);
+
+        // Fermez le document
+        document.close();
+
+        System.out.println("Le PDF a été généré avec succès.");
+        Desktop.getDesktop().open(file);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    }
+
 }
 
 

@@ -20,10 +20,11 @@
       <Button layoutX="21.0" layoutY="20.0" mnemonicParsing="false" onAction="#retour3" text="&lt;----" />
 
       <Button layoutX="499.0" layoutY="281.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="26.0" prefWidth="90.0" text="Clear" />
-      <ImageView fitHeight="86.0" fitWidth="313.0" layoutX="202.0" layoutY="20.0">
+      <ImageView fitHeight="107.0" fitWidth="332.0" layoutX="159.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="C:\Users\salim\Downloads\418566203_1804384873376645_1434016650157370513_n.png" />
+            <Image url="@418566203_1804384873376645_1434016650157370513_n.png" />
          </image>
       </ImageView>
+
    </children>
 </AnchorPane>

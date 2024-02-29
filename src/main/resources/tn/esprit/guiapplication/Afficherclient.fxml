@@ -27,11 +27,12 @@
          </font>
       </Button>
       <Button layoutX="486.0" layoutY="285.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="26.0" prefWidth="102.0" text="Clear" />
-      <ImageView fitHeight="72.0" fitWidth="285.0" layoutX="199.0" layoutY="14.0">
+
+      <TextField fx:id="hauteurTFm" layoutX="374.0" layoutY="278.0" prefHeight="26.0" prefWidth="102.0" promptText="Hauteur" />
+      <ImageView fitHeight="85.0" fitWidth="322.0" layoutX="201.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="C:\Users\salim\Downloads\418566203_1804384873376645_1434016650157370513_n.png" />
+            <Image url="@418566203_1804384873376645_1434016650157370513_n.png" />
          </image>
       </ImageView>
-      <TextField fx:id="hauteurTFm" layoutX="374.0" layoutY="278.0" prefHeight="26.0" prefWidth="102.0" promptText="Hauteur" />
    </children>
 </AnchorPane>
