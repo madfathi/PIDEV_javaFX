@@ -2,11 +2,15 @@ package tn.esprit.guiapplication.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
+import tn.esprit.guiapplication.test.HelloApplication;
 import tn.esprit.guiapplication.utils.MyDatabase;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -92,4 +96,21 @@ public class Stat {
     }
 
 
+    public void ClientB(ActionEvent actionEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Ajouterclient.fxml"));
+        try {
+            total_c.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void ProgramB(ActionEvent actionEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Ajouterprogram.fxml"));
+        try {
+            total_p.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
 }

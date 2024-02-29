@@ -7,6 +7,7 @@ public class Program {
     private  String description;
     private  int prix;
     private Client client;
+    private String image;
 
     public Client getClient() {
 
@@ -21,18 +22,20 @@ public class Program {
         this.description = description;
         this.prix = prix;
         this.client = client;
+        this.image = image;
     }
 
     public void setClient(Client client) {
         this.client = client;
     }
 
-    public Program (String titre , String niveau , String description , int prix) {
+    public Program (String titre , String niveau , String description , int prix, String image) {
 
         this.titre = titre;
         this.niveau = niveau;
         this.description = description;
         this.prix = prix;
+        this.image = image;
 
     }
 
@@ -40,12 +43,14 @@ public class Program {
 
     }
 
-    public Program(int id_p, String titre , String niveau , String description , int prix) {
+    public Program(int id_p, String titre , String niveau , String description , int prix, String image) {
         this.id_p = id_p;
         this.titre = titre;
         this.niveau = niveau;
         this.description = description;
         this.prix = prix;
+        this.image = image;
+
     }
 
     public int getId_p() {
@@ -87,7 +92,8 @@ public class Program {
     public void setPrix(int prix) {
         this.prix = prix;
     }
-
+   public String getImage() {return image;}
+    public String setImage(String image) {this.image = image;return image;}
     @Override
 
     public String toString() {
@@ -96,7 +102,8 @@ public class Program {
                 ", client=" + client +
                 ", niveau='" + niveau + '\'' +
                 ", description='" + description + '\'' +
-                ", prix=" + prix +
+                ", prix=" + prix +'\'' +
+                ", image='" + image + '\'' +
                 // Assuming client has a toString() method or you want to display its ID or name
                 '}';
     }

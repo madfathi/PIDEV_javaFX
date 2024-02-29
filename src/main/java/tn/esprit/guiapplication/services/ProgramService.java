@@ -16,14 +16,16 @@ public class ProgramService implements IService<Program> {
 
     @Override
     public void ajouter(Program program) throws SQLException {
-        String req = "INSERT INTO program (titre, niveau, description, prix, id_client) VALUES (?, ?, ?, ?, ?)";
+        String req = "INSERT INTO program (titre, niveau, description, prix, id_client, image) VALUES (?, ?, ?, ?, ?,?)";
         PreparedStatement ps = connection.prepareStatement(req);
         ps.setString(1, program.getTitre());
         ps.setString(2, program.getNiveau());
         ps.setString(3, program.getDescription());
         ps.setInt(4, program.getPrix());
         ps.setInt(5, program.getClient().getId_c()); // Assuming client_id is the foreign key in the program table
+        ps.setString(6, program.getImage());
         ps.executeUpdate();
+
     }
 
     @Override

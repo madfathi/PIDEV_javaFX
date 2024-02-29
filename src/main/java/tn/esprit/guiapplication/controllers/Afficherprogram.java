@@ -5,9 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import tn.esprit.guiapplication.Cellule.ClientCell;
 import tn.esprit.guiapplication.Cellule.ProgramCell;
 import tn.esprit.guiapplication.models.Client;
@@ -16,7 +17,11 @@ import tn.esprit.guiapplication.services.ClientService;
 import tn.esprit.guiapplication.services.ProgramService;
 import tn.esprit.guiapplication.test.HelloApplication;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -46,9 +51,102 @@ public class Afficherprogram {
     @FXML
     private TextField nom;
 
+   /* @FXML
+    void initialize() {
+        displayEventData();
+    }
 
 
+    public static class ColumnListViewCell extends ListCell<String> {
 
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if (empty || item == null) {
+                setText(null);
+                setGraphic(null);
+            } else {
+                // Split the data into columns
+                String[] columns = item.split("\\s+");
+
+                // Create a HBox to hold the columns
+                HBox rowBox = new HBox();
+
+                // Add labels for each column (except the image path)
+                for (int i = 0; i < columns.length - 1; i++) {
+                    Label label = new Label(columns[i]);
+                    label.setPrefWidth(150); // Set the width as needed
+                    rowBox.getChildren().add(label);
+                }
+
+                // Create an ImageView for the image
+                ImageView imageView = new ImageView();
+
+                // Obtain the image path
+                String imagePath = columns[columns.length - 1];
+
+                // Construct the file URL using the correct format
+                String fileUrl = "file:///" + imagePath.replace("\\", "/");
+
+                // Load the image if the file path is valid
+                try {
+                    File file = new File(new URI(fileUrl));
+                    if (file.exists()) {
+                        Image image = new Image(file.toURI().toString());
+                        imageView.setImage(image);
+                        imageView.setFitWidth(100); // Adjust width of the image view
+                        imageView.setPreserveRatio(true);
+                        rowBox.getChildren().add(imageView);
+                    } else {
+                        System.out.println("Image file not found: " + fileUrl);
+                    }
+                } catch (URISyntaxException e) {
+                    System.out.println("Invalid file URL: " + fileUrl);
+                }
+
+                // Set the HBox as the cell's graphic
+                setGraphic(rowBox);
+            }
+        }
+    }
+
+
+    private void displayEventData() {
+        ProgramService programService = new ProgramService();
+        try {
+            List<Program> programs = programService.recuperer();
+
+            // Create an ObservableList to store the event data
+            ObservableList<String> eventDataList = FXCollections.observableArrayList();
+
+            // Add column titles
+            String columnTitles = String.format("%-20s %-20s %-20s %-20s %-20s", "Date", "Lieu", "Nom", "Star", "Image Path");
+            eventDataList.add(columnTitles);
+
+            // Iterate through the list of events and add their details to the eventDataList
+            for (Program program : programs) {
+                String eventData = String.format("%-20s %-20s %-20s %-20s %-20s",
+                        program.getTitre(),
+                        program.getNiveau(),
+                        program.getDescription(),
+                        program.getPrix(),
+                        program.getImage());
+                eventDataList.add(eventData);
+            }
+
+            // Set items for the listview2 ListView
+            listView2.setItems(eventDataList);
+
+            // Set custom ListCell to format the data in columns
+            listView2.setCellFactory(listView -> new ColumnListViewCell());
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+*/
 
 
     @FXML
@@ -79,7 +177,63 @@ public class Afficherprogram {
             System.err.println(e.getMessage());
         }
     }
+    /*
 
+    @FXML
+    void initialize() {
+        // Initialisation du service de programme et de la liste
+        ProgramService programService = new ProgramService();
+        try {
+            List<Program> programs = programService.recuperer();
+            listView2.setCellFactory(param -> new ListCell<Program>() {
+                private ImageView imageView = new ImageView();
+
+                @Override
+                protected void updateItem(Program program, boolean empty) {
+                    super.updateItem(program, empty);
+
+                    if (empty || program == null) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        setText(program.getTitre()); // Or any other text you want to display
+
+                        // Load image from database and convert to JavaFX Image
+                        byte[] imageData = program.getImage(); // Assuming getImage() returns byte array from the database
+                        ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
+                        Image image = new Image(bis);
+                        imageView.setImage(image);
+                        imageView.setFitWidth(50); // Set width as per your requirement
+                        imageView.setPreserveRatio(true);
+
+                        setGraphic(imageView);
+                    }
+                }
+            });
+
+            ObservableList<Program> observableList = FXCollections.observableList(programs);
+            listView2.setItems(observableList);
+
+            // Gestionnaire d'événements pour la sélection d'un élément dans la liste
+            listView2.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1) { // Vérifie un simple clic
+                    Program selectedProgram = listView2.getSelectionModel().getSelectedItem();
+                    if (selectedProgram != null) {
+                        // Remplir les champs de texte avec les coordonnées du programme sélectionné
+                        nom.setText(String.valueOf(selectedProgram.getClient().getNom()));
+                        titreTFmP.setText(selectedProgram.getTitre());
+                        niveauTFmP.setText(selectedProgram.getNiveau());
+                        descriptionTFmP.setText(selectedProgram.getDescription());
+                        prixTFmP.setText(String.valueOf(selectedProgram.getPrix()));
+                    }
+                }
+            });
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+*/
 
     /*@FXML
     public void modifierProgram(ActionEvent actionEvent) throws SQLException {
@@ -161,7 +315,7 @@ public class Afficherprogram {
         }
 
         // Set the ID of the product
-        program.setId_p(listView2.getSelectionModel().getSelectedItem().getId_p());
+       program.setId_p(listView2.getSelectionModel().getSelectedItem().getId_p());
 
         program.setTitre(titreTFmP.getText());
         program.setClient(c);
