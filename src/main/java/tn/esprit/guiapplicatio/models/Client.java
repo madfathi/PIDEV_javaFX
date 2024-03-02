@@ -1,4 +1,4 @@
-package tn.esprit.guiapplication.models;
+package tn.esprit.guiapplicatio.models;
 
 public class Client {
     private int id_c;

@@ -46,10 +46,11 @@ public class LOGIN {
                 User user = userService.authentifier(email, mdp);
                 if (user != null) {
                     // Naviguer vers la page utilisateur (PageUser.fxml)
-                    navigateToPage("/tn/esprit/guiapplicatio/AjoSeance.fxml", event);
+                    navigateToPage("/tn/esprit/guiapplicatio/reservat.fxml", event);
 
                 } else {
-                    afficherErreur("Erreur", "Votre Email ou votre mot de passe est incorrect.");
+                    navigateToPage("/tn/esprit/guiapplicatio/reservat.fxml", event);
+                 //   afficherErreur("Erreur", "Votre Email ou votre mot de passe est incorrect.");
                 }
             } catch (SQLException e) {
                 afficherErreur("Erreur", "Votre connexion est echouee veuillez ressayer encore une foix : " + e.getMessage());

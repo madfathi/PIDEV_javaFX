@@ -1,4 +1,4 @@
-package tn.esprit.guiapplication.models;
+package tn.esprit.guiapplicatio.models;
 
 public class Program {
     private int id_p;

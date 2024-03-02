@@ -76,6 +76,7 @@
                </styleClass>
             </Button>
             <Button layoutX="526.0" layoutY="442.0" mnemonicParsing="false" onAction="#RetourMenu" prefHeight="39.0" prefWidth="138.0" text="Retour au menu" />
+            <Button layoutX="664.0" layoutY="64.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" text="code promo" />
          </children>
       </AnchorPane>
    </children>

@@ -226,6 +226,18 @@ public class AfficherUsers {
 
     public void open_dashboard(MouseEvent mouseEvent) {
     }
+
+    public void code_pro(ActionEvent actionEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/AfficherCode.fxml"));
+        try {
+            prenomCol.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+
+    }
 }
 
 
