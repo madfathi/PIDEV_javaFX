@@ -1258,6 +1258,16 @@ SeanceService SeanceService=new SeanceService();
         typeco.getScene().setRoot(fxmlLoader.load());
 
     }
+
+    public void ge_po(ActionEvent actionEvent) throws IOException {
+
+
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/MenuProduitCategorie.fxml"));
+        typeco.getScene().setRoot(fxmlLoader.load());
+
+
+
+    }
 }
 
 

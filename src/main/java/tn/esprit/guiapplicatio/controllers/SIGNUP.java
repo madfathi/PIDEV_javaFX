@@ -15,8 +15,13 @@ import tn.esprit.guiapplicatio.models.User;
 import tn.esprit.guiapplicatio.services.UserService;
 import org.mindrot.jbcrypt.BCrypt;
 import tn.esprit.guiapplicatio.test.HelloApplication;
+
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class SIGNUP {
 
@@ -37,7 +42,8 @@ public class SIGNUP {
 
     @FXML
     private PasswordField confirmeMdpSignUp;
-
+    private String username = "fathimaddeh88@gmail.com";
+    private String password = "wxnfnrqwjjcjzjby";
 
     @FXML
     void RetourMenu(ActionEvent event) {
@@ -112,6 +118,7 @@ public class SIGNUP {
         try {
             // Ajouter l'utilisateur à la base de données
             userService.ajouter(user);
+            envoyer(email);
 
          //   userService.envoyerCode( email,  "");
             // Afficher une alerte de succès
@@ -138,6 +145,40 @@ public class SIGNUP {
                 redirectToLoginPage(event);
             }
         });
+    }
+    public void envoyer(String b) {
+// Etape 1 : Création de la session
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        props.put("mail.smtp.ssl.ciphersuites", "TLS_AES_256_GCM_SHA384");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("fathimaddeh88@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(b));
+            message.setSubject("");
+            message.setText("votre compte a ete cree");
+
+            // Enable debugging
+            session.setDebug(true);
+
+            Transport.send(message);
+            System.out.println("Message envoyé avec succès");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void redirectToLoginPage(ActionEvent event) {

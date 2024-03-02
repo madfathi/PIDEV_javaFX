@@ -1,65 +1,54 @@
-package tn.esprit.guiapplication.models;
-
-
+package tn.esprit.guiapplicatio.models;
 public class Produit {
-    private int id;
-    private String nom;
-    private String categorie_produit;
-    private int quantite;
+    private int idProduit;
+    private String nomProduit;
     private int prix;
-    private String image;
+    private int quantite;
+    private Categorie categorie;
+    private String imageProduit;
+    private Offre offre;
+
+    public Produit(int  idProduit, String nomProduit, int quantite, int prix, Categorie categorie, String imageProduit,Offre offre) {
+        this. idProduit =  idProduit;
+        this.nomProduit = nomProduit;
+        this.prix = prix;
+        this.quantite = quantite;
+        this.categorie = categorie;
+        this.imageProduit = imageProduit;
+        this.offre=offre;
+    }
+
+    public Produit(String nomProduit, int quantite, int prix, Categorie categorie, String imageProduit,Offre offre) {
+        this.nomProduit = nomProduit;
+        this.prix = prix;
+        this.quantite = quantite;
+        this.categorie = categorie;
+        this.imageProduit = imageProduit;
+        this.offre=offre;
+    }
+public Produit(String nomProduit,int prix)
+{
+    this.nomProduit=nomProduit;
+    this.prix=prix;
+}
 
     public Produit() {
-
     }
 
-    public Produit(int id, String nom, String categorie_produit, int quantite, int prix, String image) {
-        this.id = id;
-        this.nom = nom;
-        this.categorie_produit = categorie_produit;
-        this.quantite = quantite;
-        this.prix = prix;
-        this.image = image;
+    public int getIdProduit() {
+        return idProduit;
     }
 
-    public Produit(String nom, String categorie_produit, int quantite, int prix, String image) {
-        this.nom = nom;
-        this.categorie_produit = categorie_produit;
-        this.quantite = quantite;
-        this.prix = prix;
-        this.image = image;
+    public void setIdProduit(int  idProduit) {
+        this.idProduit =  idProduit;
     }
 
-    public int getId() {
-        return id;
+    public String getNomProduit() {
+        return nomProduit;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getCategorie_produit() {
-        return categorie_produit;
-    }
-
-    public void setCategorie_produit(String categorie_produit) {
-        this.categorie_produit = categorie_produit;
-    }
-
-    public int getQuantite() {
-        return quantite;
-    }
-
-    public void setQuantite(int quantite) {
-        this.quantite = quantite;
+    public void setNomProduit(String nomProduit) {
+        this.nomProduit= nomProduit;
     }
 
     public int getPrix() {
@@ -70,23 +59,43 @@ public class Produit {
         this.prix = prix;
     }
 
-    public String getImage() {
-        return image;
+    public int getQuantite() {
+        return quantite;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
+    }
+
+    public Categorie getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
+    }
+
+    public Offre getOffre() {
+        return offre;
+    }
+
+    public void setOffre(Offre offre) {
+        this.offre = offre;
+    }
+
+    public String getImageProduit() {
+        return imageProduit;
+    }
+
+    public void setImageProduit(String imageProduit) {
+        this.imageProduit = imageProduit;
     }
 
     @Override
     public String toString() {
-        return "Produit{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", categorie_produit='" + categorie_produit + '\'' +
-                ", quantite='" + quantite + '\'' +
-                ", prix='" + prix + '\'' +
-                ", image='" + image + '\'' +
-                '}';
+        return "Produit{" + "nom produit=" + nomProduit + ", prix=" + prix + ", quantite=" + quantite + ", categorie=" + categorie + ", image produit=" + imageProduit + '}';
     }
+
 }
+
+

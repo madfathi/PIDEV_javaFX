@@ -1,43 +1,61 @@
 package tn.esprit.guiapplicatio.models;
 
 public class Categorie {
-    private int id_cat;
-    private String nom_cat;
+    private int idCategorie;
+    private String nomCategorie;
+    private String imageCategorie;
 
-    public Categorie() {
-
+    public  Categorie(int idCategorie, String nomCategorie, String imageCategorie) {
+        this.idCategorie = idCategorie;
+        this.nomCategorie = nomCategorie;
+        this.imageCategorie = imageCategorie;
     }
 
-    public Categorie(int id_cat, String nom_cat) {
-        this.id_cat = id_cat;
-        this.nom_cat = nom_cat;
+    public Categorie(String nomCategorie, String imageCategorie) {
+        this.nomCategorie = nomCategorie;
+        this.imageCategorie = imageCategorie;
     }
 
-    public Categorie(String nom_cat) {
-        this.nom_cat = nom_cat;
+    public Categorie(int id, String name) {
+        this.idCategorie = idCategorie;
+        this.nomCategorie = nomCategorie;
     }
 
-    public int getId_cat() {
-        return id_cat;
+    public Categorie(int idCategorie) {
+        this.idCategorie = idCategorie;
     }
 
-    public void setId_cat(int id_cat) {
-        this.id_cat = id_cat;
+    public  Categorie() {
     }
 
-    public String getNom_cat() {
-        return nom_cat;
+    public int getIdCategorie() {
+        return idCategorie;
     }
 
-    public void setNom_cat(String nom_cat) {
-        this.nom_cat = nom_cat;
+    public void setIdCategorie(int id) {
+        this.idCategorie = id;
+    }
+
+    public String getNomCategorie() {
+        return nomCategorie;
+    }
+
+    public void setNomCategorie(String nomCategorie) {
+        this.nomCategorie = nomCategorie;
+    }
+
+    public String getImageCategorie() {
+        return imageCategorie;
+    }
+
+    public void setImageCategorie(String imageCategorie) {
+        this.imageCategorie = imageCategorie;
     }
 
     @Override
     public String toString() {
-        return "Categorie{" +
-                "id_cat=" + id_cat +
-                ", nom_cat='" + nom_cat + '\'' +
-                '}';
+
+        return "Categorie{" + "idCategorie=" +idCategorie + ", NomCategorie=" + nomCategorie + ", image Categorie=" + imageCategorie + '}';
     }
+
 }

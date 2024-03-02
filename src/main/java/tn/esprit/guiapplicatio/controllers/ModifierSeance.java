@@ -107,6 +107,7 @@ public class ModifierSeance {
                 System.out.println(ca.getText());
                 //int duree = Integer.parseInt(du.getText());
                 int nbMaximal = Integer.parseInt(nb.getText());
+                String type= ty.getText();
                 System.out.println(nb.getText());
 
                 animal.setDuree_seance(du.getText());
@@ -128,7 +129,20 @@ public class ModifierSeance {
                     alert.showAndWait();
                     return; // Sortir de la méthode si la validation échoue
                 }*/
+                if (
+                        !type.matches("^[a-zA-Z]+$") )
+                {
+                    Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                alert2.setTitle("Erreur de saisie");
+                alert2.setHeaderText(null);
+                alert2.setContentText("le type doit contenir que des lettre");
+                alert2.showAndWait();
+                return; // Sortir de la mét
 
+
+
+
+                }
 
                 if (nbMaximal < 1 || nbMaximal > 10 ) {
                     // Afficher une alerte
