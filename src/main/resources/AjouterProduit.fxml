@@ -5,11 +5,13 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="611.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AjouterProduitController">
    <children>
@@ -27,7 +29,7 @@
       <Button fx:id="modifierProduit" layoutX="91.0" layoutY="293.0" mnemonicParsing="false" onAction="#ModifierProduit" text="Modifier" />
       <Button fx:id="supprimerProduit" layoutX="163.0" layoutY="293.0" mnemonicParsing="false" onAction="#SupprimerProduit" text="Supprimer" />
       <ImageView fx:id="tfImageP" fitHeight="179.0" fitWidth="213.0" layoutX="290.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
-      <TableView fx:id="tabProduit" layoutX="10.0" layoutY="329.0" onMouseClicked="#setValue" prefHeight="274.0" prefWidth="684.0">
+      <TableView fx:id="tabProduit" layoutX="915.0" layoutY="53.0" onMouseClicked="#setValue" prefHeight="258.0" prefWidth="0.0">
         <columns>
           <TableColumn fx:id="nomProduitTab" prefWidth="98.0" text="NomProduit" />
           <TableColumn fx:id="nomCategorieTab" prefWidth="96.0" text="Categoire" />
@@ -49,5 +51,10 @@
       <ComboBox fx:id="comboOffreP" layoutX="131.0" layoutY="240.0" prefHeight="25.0" prefWidth="104.0" />
       <Hyperlink fx:id="refreshProduit" layoutX="897.0" layoutY="15.0" onAction="#refreshProduit" text="Refresh" />
       <Button layoutX="630.0" layoutY="293.0" mnemonicParsing="false" onAction="#PageAfficher" text="AfficherListView" />
+
+           <Hyperlink layoutX="14.0" layoutY="3.0" onAction="#backProduit" text="Retour" />
+           <ListView fx:id="produitlistview" layoutX="10.0" layoutY="358.0" prefHeight="216.0" prefWidth="682.0" />
+           <Text layoutX="241.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des Produits" wrappingWidth="97.336669921875" />
+
    </children>
 </AnchorPane>

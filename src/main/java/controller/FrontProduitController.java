@@ -1,4 +1,8 @@
 package controller;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
 import entities.*;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -17,6 +21,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
@@ -35,9 +41,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.ResourceBundle;
+
 import javafx.scene.Node;
 import javafx.scene.control.TableView;
 import javafx.fxml.FXMLLoader;
@@ -45,52 +51,49 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 public class FrontProduitController implements Initializable {
     private final ProduitService ps = new ProduitService();
     String filepath = null, filename = null, fn = null;
-    String uploads = "C:/xampp/htdocs/";
+    String uploads = "C:/Users/LEGION/Desktop/ProduitCategorie/src/main/resources/Photos";
+
     FileChooser fc = new FileChooser();
     ObservableList<Produit> list = FXCollections.observableArrayList();
     public int idProduit;
-    //PanierService pns = new PanierService();
+    panierservice pns = new panierservice();
 
-    public int getIdProduit() {
-        return getIdProduit();
-    }
+//    public int getIdProduit() {
+//        return getIdProduit();
+//    }
+//
+//    public void setIdProduit(int id) {
+//        this.idProduit = id;
+//    }
+//
+//   @FXML
+//    private TableColumn<Produit, HBox> panierTab;
+//    @FXML
+//    private TableColumn<PanierProduit, HBox> tabDeletePanierr;
+//
+//    @FXML
+//    private TableColumn<Produit, Integer> nomPrixTab;
+//
+//    @FXML
+//    private TableColumn<Produit, String> imageProduitTab;
+//
+//    @FXML
+//    private TableColumn<Produit, Integer> nomQuantiteTab;
+//
+//    @FXML
+//    private TableView<Produit> tabProduitFront;
 
-    public void setIdProduit(int id) {
-        this.idProduit = id;
-    }
-
-   /* @FXML
-    private TableColumn<Produit, HBox> panierTab;
-    @FXML
-    private TableColumn<PanierProduit, HBox> tabDeletePanierr;
-
-    @FXML
-    private TableColumn<Produit, Integer> nomPrixTab;
-
-    @FXML
-    private TableColumn<Produit, String> imageProduitTab;
-
-    @FXML
-    private TableColumn<Produit, Integer> nomQuantiteTab;
-
-    @FXML
-    private TableView<Produit> tabProduitFront;
-    */
 
     @FXML
     private ComboBox<Categorie> ComboProduitC;
-    @FXML
-    private Button recla;
-    @FXML
-    private Button chat;
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+
 
         setCombo();
         ComboProduitC.setOnAction(this::filtrerProduit);
@@ -163,7 +166,7 @@ public class FrontProduitController implements Initializable {
     }
 
     private List<Produit> temp;
-    // private List<PanierProduit> temp1;
+    private List<PanierProduit> temp1;
 
     @FXML
     public void filtrerProduit(ActionEvent actionEvent) {
@@ -174,7 +177,6 @@ public class FrontProduitController implements Initializable {
 
         // Clear the existing content in ListView
         listView.getItems().clear();
-
         // Add each product to ListView as GridPane
         for (int i = 0; i < updatedList.size(); i += 4) {
             GridPane productGridPane = createProductGridPane(
@@ -190,15 +192,16 @@ public class FrontProduitController implements Initializable {
     @FXML
     private ImageView PanierImage;
 
-//    public void checkPanier(MouseEvent mouseEvent) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FrontPanierCommande.fxml"));
-//        Parent root1 = (Parent) fxmlLoader.load();
-//        Stage stage = new Stage();
-//        stage.setTitle("Votre Panier");
-//        stage.setScene(new Scene(root1));
-//        Node source = (Node) mouseEvent.getSource();
-//        stage.show();
-//    }
+    public void checkPanier(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/panier.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Votre Panier");
+        stage.setScene(new Scene(root1));
+        Node source = (Node) mouseEvent.getSource();
+        stage.show();
+    }
+
 
 
     @FXML
@@ -248,93 +251,210 @@ public class FrontProduitController implements Initializable {
 
         return gridPane;
     }
-
+    @FXML
+    private ImageView qrcodeProduit;
     private VBox createProductBox(Produit produit) {
         VBox vbox = new VBox();
         float prix = produit.getPrix();
-        DecimalFormat decimalFormat = new DecimalFormat("#.##"); // Format with up to two decimal places
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.000"); // Format avec trois chiffres après la virgule
         String prixFormate = decimalFormat.format(prix);
 
         // Create and set up UI components for each product
-        javafx.scene.image.ImageView imageView = new javafx.scene.image.ImageView();
-        loadAndSetImage(imageView, "file:///" + uploads + produit.getImageProduit());
+        ImageView imageView = new ImageView();
+        loadAndSetImage(imageView, produit.getImageProduit());
 
         Label nameLabel = new Label(produit.getNomProduit());
         Label priceLabel = new Label("Prix: " + prixFormate);
         Label quantityLabel = new Label("Quantité en stock: " + produit.getQuantite());
-
+        Button addButton = new Button("+");
+        addButton.getStyleClass().add("addbuttonPanier");
+        nameLabel.getStyleClass().add("product-label");
+        priceLabel.getStyleClass().add("product-label");
+        quantityLabel.getStyleClass().add("product-label");
+        Button qrCodeButton = new Button("QR code");
+        qrCodeButton.getStyleClass().add("addbuttonPanier");
         // Add components to VBox
-        vbox.getChildren().addAll(imageView, nameLabel, priceLabel, quantityLabel);
+        vbox.getChildren().addAll(imageView, nameLabel, priceLabel, quantityLabel, addButton,qrCodeButton);
 
         // Set spacing and alignment as needed
         vbox.setSpacing(11);
         vbox.setAlignment(Pos.CENTER);
 
+
+        addButton.setOnAction(event -> {
+
+
+            panier Panier = null;
+            if (Panier != null) {
+                PanierProduitService panierProduitService = new PanierProduitService();
+                panierProduitService.ajouterProduitAuPanier(Panier, produit.getIdProduit());
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Avertissement");
+                alert.setHeaderText(null);
+                alert.setContentText("Produit ajouté dans votre panier.");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Avertissement");
+                alert.setHeaderText(null);
+                alert.setContentText("Vous n'avez pas de panier. Veuillez créer un panier d'abord.");
+                alert.showAndWait();
+            }
+//             Rafraîchir la vue du produit
+            showProduitFrontp();
+        });
+
+        qrCodeButton.setOnAction(event ->
+                {
+                    String qrData = "Nom: " + produit.getNomProduit() + "\t Quantite: " + produit.getQuantite() + "\n Prix: " + produit.getPrix() + "\t Categorie associée: " + produit.getCategorie().getNomCategorie();
+
+                    // Générez et affichez le QR code
+                    generateAndDisplayQRCode(qrData);
+                }
+
+
+        );
+
         return vbox;
     }
-
-
     private void loadAndSetImage(ImageView imageView, String imagePath) {
-        // Charger et afficher l'image en utilisant le chemin complet du fichier
-        File imageFile = new File(uploads + imagePath);
+        // Correct path format for Windows
+        String basePath = "C:/Users/LEGION/Desktop/ProduitCategorie/src/main/resources/Photos/";
+        String fullPath = basePath + imagePath.replace("\\", "/");
+
+        File imageFile = new File(fullPath);
         if (imageFile.exists()) {
-            Image image = new Image("file:///" + imageFile.getAbsolutePath());
+            // Correctly format the file path for the Image constructor
+            String imageUrl = imageFile.toURI().toString();
+            Image image = new Image(imageUrl);
             imageView.setImage(image);
             imageView.setFitWidth(190);
             imageView.setFitHeight(190);
         } else {
-            // Gérer le cas où le fichier d'image n'existe pas
-            System.out.println("Le fichier d'image n'existe pas : " + imagePath);
+            // Handle the case where the image file does not exist
+            System.out.println("Image file does not exist: " + fullPath);
             imageView.setImage(null);
         }
     }
-    @FXML
-    void AjouterReclamation(ActionEvent event) {
+
+
+    //generate qrcode et l'afficher
+    private void generateAndDisplayQRCode(String qrData) {
         try {
-            // Load the FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterReclamation.fxml"));
-            Parent root = loader.load();
+            // Configuration pour générer le QR code
+            Map<EncodeHintType, Object> hints = new HashMap<>();
+            hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
 
-            // Get the current stage from the event
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            // Générer le QR code avec ZXing
+            BitMatrix matrix = new MultiFormatWriter().encode(qrData, BarcodeFormat.QR_CODE, 184, 199, hints);
+// Ajuster la taille de l'ImageView
+            qrcodeProduit.setFitWidth(100);
+            qrcodeProduit.setFitHeight(100);
 
-            // Set the new scene in the current stage
-            stage.setScene(new Scene(root));
+            // Convertir la matrice en image JavaFX
+            Image qrCodeImage = matrixToImage(matrix);
 
-            // Optionally, set the title of the stage
-            stage.setTitle("Ajouter Réclamation");
+            // Afficher l'image du QR code dans l'ImageView
+            qrcodeProduit.setImage(qrCodeImage);
+            Alert a = new Alert(Alert.AlertType.WARNING);
 
-            // Optionally, show the stage
-            stage.show();
-        } catch (IOException e) {
+            a.setTitle("Succes");
+            a.setContentText("qr code generer");
+            a.showAndWait();
+
+        } catch (Exception e) {
             e.printStackTrace();
-            // Handle any potential exceptions when loading the FXML file
         }
     }
 
+    // Méthode pour convertir une matrice BitMatrix en image BufferedImage
+    private Image matrixToImage(BitMatrix matrix) {
+        int width = matrix.getWidth();
+        int height = matrix.getHeight();
+
+        WritableImage writableImage = new WritableImage(width, height);
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int pixelColor = matrix.get(x, y) ? 0xFF000000 : 0xFFFFFFFF;
+                pixelWriter.setArgb(x, y, pixelColor);
+            }
+        }
+
+        System.out.println("Matrice convertie en image avec succès");
+
+        return writableImage;
+    }
+
     @FXML
-    void sendchatproduit(ActionEvent event) {
+    void checkReclamation(MouseEvent event) {
         try {
-            // Load the FXML file for the ChatBot scene
+            // Load the FXML file for CheckReclamation
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReclamation.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage or create a new one
+            Stage stage = new Stage(); // Create a new stage for demonstration
+
+            // Set the scene with the loaded FXML
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+
+            // Optional: Set properties on the stage, like title or dimensions
+            stage.setTitle("Reclamation");
+            stage.initModality(Modality.APPLICATION_MODAL); // To make the new window modal, if needed
+
+            // Show the stage
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception, maybe show an alert here
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error Loading Page");
+            alert.setContentText("Could not load the reclamation check page.");
+            alert.showAndWait();
+        }
+
+    }
+    @FXML
+    void checkChatBot(MouseEvent event) {
+        try {
+            // Load the FXML file for CheckReclamation
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatBot.fxml"));
             Parent root = loader.load();
 
-            // Use the event source to find the current stage (window)
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            // Get the current stage or create a new one
+            Stage stage = new Stage(); // Create a new stage for demonstration
 
-            // Create a new scene with the loaded root node
-            Scene chatBotScene = new Scene(root);
+            // Set the scene with the loaded FXML
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
 
-            // Set the new scene on the existing stage to switch the view
-            stage.setScene(chatBotScene);
+            // Optional: Set properties on the stage, like title or dimensions
+            stage.setTitle("Chat");
+            stage.initModality(Modality.APPLICATION_MODAL); // To make the new window modal, if needed
 
-            // Optionally, set a title for the stage, reflecting the new content
-            stage.setTitle("ChatBot Interface");
+            // Show the stage
+            stage.show();
 
-            // No need to call stage.show() since we're updating the existing stage
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle potential IOException from loading the FXML
+            // Handle the exception, maybe show an alert here
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error Loading Page");
+            alert.setContentText("Could not load the chatbot check page.");
+            alert.showAndWait();
         }
+
     }
 }
+
+
+
+
+
+

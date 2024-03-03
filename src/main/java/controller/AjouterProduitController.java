@@ -23,6 +23,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,6 +33,7 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -71,6 +73,7 @@ public class AjouterProduitController implements Initializable {
 
     @FXML
     private PieChart pieChart;
+
     private Connection conn;
     private PreparedStatement pst;
     private Statement statement;
@@ -80,6 +83,9 @@ public class AjouterProduitController implements Initializable {
     private TextField RechercherProduit;
     @FXML
     private ComboBox<Offre> comboOffreP;
+    @FXML
+    private ListView<String> produitlistview;
+
 
     @FXML
     private ComboBox<Categorie> ComboProduitC;
@@ -131,6 +137,7 @@ public class AjouterProduitController implements Initializable {
     FileChooser fc = new FileChooser();
     ObservableList<Produit> list = FXCollections.observableArrayList();
     public int idProduit;
+    private int selectedProduitId = -1;
 
     public int getIdProduit() {
         return getIdProduit();
@@ -161,11 +168,14 @@ public class AjouterProduitController implements Initializable {
         setCombo();
         setComboOffre();
         showProduit();
+        displayEventData();
+        produitlistview.setOnMouseClicked(this::setValue);
 
         addDataToChart();
 
     }
-
+    public void setItems(ObservableList<Categorie> categories) {
+    }
     public void btn_image_produit_action(ActionEvent actionEvent) throws SQLException, FileNotFoundException, IOException {
         File file = fc.showOpenDialog(null);
         // Shows a new file open dialog.
@@ -261,92 +271,220 @@ public class AjouterProduitController implements Initializable {
         a.showAndWait();
         showProduit();
 
+
     }
 
-    public void SupprimerProduit(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        Produit selected = tabProduit.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Voulez-Vous Supprimer ce produit ?");
-            alert.setContentText("Supprimer?");
-            ButtonType okButton = new ButtonType("Oui", ButtonBar.ButtonData.YES);
-            ButtonType noButton = new ButtonType("Non", ButtonBar.ButtonData.NO);
-            ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-            alert.getButtonTypes().setAll(okButton, noButton, cancelButton);
-            alert.showAndWait().ifPresent(type -> {
-                if (type == okButton) {
-                    pss.deleteProduit(selected.getIdProduit());
-                    showProduit();
-                    tabProduit.refresh();
-                } else if (type == noButton) {
-                    showProduit();
+
+    @FXML
+    public void SupprimerProduit(ActionEvent actionEvent) {
+        // Get the selected string from the ListView
+        String selectedString = produitlistview.getSelectionModel().getSelectedItem();
+        if (selectedString != null && !selectedString.trim().isEmpty()) {
+            // Confirm deletion with the user
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION, "Êtes-vous sûr de vouloir supprimer ce produit ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            confirmationAlert.setTitle("Confirmation de suppression");
+            confirmationAlert.setHeaderText(null);
+            Optional<ButtonType> response = confirmationAlert.showAndWait();
+
+            if (response.isPresent() && response.get() == ButtonType.YES) {
+                // Parse the identifier from the selected string
+                String identifier = parseIdentifierFromSelectedString(selectedString);
+
+                // Find the corresponding Produit object
+                Produit toDelete = findProduitByIdentifier(identifier);
+
+                if (toDelete != null) {
+                    // Delete the product from your data source
+                    pss.deleteProduit(toDelete.getIdProduit());
+
+                    // Remove the selected string from the ListView
+                    produitlistview.getItems().remove(selectedString);
+
+                    // Optionally, show a confirmation message
+                    Alert infoAlert = new Alert(Alert.AlertType.INFORMATION, "Produit supprimé avec succès.", ButtonType.OK);
+                    infoAlert.setHeaderText(null);
+                    infoAlert.showAndWait();
                 } else {
-                    showProduit();
+                    // Handle the case where the product wasn't found
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Produit introuvable.", ButtonType.OK);
+                    alert.setHeaderText(null);
+                    alert.showAndWait();
                 }
-            });
+            }
+        } else {
+            // Handle the case where no product was selected
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Veuillez sélectionner un produit à supprimer.", ButtonType.OK);
+            alert.setHeaderText(null);
+            alert.showAndWait();
         }
     }
+
+    // Helper method to parse the identifier from the selected string
+    private String parseIdentifierFromSelectedString(String selectedString) {
+        // Implement this based on how your string is formatted and how you can uniquely identify a product from it
+        return selectedString.split(" ")[0]; // Example: assuming the first part is an ID or name
+    }
+
+    // Helper method to find a Produit by its identifier (name, ID, etc.)
+    private Produit findProduitByIdentifier(String identifier) {
+        // Implement this to search for and return the corresponding Produit object
+        // This could involve searching through a list, a database query, etc.
+        for (Produit produit : ps.readProduit()) { // Assuming ps.readProduit() returns all products
+            if (produit.getNomProduit().equals(identifier) || String.valueOf(produit.getIdProduit()).equals(identifier)) {
+                return produit;
+            }
+        }
+        return null;
+    }
+
+
+    public static class ColumnListViewCell extends ListCell<String> {
+
+    @Override
+    protected void updateItem(String item, boolean empty) {
+        super.updateItem(item, empty);
+
+        if (empty || item == null) {
+            setText(null);
+            setGraphic(null); // Clear graphic if cell is empty
+        } else {
+            // Split the data into columns
+            String[] columns = item.split("\\s{2,}"); // Split by 2 or more spaces
+
+            // Create a HBox to hold the columns
+            HBox rowBox = new HBox();
+
+            // Add labels for each column except the last one (image path)
+            for (int i = 0; i < columns.length - 1; i++) {
+                Label label = new Label(columns[i]);
+                label.setPrefWidth(150); // Set the width as needed
+                rowBox.getChildren().add(label);
+            }
+
+            // Add the image view for the last column (image path)
+            ImageView imageView = new ImageView();
+            String imagePath = columns[columns.length - 1];
+            try {
+                // Load image from classpath resources
+                InputStream stream = getClass().getResourceAsStream("/Photos/" + imagePath);
+                if (stream != null) {
+                    Image image = new Image(stream);
+                    imageView.setImage(image);
+                    imageView.setFitWidth(100); // Adjust width of the image view
+                    imageView.setPreserveRatio(true);
+                    rowBox.getChildren().add(imageView);
+                } else {
+                    System.err.println("Image not found: " + imagePath);
+                }
+            } catch (Exception e) {
+                System.err.println("Error loading image: " + e.getMessage());
+            }
+
+            // Set the HBox as the cell's graphic
+            setGraphic(rowBox);
+        }
+    }
+
+}
+    private void displayEventData() {
+        ProduitService evenmentService = new ProduitService();
+        List<Produit> evenments = evenmentService.readProduit();
+
+        // Create an ObservableList to store the event data
+        ObservableList<String> eventDataList = FXCollections.observableArrayList();
+
+        // Add column titles
+        String columnTitles = String.format("%-20s %-20s %-20s %-20s %-20s", "NomProduit", "Quantite", "Prix", "NomCategorie", "Image Path");
+        eventDataList.add(columnTitles);
+
+        // Iterate through the list of events and add their details to the eventDataList
+        for (Produit produit : evenments) {
+            String eventData = String.format("%-20s %-20s %-20s %-20s %-20s",
+                    produit.getNomProduit(),
+                    produit.getQuantite(),
+                    produit.getPrix(),
+                    produit.getCategorie().getNomCategorie(),
+                    produit.getImageProduit());
+            eventDataList.add(eventData);
+        }
+
+        // Set items for the table ListView
+        produitlistview.setItems(eventDataList);
+
+        // Set custom ListCell to format the data in columns
+        produitlistview.setCellFactory(listView -> new ProduitListView.ColumnListViewCell());
+    }
+
 
 
     public void showProduit() {
-       nomProduitTab.setCellValueFactory(new PropertyValueFactory<>("nomProduit"));
-        nomQuantiteTab.setCellValueFactory(new PropertyValueFactory<>("quantite"));
-        nomPrixTab.setCellValueFactory(new PropertyValueFactory<>("prix"));
-        nomCategorieTab.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Produit, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Produit, String> param) {
-                String nomCategorie = param.getValue().getCategorie().getNomCategorie();
-                return new SimpleStringProperty(nomCategorie);
-            }
-        });
-        OffreProduitTab.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Produit, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Produit, String> param) {
-                String nomOffre = param.getValue().getOffre().getNomOffre();
-                return new SimpleStringProperty(nomOffre);
-            }
-        });
-        imageProduitTab.setCellFactory(column -> new TableCell<Produit, String>() {
-            private final ImageView imageView = new ImageView();
+        ProduitService produitService = new ProduitService();
+        List<Produit> produits = produitService.readProduit(); // Assuming this returns a List of all products
 
-            @Override
-            protected void updateItem(String imagePath, boolean empty) {
-                super.updateItem(imagePath, empty);
+        // Create an ObservableList to store the product data in a formatted string manner
+        ObservableList<String> produitDataList = FXCollections.observableArrayList();
 
-                if (empty || imagePath == null) {
-                    setGraphic(null);
-                } else {
-                    // Charger et afficher l'image
-                    Image image = new Image("file:///" + uploads + imagePath);
-                    imageView.setImage(image);
-                    imageView.setFitWidth(120); // Réglez la largeur de l'image selon vos besoins
-                    imageView.setFitHeight(100); // Réglez la hauteur de l'image selon vos besoins
-                    setGraphic(imageView);
+        // Iterate through the list of products and format each product's details into a string
+        for (Produit produit : produits) {
+            String formattedData = String.format("%-20s %-20s %-20s %-20s %-20s",
+                    produit.getNomProduit(),
+                    produit.getQuantite(),
+                    produit.getPrix(),
+                    produit.getCategorie().getNomCategorie(),
+                    produit.getImageProduit());
+            produitDataList.add(formattedData);
+        }
+
+        // Set items for the ListView
+        produitlistview.setItems(produitDataList);
+
+        // Set the custom ListCell to format the data in columns if not already set
+        // This can be skipped if it's already done in the `initialize` or `displayEventData` method
+        // produitlistview.setCellFactory(listView -> new ColumnListViewCell());
+    }
+
+
+    public void setValue(MouseEvent mouseEvent) {
+        // Get the selected string from the ListView
+        String selectedItem = produitlistview.getSelectionModel().getSelectedItem();
+        if (selectedItem != null && !selectedItem.isEmpty()) {
+            // Assuming your string format is "NomProduit Quantite Prix NomCategorie ImagePath"
+            // and splitting it to extract the product name as a unique identifier
+            String[] parts = selectedItem.split("\\s{2,}", 5); // Adjust the regex as needed for your actual format
+            if (parts.length > 0) {
+                String nomProduit = parts[0]; // Assuming the product name is the first part
+
+                // Now, find the corresponding Produit object by the product name
+                Produit correspondingProduit = findProduitByName(nomProduit);
+
+                if (correspondingProduit != null) {
+                    // Update UI components with the details of the found Produit
+                    ComboProduitC.setValue(correspondingProduit.getCategorie());
+                    tfNomProduit.setText(correspondingProduit.getNomProduit());
+                    tfPrixProduit.setText(String.valueOf(correspondingProduit.getPrix()));
+                    tfQuantiteProduit.setText(String.valueOf(correspondingProduit.getQuantite()));
+                    comboOffreP.setValue(correspondingProduit.getOffre());
+                    idProduit = correspondingProduit.getIdProduit();
+                    fn = correspondingProduit.getImageProduit();
+                    Image im = new Image("file:" + uploads + correspondingProduit.getImageProduit());
+                    tfImageP.setImage(im);
                 }
             }
-        });
-        imageProduitTab.setCellValueFactory(new PropertyValueFactory<>("imageProduit"));
-
-        list = ps.readProduit();
-        tabProduit.setItems(list);
-
-    }
-
-    public void setValue(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
-        Produit selected = tabProduit.getSelectionModel().getSelectedItem();
-        CategorieService tabC = new CategorieService();
-        if (selected != null) {
-            ComboProduitC.setValue(selected.getCategorie());
-            tfNomProduit.setText(selected.getNomProduit());
-            tfPrixProduit.setText(String.valueOf(selected.getPrix()));
-            tfQuantiteProduit.setText(String.valueOf(selected.getQuantite()));
-            comboOffreP.setValue(selected.getOffre());
-            idProduit = selected.getIdProduit();
-            fn = selected.getImageProduit();
-            Image im = new Image("file:" + uploads + selected.getImageProduit());
-            tfImageP.setImage(im);
         }
     }
+
+    // Helper method to find a Produit by its name
+    private Produit findProduitByName(String nomProduit) {
+        ProduitService produitService = new ProduitService();
+        List<Produit> produits = produitService.readProduit(); // Assuming this method returns all products
+        for (Produit produit : produits) {
+            if (produit.getNomProduit().equals(nomProduit)) {
+                return produit;
+            }
+        }
+        return null; // If no matching product is found
+    }
+
 
     public void setComboOffre() {
         OffreService tabO = new OffreService();
@@ -426,19 +564,37 @@ public class AjouterProduitController implements Initializable {
     @FXML
     public void sortProduit(ActionEvent actionEvent) {
         String selected = sortProduitBox.getSelectionModel().getSelectedItem();
+        List<Produit> sortedProduits = null;
+
         if (selected.equals("Trier par Prix ↑")) {
-            temp = pss.sortProduitPrixAsc();
-
+            sortedProduits = pss.sortProduitPrixAsc();
         } else if (selected.equals("Trier par Prix ↓")) {
-            temp = pss.sortProduitPrixDesc();
-
+            sortedProduits = pss.sortProduitPrixDesc();
         }
-        // Mettez à jour la liste observable utilisée par votre TableView (par exemple, 'list')
-        ObservableList<Produit> updatedList = FXCollections.observableArrayList(temp);
 
-        // Mettre à jour la TableView
-        tabProduit.setItems(updatedList);
+        // Convert the sorted list of Produit objects into a list of formatted strings
+        ObservableList<String> sortedListStrings = FXCollections.observableArrayList();
+        if (sortedProduits != null) {
+            for (Produit produit : sortedProduits) {
+                String produitString = formatProduitAsString(produit);
+                sortedListStrings.add(produitString);
+            }
+        }
+
+        // Update the ListView with the sorted list of strings
+        produitlistview.setItems(sortedListStrings);
     }
+
+    private String formatProduitAsString(Produit produit) {
+        // Adjust this format to match how you've formatted the strings in your ListView
+        return String.format("%-20s %-20s %-20s %-20s %-20s",
+                produit.getNomProduit(),
+                produit.getQuantite(),
+                produit.getPrix(),
+                produit.getCategorie().getNomCategorie(),
+                produit.getImageProduit());
+    }
+
 
     //qrcode produit
     @FXML
@@ -509,82 +665,79 @@ public class AjouterProduitController implements Initializable {
 
     @FXML
     public void searchProduit(KeyEvent keyEvent) {
-        FilteredList<Produit> filter = new FilteredList<>(list, ev -> true);
+        // Assume 'originalItems' is the original unfiltered list of product strings
+        ObservableList<String> originalItems = FXCollections.observableArrayList(produitlistview.getItems());
 
+        // Filter the list based on the search text
+        FilteredList<String> filteredList = new FilteredList<>(originalItems, s -> true);
+
+        // Update the predicate whenever the filter changes
         RechercherProduit.textProperty().addListener((observable, oldValue, newValue) -> {
-            filter.setPredicate(t -> {
+            filteredList.setPredicate(produitString -> {
+                // If filter text is empty, display all products
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
+                // Compare lower case strings
                 String lowerCaseFilter = newValue.toLowerCase();
-                if (String.valueOf(t.getNomProduit()).toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return produitString.toLowerCase().contains(lowerCaseFilter);
             });
         });
 
-        SortedList<Produit> sort = new SortedList<>(filter);
-        sort.comparatorProperty().bind(tabProduit.comparatorProperty());
-        tabProduit.setItems(sort);
-
+        // Update the ListView items
+        produitlistview.setItems(filteredList);
     }
+
+
 
     @FXML
     public void generatePdfProduit(ActionEvent actionEvent) {
-        ObservableList<Produit> data = tabProduit.getItems();
+        ObservableList<String> data = produitlistview.getItems();
 
-        try {
-            // Créez un nouveau document PDF
-            PDDocument document = new PDDocument();
-
-            // Créez une page dans le document
+        try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage();
             document.addPage(page);
 
-            // Obtenez le contenu de la page
-            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+            try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(100, 700);
 
-            // Écrivez du texte dans le document
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(100, 700);
+                for (String productDetails : data) {
+                    // Assuming the productDetails string is formatted like "ID: [id] Name: [name] Quantity: [quantity] Price: [price]"
+                    // You'll need to adjust the parsing logic based on your actual string format
+                    // This is just an illustrative example
+                    String line = parseProductDetails(productDetails);
+                    contentStream.showText(line);
+                    contentStream.newLineAtOffset(0, -15);
+                }
 
+                contentStream.endText();
+            } // Automatically closes the contentStream
 
-            for (Produit produit : data) {
-                String ligne = "ID : " + produit.getIdProduit() + "        Nom : " + produit.getNomProduit() + "     Quantité : " + produit.getQuantite() + "        Prix : " + produit.getPrix();
-                contentStream.showText(ligne);
-                contentStream.newLine();
-                contentStream.newLineAtOffset(0, -15);
-            }
-
-            contentStream.endText();
-
-            // Fermez le contenu de la page
-            contentStream.close();
-
-            // Déterminez le chemin du fichier PDF
             String outputPath = "C:/Users/LEGION/Desktop/ProduitCategorie/src/main/java/PDF/produits.pdf";
             File file = new File(outputPath);
-
-            // Sauvegardez le document PDF
             document.save(file);
 
-            // Fermez le document
-            document.close();
+            System.out.println("PDF has been generated successfully.");
 
-            System.out.println("Le PDF a été généré avec succès.");
-
-            // Envoyez le PDF par e-mail
-//            envoyer("recipient@example.com", outputPath);
-
-            // Ouvrez le fichier PDF
-            Desktop.getDesktop().open(file);
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(file);
+            }
         } catch (IOException e) {
+            System.err.println("An error occurred during PDF generation or opening: " + e.getMessage());
             e.printStackTrace();
         }
     }
+
+    // This method is an illustrative example. You'll need to implement it based on how your data is formatted.
+    private String parseProductDetails(String productDetails) {
+        // Parse the string to extract ID, Name, Quantity, Price, etc.
+        // The implementation of this method highly depends on the format of the string in your ListView.
+        // For example, if your string format is very structured, you might use regex or simple string splits to extract details.
+        return productDetails; // This should be replaced with actual parsing logic
+    }
+
 
     @FXML
     public void generateExcelProduit(ActionEvent actionEvent) throws SQLException, FileNotFoundException, IOException {
