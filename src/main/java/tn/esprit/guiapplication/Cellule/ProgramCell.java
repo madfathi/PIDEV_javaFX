@@ -25,7 +25,8 @@ public class ProgramCell extends ListCell<Program> {
                       .append("Titre: ").append(program.getTitre()).append("\n")
                     .append("Niveau: ").append(program.getNiveau()).append("\n")
                     .append("Description: ").append(program.getDescription()).append("\n")
-                    .append("Prix: ").append(program.getPrix());
+                    .append("Prix: ").append(program.getPrix()).append("\n")
+                    .append("Image: ").append(program.getImage()).append ("\n");
 
             // Définition du texte du label
             label.setText(sb.toString());

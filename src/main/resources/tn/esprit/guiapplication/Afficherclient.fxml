@@ -26,7 +26,7 @@
       </Button>
       <Button layoutX="693.0" layoutY="352.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="26.0" prefWidth="102.0" text="Clear" />
 
-      <TextField fx:id="hauteurTFm" layoutX="581.0" layoutY="345.0" prefHeight="26.0" prefWidth="102.0" promptText="Hauteur" />
+      <TextField fx:id="hauteurTFm" layoutX="582.0" layoutY="339.0" prefHeight="18.0" prefWidth="102.0" promptText="Hauteur" />
       <ImageView fitHeight="85.0" fitWidth="322.0" layoutX="258.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@418566203_1804384873376645_1434016650157370513_n.png" />
@@ -39,8 +39,6 @@
                   <Image url="@219988.png" />
                </image>
             </ImageView>
-      
-            <Button layoutX="42.0" layoutY="218.0" mnemonicParsing="false" onAction="#ajouterProgram" prefHeight="26.0" prefWidth="147.0" text="Ajouter Program" />
          </children>
       </AnchorPane>
    </children>

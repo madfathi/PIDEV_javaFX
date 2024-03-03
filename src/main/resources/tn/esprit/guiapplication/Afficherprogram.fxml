@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="468.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplication.controllers.Afficherprogram">
+<AnchorPane prefHeight="413.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplication.controllers.Afficherprogram">
    <children>
       <ListView fx:id="listView2" layoutX="248.0" layoutY="143.0" prefHeight="192.0" prefWidth="354.0" />
       <Button layoutX="733.0" layoutY="226.0" mnemonicParsing="false" onAction="#modifierProgram" prefHeight="26.0" prefWidth="90.0" text="Modifier" />
@@ -25,9 +25,9 @@
             <Image url="@418566203_1804384873376645_1434016650157370513_n.png" />
          </image>
       </ImageView>
-      <AnchorPane prefHeight="468.0" prefWidth="246.0">
+      <AnchorPane layoutY="47.0" prefHeight="421.0" prefWidth="246.0">
          <children>
-            <ImageView fitHeight="192.0" fitWidth="223.0" layoutX="27.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="192.0" fitWidth="223.0" layoutX="27.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@219988.png" />
                </image>

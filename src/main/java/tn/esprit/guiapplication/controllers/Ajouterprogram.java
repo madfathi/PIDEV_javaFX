@@ -8,10 +8,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import tn.esprit.guiapplication.Cellule.ClientCell;
 import tn.esprit.guiapplication.models.Client;
 import tn.esprit.guiapplication.models.Program;
 import tn.esprit.guiapplication.services.ClientService;
@@ -49,8 +49,36 @@ public class Ajouterprogram {
     private ImageView imageTF;
 
     private String filePath;
+    @FXML
+    private ListView<Client> listView;
 
+    @FXML
+    void initialize() {
+        ClientService clientService = new ClientService();
+        try {
+            List<Client> clients = clientService.recuperer();
+            listView.setCellFactory(param -> new ClientCell());
+            ObservableList<Client> observableList = FXCollections.observableList(clients);
 
+            listView.setItems(observableList);
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                // Récupérer le client sélectionné
+                Client selectedClient = (Client) listView.getSelectionModel().getSelectedItem();
+
+                // Afficher les informations du client dans les champs de texte
+              //  nomTFm.setText(selectedClient.getNom());
+              //  prenomTFm.setText(selectedClient.getPrenom());
+              //  ageTFm.setText(String.valueOf(selectedClient.getAge()));
+              //  poidsTFm.setText(String.valueOf(selectedClient.getPoids()));
+               // hauteurTFm.setText(String.valueOf(selectedClient.getHauteur()));
+            }
+        });
+
+    }
     @FXML
     void ajouterProgram(ActionEvent event) throws SQLException {
         ProgramService po = new ProgramService();
@@ -90,15 +118,7 @@ public class Ajouterprogram {
 
     }
 
-    public void retour2(ActionEvent actionEvent) {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Afficherclient.fxml"));
-        try {
-            titreTF.getScene().setRoot(fxmlLoader.load());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
 
-    }
     public void envoyer(String a , String b, String c, String d , String f ) {
 
         Properties props = new Properties();
@@ -171,6 +191,27 @@ public class Ajouterprogram {
             return !image.isError();
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    public void statistiques(ActionEvent actionEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Statistiques.fxml"));
+        try {
+            titreTF.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+
+
+    }
+
+    public void totals(ActionEvent actionEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/stat.fxml"));
+        try {
+            titreTF.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
         }
     }
 }

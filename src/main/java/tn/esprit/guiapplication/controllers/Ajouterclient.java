@@ -7,6 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import org.apache.pdfbox.text.PDFTextStripper;
 import tn.esprit.guiapplication.services.ClientService;
 import tn.esprit.guiapplication.models.Client;
 import tn.esprit.guiapplication.test.HelloApplication;
@@ -19,6 +22,8 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Ajouterclient {
     @FXML
@@ -38,6 +43,14 @@ public class Ajouterclient {
 
     @FXML
     private Label BMR;
+    @FXML
+    private Label weightLabel;
+
+    @FXML
+    private Label heightLabel;
+
+    @FXML
+    private Label ageLabel;
 
 
     @FXML
@@ -259,7 +272,7 @@ public class Ajouterclient {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
+/*
     @FXML
     public void ajouterProgram(ActionEvent actionEvent) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Ajouterprogram.fxml"));
@@ -269,68 +282,124 @@ public class Ajouterclient {
             System.err.println(e.getMessage());
         }
 
-    }
+    }*/
 
     public void PdfClient(ActionEvent actionEvent) {
-    String nomTf = nomTF.getText();
-    String prenomTf = prenomTF.getText();
-    String ageTf = ageTF.getText();
-    String poidsTf = poidsTF.getText();
-    String hauteurTf = hauteurTF.getText();
-    String bmrTf = BMR.getText();
+        String nomTf = nomTF.getText();
+        String prenomTf = prenomTF.getText();
+        String ageTf = ageTF.getText();
+        String poidsTf = poidsTF.getText();
+        String hauteurTf = hauteurTF.getText();
+        String bmrTf = BMR.getText();
         try {
-        // Créez un nouveau document PDF
-        PDDocument document = new PDDocument();
+            // Créez un nouveau document PDF
+            PDDocument document = new PDDocument();
 
-        // Créez une page dans le document
-        PDPage page = new PDPage();
-        document.addPage(page);
+            // Créez une page dans le document
+            PDPage page = new PDPage();
+            document.addPage(page);
 
-        // Obtenez le contenu de la page
-        PDPageContentStream contentStream = new PDPageContentStream(document, page);
+            // Obtenez le contenu de la page
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
-        // Écrivez du texte dans le document
-        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-        contentStream.beginText();
-        contentStream.newLineAtOffset(100, 700);
-
-
-        // Ajouter l'image
-            /*    String imagePath = "C:/path/to/your/image/" + seance.getCategorie() + ".jpg"; // Replace with the actual path to your image
-                PDImageXObject pdImage = PDImageXObject.createFromFile(imagePath, document);
-
-                // Position the image
-                contentStream.drawImage(pdImage, 100, 650, 100, 100); // Adjust the position and size as needed
-*/
-        // Ajouter les informations de la séance
-        String ligne = "nom :" + nomTf + "  Prenom : " + prenomTf + "  Age : " + ageTf + "  Poids : " + poidsTf + "  Hauteur : " + hauteurTf + "  : " + bmrTf;
-        contentStream.showText(ligne);
-
-        contentStream.newLine();
-        contentStream.newLineAtOffset(0, -15);
+            // Écrivez du texte dans le document
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(100, 700);
 
 
-        contentStream.endText();
 
-        // Fermez le contenu de la page
-        contentStream.close();
+            // Ajouter les informations de la séance
+            String ligne = "nom :" + nomTf + "  Prenom : " + prenomTf + "  Age : " + ageTf + "  Poids : " + poidsTf + "  Hauteur : " + hauteurTf + "  : " + bmrTf;
+            contentStream.showText(ligne);
 
-        String outputPath = "C:/Users/salim/IdeaProjects/guiapplication/PIDEV_javaFX/src/pdf.pdf";
-        File file = new File(outputPath);
-        document.save(file);
+            contentStream.newLine();
+            contentStream.newLineAtOffset(0, -15);
 
-        // Fermez le document
-        document.close();
 
-        System.out.println("Le PDF a été généré avec succès.");
-        Desktop.getDesktop().open(file);
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+            contentStream.endText();
+
+            // Fermez le contenu de la page
+            contentStream.close();
+
+            String outputPath = "C:/Users/salim/IdeaProjects/guiapplication/PIDEV_javaFX/src/pdf.pdf";
+            File file = new File(outputPath);
+            document.save(file);
+
+            // Fermez le document
+            document.close();
+
+            System.out.println("Le PDF a été généré avec succès.");
+            Desktop.getDesktop().open(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
-}
+    public void impo(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir un fichier PDF");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers PDF", "*.pdf"));
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+
+        if (selectedFile != null) {
+            try {
+                PDDocument document = PDDocument.load(selectedFile);
+                PDFTextStripper pdfStripper = new PDFTextStripper();
+                String text = pdfStripper.getText(document);
+                document.close();
+
+                // Analyse du texte pour extraire l'âge, le poids et la taille
+                // Remplir les étiquettes avec les informations extraites
+                // Exemple simplifié :
+                ageLabel.setText(extractAge(text));
+                weightLabel.setText(extractWeight(text));
+                heightLabel.setText(extractHeight(text));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Méthodes pour extraire l'âge, le poids et la taille à partir du texte du PDF
+    private String extractAge(String text) {
+        String agePattern = "(?i)(\\bAge\\b)\\s*:\\s*(\\d+)";
+
+        Pattern pattern = Pattern.compile(agePattern);
+        Matcher matcher = pattern.matcher(text);
+        if (matcher.find()) {
+            this.ageTF.setText(matcher.group(2));
+            return matcher.group(2); // Le groupe 2 correspond au nombre d'âge
+
+        }
+        return "Age non trouvé";
+    }
+
+    private String extractWeight(String text) {
+        String weightPattern = "(?i)(\\bPoids\\b)\\s*:\\s*(\\d+)";
+        Pattern pattern = Pattern.compile(weightPattern);
+        Matcher matcher = pattern.matcher(text);
+        if (matcher.find()) {
+            this.poidsTF.setText(matcher.group(2));
+            return matcher.group(2); // Le groupe 2 correspond au nombre de poids
+        }
+        return "Poids non trouvé";
+    }
+
+    private String extractHeight(String text) {
+        String heightPattern = "(?i)(\\bHauteur\\b)\\s*:\\s*(\\d+)";
+        Pattern pattern = Pattern.compile(heightPattern);
+        Matcher matcher = pattern.matcher(text);
+        if (matcher.find()) {
+            this.hauteurTF.setText(matcher.group(2));
+            return matcher.group(2); // Le groupe 2 correspond au nombre de taille
+        }
+        return "Taille non trouvée";
+    }
+
+    }
 
 
 

@@ -10,29 +10,29 @@
 
 <AnchorPane prefHeight="424.0" prefWidth="843.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplication.controllers.Ajouterclient">
     <children>
-        <Label layoutX="333.0" layoutY="23.0" text="Ajouter Clients">
+        <Label layoutX="333.0" text="Ajouter Clients">
             <font>
                 <Font size="38.0" />
             </font>
         </Label>
         <TextField fx:id="nomTF" layoutX="234.0" layoutY="116.0" promptText="Nom" />
         <TextField fx:id="prenomTF" layoutX="235.0" layoutY="173.0" prefHeight="30.0" promptText="Prénom" />
-        <TextField fx:id="ageTF" layoutX="234.0" layoutY="231.0" prefHeight="30.0" promptText="Age" />
-        <TextField fx:id="poidsTF" layoutX="236.0" layoutY="289.0" prefHeight="30.0" promptText="Poids" />
-        <Button layoutX="653.0" layoutY="346.0" mnemonicParsing="false" onAction="#ajouterClient" text="Ajouter" />
+        <TextField fx:id="ageTF" disable="true" layoutX="234.0" layoutY="231.0" prefHeight="30.0" promptText="Age" />
+        <TextField fx:id="poidsTF" disable="true" layoutX="236.0" layoutY="289.0" prefHeight="30.0" promptText="Poids" />
+        <Button layoutX="626.0" layoutY="345.0" mnemonicParsing="false" onAction="#ajouterClient" text="Ajouter" />
 
-      <TextField fx:id="hauteurTF" layoutX="235.0" layoutY="343.0" prefHeight="30.0" prefWidth="174.0" promptText="Hauteur" />
-      <Label fx:id="BMR" layoutX="423.0" layoutY="188.0" prefHeight="146.0" prefWidth="314.0" textAlignment="CENTER" textFill="WHITE">
+      <TextField fx:id="hauteurTF" disable="true" layoutX="235.0" layoutY="343.0" prefHeight="30.0" prefWidth="174.0" promptText="Hauteur" />
+      <Label fx:id="BMR" layoutX="502.0" layoutY="204.0" prefHeight="114.0" prefWidth="287.0" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <ImageView fitHeight="62.0" fitWidth="273.0" layoutX="474.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="80.0" fitWidth="342.0" layoutX="285.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@418566203_1804384873376645_1434016650157370513_n.png" />
          </image>
       </ImageView>
-      <Button layoutX="728.0" layoutY="345.0" mnemonicParsing="false" onAction="#PdfClient" prefHeight="26.0" prefWidth="55.0" text="PDF" />
+      <Button layoutX="739.0" layoutY="345.0" mnemonicParsing="false" onAction="#PdfClient" prefHeight="26.0" prefWidth="75.0" text="PDF" />
       <AnchorPane prefHeight="424.0" prefWidth="225.0">
          <children>
             <ImageView fitHeight="194.0" fitWidth="258.0" layoutX="16.0" pickOnBounds="true" preserveRatio="true">
@@ -43,6 +43,22 @@
               <Button layoutX="42.0" layoutY="228.0" mnemonicParsing="false" onAction="#afficherClient" prefHeight="30.0" prefWidth="141.0" text="Afficher Client" />
          </children>
       </AnchorPane>
+      <Button layoutX="502.0" layoutY="345.0" mnemonicParsing="false" onAction="#impo" prefHeight="26.0" prefWidth="88.0" text="Import" />
+      <Label fx:id="ageLabel" layoutX="270.0" layoutY="384.0" prefHeight="26.0" prefWidth="8.0">
+         <font>
+            <Font size="1.0" />
+         </font>
+      </Label>
+      <Label fx:id="weightLabel" layoutX="236.0" layoutY="380.0" prefHeight="26.0" prefWidth="16.0">
+         <font>
+            <Font size="1.0" />
+         </font>
+      </Label>
+      <Label fx:id="heightLabel" layoutX="270.0" layoutY="392.0" prefHeight="8.0" prefWidth="8.0">
+         <font>
+            <Font size="1.0" />
+         </font>
+      </Label>
 
     </children>
 </AnchorPane>
