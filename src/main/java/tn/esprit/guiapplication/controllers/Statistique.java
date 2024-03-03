@@ -20,7 +20,7 @@ import java.util.List;
     public class Statistique {
 
         @FXML
-        private ListView<String> ListPie; // Utilisez String pour ListView au lieu de ?
+        private ListView<String> ListPie;
 
         @FXML
         private PieChart adressePie;
@@ -56,7 +56,6 @@ import java.util.List;
                 String adresse = String.valueOf(client.getAge());
                 boolean adresseExistante = false;
 
-                // Vérifier si l'adresse existe déjà dans le PieChart
                 for (PieChart.Data data : pieChartData) {
                     if (data.getName().equals(adresse)) {
                         adresseExistante = true;
@@ -65,7 +64,6 @@ import java.util.List;
                     }
                 }
 
-                // Si l'adresse n'existe pas, l'ajouter dans le PieChart
                 if (!adresseExistante) {
                     pieChartData.add(new PieChart.Data(adresse, 1));
                 }

@@ -24,7 +24,7 @@ public class ClientService implements IService<Client>{
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 client = new Client();
-                //client.setId_c(rs.getInt("id_c"));
+
                 client.setNom(rs.getString("nom"));
                 client.setPrenom(rs.getString("prenom"));
                 client.setAge(rs.getInt("age"));
@@ -38,50 +38,14 @@ public class ClientService implements IService<Client>{
     }
 
 
-/*
 
-
-public Client getClientById(int id){
-    Client client = null;
-    String req = "SELECT * FROM client WHERE id_c = ?";
-    try {
-        PreparedStatement ps = connection.prepareStatement(req);
-        ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            client = new Client();
-            client.setId_c(rs.getInt("id_c"));
-            client.setNom(rs.getString("nom"));
-            client.setPrenom(rs.getString("prenom"));
-            // Ajoutez les autres attributs comme l'âge et le poids si désu
-            client.setAge(rs.getInt("age"));
-            client.setPoids(rs.getInt("poids"));
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return client;
-}
-
-*/
   public void ajouter(Client client) throws SQLException {
     String req =" INSERT INTO client (nom,prenom,age,poids,hauteur) VALUES ('"+client.getNom()+"' , '"+client.getPrenom()+"','"+client.getAge()+"','"+client.getPoids()+"','"+client.getHauteur()+"')";
       Statement st =connection.createStatement();
       st.executeUpdate(req);
     }
 
-    /*@Override
-    public void modifier(Client client) throws SQLException {
-      String req = "UPDATE client SET nom = ?, prenom = ? , age = ? , poids = ? WHERE id_c = ? " ;
-      PreparedStatement cs = connection.prepareStatement(req);
-      cs.setString(1, client.getNom());
-      cs.setString(2, client.getPrenom());
-      cs.setInt(3, client.getAge());
-      cs.setInt(4, client.getPoids());
-      cs.setInt(5, client.getId_c());
-      cs.executeUpdate();
 
-    }*/
     @Override
     public void modifier(Client client) throws SQLException {
         String req = "UPDATE client SET nom = ?, prenom = ? , age = ? , poids = ? , hauteur = ? WHERE id_c = ? "  ;
@@ -100,15 +64,15 @@ public Client getClientById(int id){
                 System.out.println(rowsAffected + " row(s) affected.");
             }
 
-            // Commit the changes
+
             connection.commit();
         } catch (SQLException e) {
-            // If an error occurs, print details, rollback changes, and re-throw the exception
+
             e.printStackTrace();
             connection.rollback();
             throw e;
         } finally {
-            // Reset auto-commit to true to avoid issues in subsequent database operations
+
             connection.setAutoCommit(true);
         }
 
@@ -197,8 +161,8 @@ public Client getClientById(int id){
             }
         }
 
-        // Return null or throw an exception if the client is not found
-        return null; // You can choose a suitable default value
+
+        return null;
     }
 
 }

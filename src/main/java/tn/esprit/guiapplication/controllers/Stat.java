@@ -33,7 +33,6 @@ public class Stat {
     public void initialize() {
         totalClient();
         totalPrograms();
-        //OrderProducts();
 
     }
 
@@ -73,37 +72,7 @@ public class Stat {
         }
     }
 
-    @FXML
-    public void OrderPrograms() {
-        barChart.getData().clear();
-        String query = "SELECT nom, COUNT(id_p) AS count, AVG(prix_p) AS avgPrice FROM program GROUP BY nom";
 
-        connection = MyDatabase.getInstance().getConnection();
-
-        try {
-            XYChart.Series chart = new XYChart.Series<>();
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                chart.getData().add(new XYChart.Data(resultSet.getString(1), resultSet.getInt(2)));
-
-            }
-            barChart.getData().add(chart);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void ClientB(ActionEvent actionEvent) {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Ajouterclient.fxml"));
-        try {
-            total_c.getScene().setRoot(fxmlLoader.load());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
-    }
 
     public void ProgramB(ActionEvent actionEvent) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Ajouterprogram.fxml"));

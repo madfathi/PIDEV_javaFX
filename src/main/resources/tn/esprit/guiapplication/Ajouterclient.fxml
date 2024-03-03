@@ -17,11 +17,11 @@
         </Label>
         <TextField fx:id="nomTF" layoutX="234.0" layoutY="116.0" promptText="Nom" />
         <TextField fx:id="prenomTF" layoutX="235.0" layoutY="173.0" prefHeight="30.0" promptText="Prénom" />
-        <TextField fx:id="ageTF" disable="true" layoutX="234.0" layoutY="231.0" prefHeight="30.0" promptText="Age" />
-        <TextField fx:id="poidsTF" disable="true" layoutX="236.0" layoutY="289.0" prefHeight="30.0" promptText="Poids" />
+        <TextField fx:id="ageTF" layoutX="234.0" layoutY="231.0" prefHeight="30.0" promptText="Age" />
+        <TextField fx:id="poidsTF" layoutX="236.0" layoutY="289.0" prefHeight="30.0" promptText="Poids" />
         <Button layoutX="626.0" layoutY="345.0" mnemonicParsing="false" onAction="#ajouterClient" text="Ajouter" />
 
-      <TextField fx:id="hauteurTF" disable="true" layoutX="235.0" layoutY="343.0" prefHeight="30.0" prefWidth="174.0" promptText="Hauteur" />
+      <TextField fx:id="hauteurTF" layoutX="235.0" layoutY="343.0" prefHeight="30.0" prefWidth="174.0" promptText="Hauteur" />
       <Label fx:id="BMR" layoutX="502.0" layoutY="204.0" prefHeight="114.0" prefWidth="287.0" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="20.0" />

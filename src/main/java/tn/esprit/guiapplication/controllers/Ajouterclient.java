@@ -65,130 +65,29 @@ public class Ajouterclient {
 
     }
 
-    /*
-
-        @FXML
-        void ajouterClient(ActionEvent event) {
-            ClientService cs = new ClientService();
-            Client co = new Client();
-            co.setNom(nomTF.getText());
-            co.setPrenom(prenomTF.getText());
-            co.setAge(Integer.parseInt(ageTF.getText()));
-            co.setPoids(Integer.parseInt(poidsTF.getText()));
-            try {
-                cs.ajouter(co);
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION) ;
-                alert.setTitle("Success");
-                alert.setContentText("client ajoutée");
-                alert.showAndWait();
-            } catch (SQLException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR) ;
-                alert.setTitle("Erreur");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
-            }
-        }
-    */
-   /* @FXML
-    void ajouterClient(ActionEvent event) {
-        ClientService cs = new ClientService();
-        Client co = new Client();
-
-        // Récupérer les valeurs des champs et les trimmer pour enlever les espaces inutiles
-        String nom = nomTF.getText().trim();
-        String prenom = prenomTF.getText().trim();
-        String ageStr = ageTF.getText().trim();
-        String poidsStr = poidsTF.getText().trim();
-        String hauteurStr = hauteurTF.getText().trim();
-
-        // Vérifier si les champs sont vides
-        if (nom.isEmpty() || prenom.isEmpty() || ageStr.isEmpty() || poidsStr.isEmpty() || hauteurStr.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setContentText("Veuillez remplir tous les champs.");
-            alert.showAndWait();
-            return; // Sortir de la méthode si un champ est vide
-        }
-
-        // Vérifier si les champs age et poids contiennent des entiers valides
-        int age, poids, hauteur;
-        try {
-            age = Integer.parseInt(ageStr);
-            poids = Integer.parseInt(poidsStr);
-            hauteur = Integer.parseInt(hauteurStr);
-        } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setContentText("Veuillez saisir des valeurs numériques pour l'âge et le poids.");
-            alert.showAndWait();
-            return; // Sortir de la méthode si une valeur numérique est invalide
-        }
-
-        // Valider les contraintes supplémentaires, par exemple la longueur du nom et du prénom
-
-        // Ajouter le client seulement si toutes les vérifications sont passées
-        co.setNom(nom);
-        co.setPrenom(prenom);
-        co.setAge(age);
-        co.setPoids(poids);
-        co.setHauteur(hauteur);
-
-        if (!nom.matches("[a-zA-Z]+")) {
-            // Afficher une alerte
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur de saisie");
-            alert.setHeaderText(null);
-            alert.setContentText("Le nom de client doit contenir uniquement des lettres.");
-            alert.showAndWait();
-            return; // Sortir de la méthode si la validation échoue
-        }
-            if (!prenom.matches("[a-zA-Z]+")) {
-                // Afficher une alerte
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erreur de saisie");
-                alert.setHeaderText(null);
-                alert.setContentText("Le prenom d'utilisateur doit contenir uniquement des lettres.");
-                alert.showAndWait();
-                return; // Sortir de la méthode si la validation échoue
-            }
-            try {
-                cs.ajouter(co);
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Succès");
-                alert.setContentText("Client ajouté");
-                alert.showAndWait();
-            } catch (SQLException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erreur");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
-            }
-        }
-
-*/
 
     @FXML
     void ajouterClient(ActionEvent event) {
         ClientService cs = new ClientService();
         Client co = new Client();
 
-        // Récupérer les valeurs des champs et les trimmer pour enlever les espaces inutiles
+
         String nom = nomTF.getText().trim();
         String prenom = prenomTF.getText().trim();
         String ageStr = ageTF.getText().trim();
         String poidsStr = poidsTF.getText().trim();
         String hauteurStr = hauteurTF.getText().trim();
 
-        // Vérifier si les champs sont vides
+
         if (nom.isEmpty() || prenom.isEmpty() || ageStr.isEmpty() || poidsStr.isEmpty() || hauteurStr.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setContentText("Veuillez remplir tous les champs.");
             alert.showAndWait();
-            return; // Sortir de la méthode si un champ est vide
+            return;
         }
 
-        // Vérifier si les champs age et poids contiennent des entiers valides
+
         int age, poids, hauteur;
         try {
             age = Integer.parseInt(ageStr);
@@ -199,12 +98,10 @@ public class Ajouterclient {
             alert.setTitle("Erreur");
             alert.setContentText("Veuillez saisir des valeurs numériques pour l'âge et le poids.");
             alert.showAndWait();
-            return; // Sortir de la méthode si une valeur numérique est invalide
+            return;
         }
 
-        // Valider les contraintes supplémentaires, par exemple la longueur du nom et du prénom
 
-        // Ajouter le client seulement si toutes les vérifications sont passées
         co.setNom(nom);
         co.setPrenom(prenom);
         co.setAge(age);
@@ -212,16 +109,15 @@ public class Ajouterclient {
         co.setHauteur(hauteur);
 
         if (!nom.matches("[a-zA-Z]+")) {
-            // Afficher une alerte
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText(null);
             alert.setContentText("Le nom de client doit contenir uniquement des lettres.");
             alert.showAndWait();
-            return; // Sortir de la méthode si la validation échoue
+            return;
         }
         if (!prenom.matches("[a-zA-Z]+")) {
-            // Afficher une alerte
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText(null);
@@ -229,13 +125,12 @@ public class Ajouterclient {
             alert.showAndWait();
             return; // Sortir de la méthode si la validation échoue
         }
-// Calculate BMR
+
         double bmr = calculateBMR(age, poids, hauteur);
 
-        // Display BMR in label
+
         BMR.setText(String.format("BMR: %.2f", bmr));
 
-        // Display BMR Alert based on result
         if (bmr < 1500) {
             BMR.setText(BMR.getText() + " - Sous-alimenté");
         } else if (bmr >= 1500 && bmr < 2000) {
@@ -247,7 +142,7 @@ public class Ajouterclient {
             cs.ajouter(co);
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Succès");
-            alert.setContentText("Client ajouté");
+            alert.setContentText("Client ajouté." + "Attendre un mail du coach");
             alert.showAndWait();
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -257,14 +152,12 @@ public class Ajouterclient {
         }
     }
 
-    // Méthode pour calculer le BMR
+
     private double calculateBMR(int age, int poids, int hauteur) {
-        // Calcul du BMR selon une formule quelconque, par exemple la formule de Harris-Benedict
-        // Vous pouvez remplacer cette formule par celle que vous souhaitez utiliser
         return 655 + (9.6 * poids) + (1.8 * hauteur) - (4.7 * age);
     }
 
-    // Méthode pour afficher une alerte
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("BMR Résultat");
@@ -272,17 +165,7 @@ public class Ajouterclient {
         alert.setContentText(message);
         alert.showAndWait();
     }
-/*
-    @FXML
-    public void ajouterProgram(ActionEvent actionEvent) {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Ajouterprogram.fxml"));
-        try {
-            ageTF.getScene().setRoot(fxmlLoader.load());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
 
-    }*/
 
     public void PdfClient(ActionEvent actionEvent) {
         String nomTf = nomTF.getText();
@@ -292,24 +175,17 @@ public class Ajouterclient {
         String hauteurTf = hauteurTF.getText();
         String bmrTf = BMR.getText();
         try {
-            // Créez un nouveau document PDF
-            PDDocument document = new PDDocument();
 
-            // Créez une page dans le document
+            PDDocument document = new PDDocument();
             PDPage page = new PDPage();
             document.addPage(page);
-
-            // Obtenez le contenu de la page
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
-            // Écrivez du texte dans le document
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(100, 700);
 
 
-
-            // Ajouter les informations de la séance
             String ligne = "nom :" + nomTf + "  Prenom : " + prenomTf + "  Age : " + ageTf + "  Poids : " + poidsTf + "  Hauteur : " + hauteurTf + "  : " + bmrTf;
             contentStream.showText(ligne);
 
@@ -319,14 +195,14 @@ public class Ajouterclient {
 
             contentStream.endText();
 
-            // Fermez le contenu de la page
+
             contentStream.close();
 
             String outputPath = "C:/Users/salim/IdeaProjects/guiapplication/PIDEV_javaFX/src/pdf.pdf";
             File file = new File(outputPath);
             document.save(file);
 
-            // Fermez le document
+
             document.close();
 
             System.out.println("Le PDF a été généré avec succès.");
@@ -350,9 +226,6 @@ public class Ajouterclient {
                 String text = pdfStripper.getText(document);
                 document.close();
 
-                // Analyse du texte pour extraire l'âge, le poids et la taille
-                // Remplir les étiquettes avec les informations extraites
-                // Exemple simplifié :
                 ageLabel.setText(extractAge(text));
                 weightLabel.setText(extractWeight(text));
                 heightLabel.setText(extractHeight(text));
@@ -363,7 +236,7 @@ public class Ajouterclient {
         }
     }
 
-    // Méthodes pour extraire l'âge, le poids et la taille à partir du texte du PDF
+
     private String extractAge(String text) {
         String agePattern = "(?i)(\\bAge\\b)\\s*:\\s*(\\d+)";
 
@@ -371,7 +244,7 @@ public class Ajouterclient {
         Matcher matcher = pattern.matcher(text);
         if (matcher.find()) {
             this.ageTF.setText(matcher.group(2));
-            return matcher.group(2); // Le groupe 2 correspond au nombre d'âge
+            return matcher.group(2);
 
         }
         return "Age non trouvé";
@@ -383,7 +256,7 @@ public class Ajouterclient {
         Matcher matcher = pattern.matcher(text);
         if (matcher.find()) {
             this.poidsTF.setText(matcher.group(2));
-            return matcher.group(2); // Le groupe 2 correspond au nombre de poids
+            return matcher.group(2);
         }
         return "Poids non trouvé";
     }
@@ -394,7 +267,7 @@ public class Ajouterclient {
         Matcher matcher = pattern.matcher(text);
         if (matcher.find()) {
             this.hauteurTF.setText(matcher.group(2));
-            return matcher.group(2); // Le groupe 2 correspond au nombre de taille
+            return matcher.group(2);
         }
         return "Taille non trouvée";
     }

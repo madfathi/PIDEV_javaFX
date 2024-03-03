@@ -49,70 +49,7 @@ public class Afficherclient {
 
 
 
-   /* @FXML
-    void initialize() {
-        ClientService clientService = new ClientService();
-        try {
-            List<Client> clients = clientService.recuperer();
-            ObservableList<Client> observableList = FXCollections.observableList(clients);
-            listView.setItems(observableList);
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
 
-    }
-*/
-
-   /* @FXML
-    void initialize() {
-        ClientService clientService = new ClientService();
-        try {
-            List<Client> clients = clientService.recuperer();
-
-            // Create an ObservableList to store the clients
-            ObservableList<Client> clientList = FXCollections.observableArrayList(clients);
-
-            // Set items for the ListView
-            listView.setItems(clientList);
-
-            // Set custom ListCell to format the data in columns
-            listView.setCellFactory(clientListView -> new ListCell<Client>() {
-                @Override
-                protected void updateItem(Client client, boolean empty) {
-                    super.updateItem(client, empty);
-                    if (empty || client == null) {
-                        setText(null);
-                    } else {
-                        // Format the client details as needed
-                        String clientDetails = String.format("ID: %d, Age: %d, Poids: %d, Nom: %s, Prénom: %s",
-                                client.getId_c(),
-                                client.getAge(),
-                                client.getPoids(),
-                                client.getNom(),
-                                client.getPrenom());
-                        setText(clientDetails);
-                    }
-                }
-            });
-
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                // Récupérer le client sélectionné
-                Client selectedClient = listView.getSelectionModel().getSelectedItem();
-
-                // Afficher les informations du client dans les champs de texte
-              //  idTFm.setText(String.valueOf(selectedClient.getId_c()));
-                nomTFm.setText(selectedClient.getNom());
-                prenomTFm.setText(selectedClient.getPrenom());
-                ageTFm.setText(String.valueOf(selectedClient.getAge()));
-                poidsTFm.setText(String.valueOf(selectedClient.getPoids()));
-            }
-        });
-    }
-    */
     @FXML
    void initialize() {
        ClientService clientService = new ClientService();
@@ -127,10 +64,9 @@ public class Afficherclient {
        }
        listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
            if (newValue != null) {
-               // Récupérer le client sélectionné
+
                Client selectedClient = listView.getSelectionModel().getSelectedItem();
 
-               // Afficher les informations du client dans les champs de texte
                nomTFm.setText(selectedClient.getNom());
                prenomTFm.setText(selectedClient.getPrenom());
                ageTFm.setText(String.valueOf(selectedClient.getAge()));
@@ -149,8 +85,8 @@ public class Afficherclient {
     @FXML
 
     void sort(ActionEvent event) {
-        ClientService clientService = new ClientService(); // Create an instance of ClientService
-        List<Client> clients = null; // Call the non-static method on the instance
+        ClientService clientService = new ClientService();
+        List<Client> clients = null;
 
         clients = clientService.getAll();
         clientService.sortByClient(clients);
@@ -164,84 +100,7 @@ public class Afficherclient {
 
     }
 
-/*
 
-    @FXML
-    void modifierClient(ActionEvent event) throws SQLException {
-        String idText = idTFm.getText();
-        String nomText = nomTFm.getText();
-        String prenomText = prenomTFm.getText();
-        String ageText = ageTFm.getText();
-        String poidsText = poidsTFm.getText();
-
-        // Vérification du champ ID
-        if (idText.isEmpty()) {
-            afficherMessageErreur("Veuillez saisir l'ID.");
-            return;
-        }
-        int id_c;
-        try {
-            id_c = Integer.parseInt(idText);
-        } catch (NumberFormatException e) {
-            afficherMessageErreur("L'ID doit être un nombre entier.");
-            return;
-        }
-
-        // Vérification du champ nom
-        if (nomText.isEmpty()) {
-            afficherMessageErreur("Veuillez saisir le nom.");
-            return;
-        }
-
-
-        // Vérification du champ prénom
-        if (prenomText.isEmpty()) {
-            afficherMessageErreur("Veuillez saisir le prénom.");
-            return;
-        }
-
-        // Vérification du champ âge
-        if (ageText.isEmpty()) {
-            afficherMessageErreur("Veuillez saisir l'âge.");
-            return;
-        }
-        int age;
-        try {
-            age = Integer.parseInt(ageText);
-        } catch (NumberFormatException e) {
-            afficherMessageErreur("L'âge doit être un nombre entier.");
-            return;
-        }
-
-        // Vérification du champ poids
-        if (poidsText.isEmpty()) {
-            afficherMessageErreur("Veuillez saisir le poids.");
-            return;
-        }
-        int poids;
-        try {
-            poids = Integer.parseInt(poidsText);
-        } catch (NumberFormatException e) {
-            afficherMessageErreur("Le poids doit être un nombre entier.");
-            return;
-        }
-
-        // Si toutes les vérifications sont passées, créer un nouveau client et le modifier
-        Client co = new Client(id_c, age, poids, nomText, prenomText);
-        ClientService clientService = new ClientService();
-        clientService.modifier(co);
-
-        // Afficher une confirmation
-        Alert al = new Alert(Alert.AlertType.INFORMATION);
-        al.setTitle("Succès");
-        al.setHeaderText(null);
-        al.setContentText("Client modifié avec succès.");
-        al.showAndWait();
-
-        // Réinitialiser les champs
-        initialize();
-    }
-*/
     @FXML
 public void modifierClient(ActionEvent event) {
     ClientService clientService = new ClientService();
@@ -251,7 +110,7 @@ public void modifierClient(ActionEvent event) {
 
     // Check if a category is selected
     if (selectedClient != null) {
-        // Set the name from the text field to the selected category
+
         selectedClient.setNom(nomTFm.getText());
         selectedClient.setPrenom(prenomTFm.getText());
         selectedClient.setAge(Integer.parseInt(ageTFm.getText()));
@@ -259,10 +118,10 @@ public void modifierClient(ActionEvent event) {
         selectedClient.setHauteur(Integer.parseInt(hauteurTFm.getText()));
 
         try {
-            // Print debug information
+
             System.out.println("Updating client with id_c: " + selectedClient.getId_c() + ", new nom_c: " + selectedClient.getNom());
 
-            // Call the modifier method with the selected category
+
             clientService.modifier(selectedClient);
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Succes");
@@ -286,36 +145,6 @@ public void modifierClient(ActionEvent event) {
 }
 
 
-    @FXML
-    private void afficherMessageErreur(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erreur de saisie");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-
-
-
-
-
-
-    @FXML
-    public void ajouterProgram(ActionEvent actionEvent) {
-        {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Ajouterprogram.fxml"));
-            try {
-                ageTFm.getScene().setRoot(fxmlLoader.load());
-            } catch (IOException e) {
-                System.err.println(e.getMessage());
-            }
-
-
-        }
-
-    }
-
     public void supprimerclient(ActionEvent actionEvent) {
         ClientService clientService = new ClientService();
         Client client = new Client();
@@ -337,33 +166,14 @@ public void modifierClient(ActionEvent event) {
         initialize();
     }
 
-/*
-    public void trouverClient(ActionEvent actionEvent) {
-        int idClient = Integer.parseInt(idTFm.getText());
-        ClientService clientService = new ClientService();
-        Client clientTrouvee = clientService.getClientById(idClient);
 
-        if (clientTrouvee != null) {
-            System.out.println("Client trouvee : " + clientTrouvee.getId_c());
-            idTFm.setText(String.valueOf(clientTrouvee.getId_c()));
-            nomTFm.setText(clientTrouvee.getNom());
-            prenomTFm.setText(clientTrouvee.getPrenom());
-            ageTFm.setText(String.valueOf(clientTrouvee.getAge()));
-            poidsTFm.setText(String.valueOf(clientTrouvee.getPoids()));
-        } else {
-            System.out.println("Aucune client trouvée avec l'ID : " + idClient);
-        }
-
-    }
-*/
 public void trouverClient(ActionEvent actionEvent) {
-    String nomClient = nomTFm.getText(); // Get the name from the TextField
+    String nomClient = nomTFm.getText();
     ClientService clientService = new ClientService();
     Client clientTrouvee = clientService.getClientByID(nomClient); // Adjust the service method to retrieve by name
 
     if (clientTrouvee != null) {
         System.out.println("Client trouvé : " + clientTrouvee.getNom());
-       // idTFm.setText(String.valueOf(clientTrouvee.getId_c()));
         nomTFm.setText(clientTrouvee.getNom());
         prenomTFm.setText(clientTrouvee.getPrenom());
         ageTFm.setText(String.valueOf(clientTrouvee.getAge()));

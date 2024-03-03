@@ -14,12 +14,12 @@ public class ProgramCell extends ListCell<Program> {
             setText(null);
             setGraphic(null);
         } else {
-            // Création du label pour afficher les détails de la commande
-            Label label = new Label();
-            label.setStyle("-fx-font-weight: bold;-fx-text-fill: black;"); // Appliquer un style au label
-            label.setWrapText(true); // Permettre le retour à la ligne automatique
 
-            // Construction de la chaîne de caractères avec les détails de la commande
+            Label label = new Label();
+            label.setStyle("-fx-font-weight: bold;-fx-text-fill: black;");
+            label.setWrapText(true);
+
+
             StringBuilder sb = new StringBuilder();
               sb.append("Nom: ").append(program.getClient().getNom()).append("\n")
                       .append("Titre: ").append(program.getTitre()).append("\n")
@@ -28,7 +28,7 @@ public class ProgramCell extends ListCell<Program> {
                     .append("Prix: ").append(program.getPrix()).append("\n")
                     .append("Image: ").append(program.getImage()).append ("\n");
 
-            // Définition du texte du label
+
             label.setText(sb.toString());
 
             setGraphic(label);

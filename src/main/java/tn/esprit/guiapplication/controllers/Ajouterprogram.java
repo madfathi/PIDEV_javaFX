@@ -66,7 +66,7 @@ public class Ajouterprogram {
         }
         listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                // Récupérer le client sélectionné
+
                 Client selectedClient = (Client) listView.getSelectionModel().getSelectedItem();
 
                 // Afficher les informations du client dans les champs de texte
@@ -144,7 +144,7 @@ public class Ajouterprogram {
             message.setSubject("welcome to gestion de coaching");
             message.setText("Nom: " + a  + " Titre: " + b + " Niveau: " + c + " Description: " + d + " Prix: " + f);
 
-            // Enable debugging
+
             session.setDebug(true);
 
             Transport.send(message);
@@ -156,31 +156,30 @@ public class Ajouterprogram {
 
     @FXML
     public void handleUploadButtonAction(ActionEvent actionEvent) {
-        // Create a file chooser
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Image File");
 
-        // Set file extension filter to only allow image files
+
         FileChooser.ExtensionFilter imageFilter =
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif");
         fileChooser.getExtensionFilters().add(imageFilter);
 
-        // Show open file dialog
+
         File selectedFile = fileChooser.showOpenDialog(new Stage());
 
-        // Check if a file is selected and it's an image
+
         if (selectedFile == null || !isImageFile(selectedFile)) {
-            // Clear the ImageView
+
             imageTF.setImage(null);
             System.out.println("Please select a valid image file.");
             return;
         }
 
-        // Store the file path with forward slashes
+
         filePath = selectedFile.getAbsolutePath().replace("\\", "/");
         System.out.println("File path stored: " + filePath);
 
-        // Set the image in the ImageView
         javafx.scene.image.Image image = new javafx.scene.image.Image(selectedFile.toURI().toString());
         imageTF.setImage(image);
     }

@@ -17,14 +17,14 @@ public class ClientCell extends ListCell<Client> {
                 setText(null);
                 setGraphic(null);
             } else {
-                // Création du label pour afficher les détails de la commande
-                Label label = new Label();
-                label.setStyle("-fx-font-weight: bold;-fx-text-fill: black;"); // Appliquer un style au label
-                label.setWrapText(true); // Permettre le retour à la ligne automatique
 
-                // Construction de la chaîne de caractères avec les détails de la commande
+                Label label = new Label();
+                label.setStyle("-fx-font-weight: bold;-fx-text-fill: black;");
+                label.setWrapText(true);
+
+
                 StringBuilder sb = new StringBuilder();
-              //  sb.append("ID: ").append(client.getId_c()).append("\n")
+
                         sb.append("Nom: ").append(client.getNom()).append("\n")
                         .append("Prénom: ").append(client.getPrenom()).append("\n")
                         .append("Age: ").append(client.getAge()).append("\n")
@@ -32,7 +32,7 @@ public class ClientCell extends ListCell<Client> {
                         .append("Hauteur: ").append(client.getHauteur());
 
 
-                // Définition du texte du label
+
                 label.setText(sb.toString());
 
                 setGraphic(label);
