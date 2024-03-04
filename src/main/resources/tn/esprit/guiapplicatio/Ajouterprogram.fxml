@@ -1,45 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="474.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplicatio.controllers.Ajouterprogram">
+<AnchorPane prefHeight="583.0" prefWidth="838.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplicatio.controllers.Ajouterprogram">
    <children>
-      <Label layoutX="276.0" layoutY="35.0" prefHeight="60.0" prefWidth="340.0" text="Ajouter Program">
+      <AnchorPane layoutX="321.0" layoutY="189.0" prefHeight="546.0" prefWidth="666.0" stylesheets="@dashboardDesign.css">
+         <styleClass>
+            <String fx:value="white-bg" />
+            <String fx:value="shadow" />
+         </styleClass>
+      </AnchorPane>
+      <Label layoutX="437.0" layoutY="-2.0" prefHeight="60.0" prefWidth="340.0" text="Ajouter Program">
          <font>
             <Font size="38.0" />
          </font>
       </Label>
-      <TextField fx:id="titreTF" layoutX="225.0" layoutY="163.0" promptText="Titre" />
-      <TextField fx:id="niveauTF" layoutX="226.0" layoutY="207.0" promptText="Niveau" />
-      <TextField fx:id="descriptionTF" layoutX="225.0" layoutY="252.0" promptText="Description" />
-      <TextField fx:id="prixTF" layoutX="226.0" layoutY="295.0" promptText="Prix" />
-      <Button layoutX="605.0" layoutY="351.0" mnemonicParsing="false" onAction="#ajouterProgram" prefHeight="26.0" prefWidth="102.0" text="Ajouter" />
-      <Button layoutX="14.0" layoutY="9.0" mnemonicParsing="false" onAction="#retour2" text="&lt;----" />
+      <TextField fx:id="titreTF" layoutX="362.0" layoutY="261.0" prefHeight="38.0" prefWidth="234.0" promptText="Titre" />
+      <TextField fx:id="niveauTF" layoutX="362.0" layoutY="307.0" prefHeight="38.0" prefWidth="234.0" promptText="Niveau" />
+      <TextField fx:id="descriptionTF" layoutX="362.0" layoutY="351.0" prefHeight="38.0" prefWidth="234.0" promptText="Description" />
+      <TextField fx:id="prixTF" layoutX="362.0" layoutY="396.0" prefHeight="38.0" prefWidth="234.0" promptText="Prix" />
+      <Button layoutX="770.0" layoutY="357.0" mnemonicParsing="false" onAction="#ajouterProgram" prefHeight="26.0" prefWidth="132.0" text="Ajouter" />
 
-      <TextField fx:id="nom" layoutX="225.0" layoutY="121.0" promptText="Nom Client " />
-      <ImageView fitHeight="110.0" fitWidth="351.0" layoutX="401.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+      <TextField fx:id="nom" layoutX="362.0" layoutY="215.0" prefHeight="38.0" prefWidth="233.0" promptText="Nom Client " />
+      <ImageView fitHeight="110.0" fitWidth="351.0" layoutX="412.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@418566203_1804384873376645_1434016650157370513_n.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imageTF" fitHeight="150.0" fitWidth="200.0" layoutX="438.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="492.0" layoutY="352.0" mnemonicParsing="false" onAction="#handleUploadButtonAction" prefHeight="26.0" prefWidth="85.0" text="Image" />
-      <AnchorPane layoutY="39.0" prefHeight="438.0" prefWidth="224.0">
+      <ImageView fx:id="imageTF" fitHeight="150.0" fitWidth="200.0" layoutX="611.0" layoutY="196.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="629.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleUploadButtonAction" prefHeight="26.0" prefWidth="112.0" text="Image" />
+      <AnchorPane layoutX="14.0" layoutY="83.0" prefHeight="116.0" prefWidth="257.0">
          <children>
-            <ImageView fitHeight="194.0" fitWidth="224.0" layoutX="15.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="163.0" fitWidth="184.0" layoutX="32.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@219988.png" />
+                  <Image url="@../../../../../../../../../../zeroWaste-javaFX-main/src/assets/img/avatar.png" />
                </image>
             </ImageView>
-            <Button layoutX="15.0" layoutY="241.0" mnemonicParsing="false" onAction="#afficherProgram" prefHeight="38.0" prefWidth="180.0" text="Afficher Program" />
          </children>
       </AnchorPane>
+      <ListView fx:id="listView" layoutX="361.0" layoutY="443.0" prefHeight="188.0" prefWidth="563.0" />
+      <Button layoutX="756.0" layoutY="655.0" mnemonicParsing="false" onAction="#statistiques" prefHeight="38.0" prefWidth="170.0" text="Statistiques" />
+      <Button layoutX="556.0" layoutY="655.0" mnemonicParsing="false" onAction="#totals" prefHeight="38.0" prefWidth="180.0" text="Totals" />
+      <Button layoutX="361.0" layoutY="655.0" mnemonicParsing="false" onAction="#afficherProgram" prefHeight="38.0" prefWidth="180.0" text="Afficher Program" />
+      <HBox fx:id="dashboardBtn3" alignment="CENTER_LEFT" layoutX="36.0" layoutY="246.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#open_dashboard" prefHeight="50.0" prefWidth="200.0" stylesheets="@aliStyle.css">
+         <children>
+            <ImageView fx:id="dashboardIcon3" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../../zeroWaste-javaFX-main/src/assets/img/menu-active.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="25.0" />
+               </HBox.margin>
+            </ImageView>
+            <Label fx:id="dashboardText3" text="Dashboard" textFill="WHITE">
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="text" />
+                  <String fx:value="activeText" />
+               </styleClass>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+         <styleClass>
+            <String fx:value="nav-links" />
+            <String fx:value="activeLink" />
+         </styleClass>
+      </HBox>
+      <Button layoutX="30.0" layoutY="578.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="211.0" stylesheets="@aliStyle.css" text="Gestion Seance" />
+      <Button layoutX="29.0" layoutY="517.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="213.0" stylesheets="@aliStyle.css" text="Gestion commande" />
+      <Button layoutX="29.0" layoutY="456.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="213.0" stylesheets="@aliStyle.css" text="Gestion panier" />
+      <Button layoutX="29.0" layoutY="393.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="213.0" stylesheets="@aliStyle.css" text="Gestion coaching" />
+      <Button layoutX="29.0" layoutY="335.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="213.0" stylesheets="@aliStyle.css" text="Gestion user" />
 
    </children>
 </AnchorPane>

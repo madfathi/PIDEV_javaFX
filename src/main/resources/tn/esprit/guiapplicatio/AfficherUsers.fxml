@@ -133,7 +133,6 @@
                         <URL value="@dashboardDesign.css" />
                      </stylesheets>
                   </AnchorPane>
-                  <Button layoutX="14.0" layoutY="373.0" mnemonicParsing="false" onAction="#RetourMenu" prefHeight="39.0" prefWidth="242.0" text="Gestion Seance" />
                   <ImageView fitHeight="163.0" fitWidth="184.0" layoutX="34.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../../../../../../zeroWaste-javaFX-main/src/assets/img/avatar.png" />
@@ -182,12 +181,16 @@
                         <String fx:value="activeText" />
                      </styleClass>
                   </Label>
-                  <Button layoutX="14.0" layoutY="439.0" mnemonicParsing="false" onAction="#ge_re" prefHeight="40.0" prefWidth="242.0" text="Gestion Commande" />
                   <Label layoutX="575.0" layoutY="92.0" prefHeight="39.0" prefWidth="226.0" text="Liste Des Utilisateurs">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Label>
+                  <Button layoutX="10.0" layoutY="341.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="215.0" stylesheets="@aliStyle.css" text="Gestion Seance" />
+                  <Button layoutX="10.0" layoutY="398.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="215.0" stylesheets="@aliStyle.css" text="Gestion Commande" />
+                  <Button layoutX="10.0" layoutY="456.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="215.0" stylesheets="@aliStyle.css" text="Gestion Panier" />
+                  <Button layoutX="10.0" layoutY="518.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="215.0" stylesheets="@aliStyle.css" text="Gestion Users" />
+                  <Button layoutX="10.0" layoutY="576.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="215.0" stylesheets="@aliStyle.css" text="Gestion Produit" />
                </children>
                <stylesheets>
                   <URL value="@styles.css" />

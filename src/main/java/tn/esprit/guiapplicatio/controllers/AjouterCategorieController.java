@@ -57,7 +57,6 @@ import javafx.fxml.Initializable;
 import tn.esprit.guiapplicatio.utils.DataSource;
 
 
-
 public class AjouterCategorieController implements Initializable {
     private Connection conn;
     private PreparedStatement pst;
@@ -104,7 +103,7 @@ public class AjouterCategorieController implements Initializable {
     //le path  et les elements pour stocker les images
     String filepath = null, filename = null, fn = null;
     String uploads = "C:/Users/LEGION/Desktop/ProduitCategorie/src/main/java/Images/";
-    String uploads2 = "C:/Users/Lenovo/IdeaProjects/guiapplicatio/src/PDF/";
+    String uploads2 = "C:/Users/LEGION/Desktop/ProduitCategorie/src/main/java/PDF/";
     FileChooser fc = new FileChooser();
     ObservableList<Categorie> list = FXCollections.observableArrayList();
     public int idCategorie;
@@ -260,10 +259,13 @@ public class AjouterCategorieController implements Initializable {
     //bouton retour pour retourner vers le menu
     public void backCategorie(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/MenuProduitCategorie.fxml"));
-        Parent root = fxmlLoader.load();
-
-        tfNomCategorie.getScene().setRoot(root);
-
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root1));
+        Node source = (Node) actionEvent.getSource();
+        Stage currentStage = (Stage) source.getScene().getWindow();
+        currentStage.close();
+        stage.show();
 
     }
 
@@ -336,8 +338,8 @@ public class AjouterCategorieController implements Initializable {
 
             for (Categorie categorie : data) {
 // Ajouter l'image
-            //    String imagePath = uploads + categorie.getImageCategorie();
-               // PDImageXObject pdImage = PDImageXObject.createFromFile(imagePath, document);
+                String imagePath = uploads + categorie.getImageCategorie();
+                PDImageXObject pdImage = PDImageXObject.createFromFile(imagePath, document);
 
                 String ligne = "ID : " + categorie.getIdCategorie() + "     Nom : " + categorie.getNomCategorie();
                 contentStream.showText(ligne);
@@ -353,7 +355,7 @@ public class AjouterCategorieController implements Initializable {
             // Fermez le contenu de la page
             contentStream.close();
 
-            String outputPath = "C:/Users/Lenovo/IdeaProjects/guiapplicatio/src/PDF/seance.pdf";
+            String outputPath = "C:/Users/LEGION/Desktop/ProduitCategorie/src/main/java/PDF/categories.pdf";
             File file = new File(outputPath);
             document.save(file);
 
@@ -462,7 +464,7 @@ public class AjouterCategorieController implements Initializable {
             index++;
         }
 
-        FileOutputStream file = new FileOutputStream("C:/Users/Lenovo/IdeaProjects/guiapplicatio/src/PDF/projet.xls");
+        FileOutputStream file = new FileOutputStream("C:/Users/LEGION/Desktop/ProduitCategorie/src/main/java/EXCEL/categorie.xls");
         wb.write(file);
         file.close();
 
@@ -476,7 +478,7 @@ public class AjouterCategorieController implements Initializable {
     void AfficherListView(ActionEvent event) {
         try {
             // Charger la nouvelle scène à partir du fichier FXML
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/AfficherCategorie.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AfficherCategorie.fxml"));
             AnchorPane nouvelleScene = fxmlLoader.load();
 
             // Créer une nouvelle scène

@@ -21,14 +21,14 @@
             <String fx:value="shadow" />
          </styleClass>
          <children>
-            <ImageView fitHeight="72.0" fitWidth="269.0" layoutX="259.0" layoutY="63.0">
+            <ImageView fitHeight="72.0" fitWidth="269.0" layoutX="222.0" layoutY="64.0">
                <image>
                   <Image url="@Photos/powerfit-logo-web-large-400x93.png" />
                </image>
             </ImageView>
-            <Button fx:id="IdMenuCategorie" layoutX="248.0" layoutY="225.0" mnemonicParsing="false" onAction="#MenuCategorie" prefHeight="66.0" prefWidth="306.0" text="Gestion des categories" />
-            <Button fx:id="IdMenuProduit" layoutX="247.0" layoutY="315.0" mnemonicParsing="false" onAction="#MenuProduit" prefHeight="66.0" prefWidth="306.0" text="Gestion des Produits" />
-            <Button fx:id="IdMenuReclamation" layoutX="248.0" layoutY="404.0" mnemonicParsing="false" onAction="#MenuReclamation" prefHeight="66.0" prefWidth="306.0" text="Gestion des Reclamations" />
+            <Button fx:id="IdMenuCategorie" layoutX="211.0" layoutY="226.0" mnemonicParsing="false" onAction="#MenuCategorie" prefHeight="66.0" prefWidth="306.0" text="Gestion des categories" />
+            <Button fx:id="IdMenuProduit" layoutX="210.0" layoutY="316.0" mnemonicParsing="false" onAction="#MenuProduit" prefHeight="66.0" prefWidth="306.0" text="Gestion des Produits" />
+            <Button fx:id="IdMenuReclamation" layoutX="211.0" layoutY="405.0" mnemonicParsing="false" onAction="#MenuReclamation" prefHeight="66.0" prefWidth="306.0" text="Gestion des Reclamations" />
          </children>
       </AnchorPane>
       <ImageView fitHeight="163.0" fitWidth="184.0" layoutX="43.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">

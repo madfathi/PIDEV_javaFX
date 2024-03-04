@@ -84,7 +84,7 @@ public class panier {
         StringBuilder sb = new StringBuilder();
         sb.append("panier:");
         sb.append("\n");
-      //  sb.append("idp=").append(idp);
+        //sb.append("idp=").append(idp);
         sb.append("\n");
         sb.append("quantite=").append(quantite);
         sb.append("\n");

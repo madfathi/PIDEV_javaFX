@@ -1,4 +1,5 @@
 package tn.esprit.guiapplicatio.models;
+
 public class Produit {
     private int idProduit;
     private String nomProduit;

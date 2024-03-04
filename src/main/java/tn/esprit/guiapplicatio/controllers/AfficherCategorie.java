@@ -1,7 +1,6 @@
 package tn.esprit.guiapplicatio.controllers;
 
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,7 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import tn.esprit.guiapplicatio.models.Categorie;
+import  tn.esprit.guiapplicatio.models.Categorie;
 import tn.esprit.guiapplicatio.services.CategorieService;
 
 import java.io.IOException;

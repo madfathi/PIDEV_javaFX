@@ -22,6 +22,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Properties;
+import static tn.esprit.guiapplicatio.controllers.SIGNUP.EnvoiEmail.envoyer;
 
 public class SIGNUP {
 
@@ -120,7 +121,7 @@ public class SIGNUP {
             userService.ajouter(user);
             envoyer(email);
 
-         //   userService.envoyerCode( email,  "");
+            //   userService.envoyerCode( email,  "");
             // Afficher une alerte de succès
             afficherMessageAvecBouton("Succès", "Utilisateur ajouté avec succès. Cliquez sur 'Se connecter' pour vous connecter.", event);
         } catch (SQLException e) {
@@ -146,40 +147,68 @@ public class SIGNUP {
             }
         });
     }
-    public void envoyer(String b) {
-// Etape 1 : Création de la session
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
 
-        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
-        props.put("mail.smtp.ssl.ciphersuites", "TLS_AES_256_GCM_SHA384");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
+
+    public class EnvoiEmail {
+
+        private static int nombreDeComptes = 0; // Compteur de comptes, à incrémenter à chaque création de compte
+
+        // Méthode pour récupérer un code promo au hasard
+        // Note : Cette méthode est juste un exemple. Adaptez-la pour récupérer les données depuis votre base de données.
+        public static String obtenirCodePromoAleatoire() {
+            // Exemple de code promo et date d'expiration
+            String code = "PROMO123";
+            String dateExp = "31/12/2024";
+            // Ici, ajoutez votre logique pour sélectionner un code promo au hasard de la base de données
+
+            return "Code promo: " + code + ", Date d'expiration: " + dateExp;
+        }
+
+        public static void envoyer(String b) {
+            // Incrémentation du compteur de comptes
+            nombreDeComptes++;
+
+            Properties props = new Properties();
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587");
+            props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+            props.put("mail.smtp.ssl.ciphersuites", "TLS_AES_256_GCM_SHA384");
+            props.put("mail.smtp.socketFactory.port", "465");
+            props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+
+            Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication("fathimaddeh88@gmail.com", "wxnfnrqwjjcjzjby");
+                }
+            });
+
+            try {
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress("fathimaddeh88@gmail.com"));
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(b));
+                message.setSubject("Création de compte");
+
+                // Modification du texte selon le nombre de comptes créés
+                if (nombreDeComptes <= 10) {
+                    message.setText("Votre compte a été créé.");
+                } else {
+                    // Inclure un code promo et sa date d'expiration pour le 11ème compte et plus
+                    String detailsPromo = obtenirCodePromoAleatoire(); // Récupération des détails du code promo
+                    message.setText("Votre compte a été créé. " + detailsPromo);
+                }
+
+                session.setDebug(true);
+
+                Transport.send(message);
+                System.out.println("Message envoyé avec succès");
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
             }
-        });
-
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("fathimaddeh88@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(b));
-            message.setSubject("");
-            message.setText("votre compte a ete cree");
-
-            // Enable debugging
-            session.setDebug(true);
-
-            Transport.send(message);
-            System.out.println("Message envoyé avec succès");
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
         }
     }
+
 
     private void redirectToLoginPage(ActionEvent event) {
         // Récupérer la scène actuelle
@@ -211,6 +240,4 @@ public class SIGNUP {
         alert.setContentText(contenu);
         alert.showAndWait();
     }
-
-
 }

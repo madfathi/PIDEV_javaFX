@@ -124,7 +124,7 @@ public class commande {
         StringBuilder sb = new StringBuilder();
         sb.append("commande :");
         sb.append("\n");
-        //sb.append("idc=").append(idc);
+       // sb.append("idc=").append(idc);
         sb.append("\n");
         sb.append("tel=").append(tel);
         sb.append("\n");
@@ -141,8 +141,6 @@ public class commande {
         sb.append(":");
         return sb.toString();
     }
-
-
 
 
 }

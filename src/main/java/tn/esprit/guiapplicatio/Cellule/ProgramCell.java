@@ -2,8 +2,8 @@ package tn.esprit.guiapplicatio.Cellule;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import tn.esprit.guiapplication.models.Client;
-import tn.esprit.guiapplication.models.Program;
+import tn.esprit.guiapplicatio.models.Client;
+import tn.esprit.guiapplicatio.models.Program;
 
 public class ProgramCell extends ListCell<Program> {
     @Override

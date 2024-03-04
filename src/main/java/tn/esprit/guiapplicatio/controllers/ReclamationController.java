@@ -1,11 +1,12 @@
-package  tn.esprit.guiapplicatio.controllers;
+package tn.esprit.guiapplicatio.controllers;
 
 import com.mysql.cj.xdevapi.Statement;
-import  tn.esprit.guiapplicatio.models.Reclamation;
+import tn.esprit.guiapplicatio.models.Reclamation;
 import javafx.scene.control.*;
 import javafx.util.Callback;
-import  tn.esprit.guiapplicatio.services.ReclamationService;
-import  tn.esprit.guiapplicatio.utils.DataSource;
+import tn.esprit.guiapplicatio.services.ReclamationService;
+import tn.esprit.guiapplicatio.test.HelloApplication;
+import tn.esprit.guiapplicatio.utils.DataSource;
 
 import java.io.IOException;
 import java.net.URL;
@@ -273,6 +274,11 @@ public class ReclamationController implements Initializable{
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void backk(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/MenuProduitCategorie.fxml"));
+        paneReclamations.getScene().setRoot(fxmlLoader.load());
     }
 //    @FXML
 //    void AfficherGestionReclamation(ActionEvent event) throws IOException {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
@@ -7,33 +8,31 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="468.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplicatio.controllers.Afficherprogram">
+<AnchorPane prefHeight="413.0" prefWidth="910.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplicatio.controllers.Afficherprogram">
    <children>
-      <ListView fx:id="listView2" layoutX="248.0" layoutY="143.0" prefHeight="192.0" prefWidth="354.0" />
-      <Button layoutX="733.0" layoutY="226.0" mnemonicParsing="false" onAction="#modifierProgram" prefHeight="26.0" prefWidth="90.0" text="Modifier" />
-      <TextField fx:id="prixTFmP" layoutX="622.0" layoutY="315.0" prefHeight="26.0" prefWidth="102.0" promptText="PRIX" />
-      <TextField fx:id="nom" layoutX="623.0" layoutY="136.0" prefHeight="26.0" prefWidth="102.0" promptText="nom client" />
-      <TextField fx:id="titreTFmP" layoutX="623.0" layoutY="179.0" prefHeight="26.0" prefWidth="102.0" promptText="TITRE" />
-      <TextField fx:id="niveauTFmP" layoutX="622.0" layoutY="225.0" prefHeight="26.0" prefWidth="102.0" promptText="NIVEAU" />
-      <TextField fx:id="descriptionTFmP" layoutX="623.0" layoutY="274.0" prefHeight="26.0" prefWidth="102.0" promptText="DESCRIPTION" />
-      <Button layoutX="733.0" layoutY="162.0" mnemonicParsing="false" onAction="#supprimerprogram" text="supprimer" />
+      <AnchorPane layoutX="205.0" layoutY="189.0" prefHeight="462.0" prefWidth="914.0" stylesheets="@dashboardDesign.css">
+         <styleClass>
+            <String fx:value="white-bg" />
+            <String fx:value="shadow" />
+         </styleClass>
+      </AnchorPane>
+      <ListView fx:id="listView2" layoutX="246.0" layoutY="245.0" prefHeight="286.0" prefWidth="532.0" />
+      <Button layoutX="987.0" layoutY="394.0" mnemonicParsing="false" onAction="#modifierProgram" prefHeight="26.0" prefWidth="122.0" text="Modifier" />
+      <TextField fx:id="prixTFmP" layoutX="796.0" layoutY="473.0" prefHeight="26.0" prefWidth="146.0" promptText="PRIX" />
+      <TextField fx:id="nom" layoutX="797.0" layoutY="294.0" prefHeight="26.0" prefWidth="146.0" promptText="nom client" />
+      <TextField fx:id="titreTFmP" layoutX="797.0" layoutY="337.0" prefHeight="26.0" prefWidth="146.0" promptText="TITRE" />
+      <TextField fx:id="niveauTFmP" layoutX="796.0" layoutY="383.0" prefHeight="26.0" prefWidth="146.0" promptText="NIVEAU" />
+      <TextField fx:id="descriptionTFmP" layoutX="797.0" layoutY="432.0" prefHeight="26.0" prefWidth="146.0" promptText="DESCRIPTION" />
+      <Button layoutX="987.0" layoutY="348.0" mnemonicParsing="false" onAction="#supprimerprogram" prefHeight="26.0" prefWidth="122.0" text="supprimer" />
       <Button layoutX="21.0" layoutY="20.0" mnemonicParsing="false" onAction="#retour3" text="&lt;----" />
 
-      <Button layoutX="733.0" layoutY="287.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="26.0" prefWidth="90.0" text="Clear" />
-      <ImageView fitHeight="107.0" fitWidth="332.0" layoutX="259.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <Button layoutX="987.0" layoutY="443.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="26.0" prefWidth="122.0" text="Clear" />
+      <ImageView fitHeight="107.0" fitWidth="332.0" layoutX="483.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@418566203_1804384873376645_1434016650157370513_n.png" />
          </image>
       </ImageView>
-      <AnchorPane prefHeight="468.0" prefWidth="246.0">
-         <children>
-            <ImageView fitHeight="192.0" fitWidth="223.0" layoutX="27.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@219988.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
+      <AnchorPane layoutY="47.0" prefHeight="421.0" prefWidth="246.0" />
 
    </children>
 </AnchorPane>

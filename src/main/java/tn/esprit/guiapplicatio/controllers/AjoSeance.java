@@ -473,7 +473,7 @@ SeanceService SeanceService=new SeanceService();
 
     public void ge_re(ActionEvent actionEvent) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Reservat.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Ajouterprogram.fxml"));
         typeco.getScene().setRoot(fxmlLoader.load());
 
 
@@ -1187,7 +1187,7 @@ SeanceService SeanceService=new SeanceService();
     public void ge_co(ActionEvent actionEvent) throws IOException {
 
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/affichecommande.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Affichecommande.fxml"));
         typeco.getScene().setRoot(fxmlLoader.load());
 
 
@@ -1254,7 +1254,7 @@ SeanceService SeanceService=new SeanceService();
     }
 
     public void ge_coach(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Afficherprogram.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Ajouterprogram.fxml"));
         typeco.getScene().setRoot(fxmlLoader.load());
 
     }

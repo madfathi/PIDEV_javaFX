@@ -1,17 +1,22 @@
 package tn.esprit.guiapplicatio.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import tn.esprit.guiapplicatio.Cellule.ClientCell;
+import tn.esprit.guiapplicatio.models.Client;
+import tn.esprit.guiapplicatio.models.Program;
+import tn.esprit.guiapplicatio.services.ClientService;
 import tn.esprit.guiapplicatio.services.ProgramService;
-import tn.esprit.guiapplication.models.Client;
-import tn.esprit.guiapplication.models.Program;
-//import tn.esprit.guiapplicatio.services.ClientService;
 import tn.esprit.guiapplicatio.test.HelloApplication;
 
 import javax.mail.*;
@@ -20,6 +25,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
 public class Ajouterprogram {
@@ -44,21 +50,49 @@ public class Ajouterprogram {
     private ImageView imageTF;
 
     private String filePath;
+    @FXML
+    private ListView<Client> listView;
 
+    @FXML
+    void initialize() {
+        ClientService clientService = new ClientService();
+        try {
+            List<Client> clients = clientService.recuperer();
+            listView.setCellFactory(param -> new ClientCell());
+            ObservableList<Client> observableList = FXCollections.observableList(clients);
 
+            listView.setItems(observableList);
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+
+                Client selectedClient = (Client) listView.getSelectionModel().getSelectedItem();
+
+                // Afficher les informations du client dans les champs de texte
+              //  nomTFm.setText(selectedClient.getNom());
+              //  prenomTFm.setText(selectedClient.getPrenom());
+              //  ageTFm.setText(String.valueOf(selectedClient.getAge()));
+              //  poidsTFm.setText(String.valueOf(selectedClient.getPoids()));
+               // hauteurTFm.setText(String.valueOf(selectedClient.getHauteur()));
+            }
+        });
+
+    }
     @FXML
     void ajouterProgram(ActionEvent event) throws SQLException {
         ProgramService po = new ProgramService();
         Program ps = new Program();
-        //ClientService cs =new ClientService();
+        ClientService cs =new ClientService();
         Client c=new Client();
-        //c=cs.getClientByName(nom.getText());
+        c=cs.getClientByName(nom.getText());
         ps.setTitre(titreTF.getText());
         ps.setNiveau(niveauTF.getText());
         ps.setDescription(descriptionTF.getText());
         ps.setPrix(Integer.parseInt(prixTF.getText()));
         ps.setImage(filePath);
-       // ps.setClient(c);
+        ps.setClient(c);
         try {
             po.ajouter(ps);
             envoyer(nom.getText(), titreTF.getText(), niveauTF.getText(), descriptionTF.getText(), prixTF.getText());
@@ -76,7 +110,7 @@ public class Ajouterprogram {
     }
 
     public void afficherProgram(ActionEvent actionEvent) {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Afficherprogram.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Afficherprogram.fxml"));
         try {
             titreTF.getScene().setRoot(fxmlLoader.load());
         } catch (IOException e) {
@@ -85,15 +119,7 @@ public class Ajouterprogram {
 
     }
 
-    public void retour2(ActionEvent actionEvent) {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Afficherclient.fxml"));
-        try {
-            titreTF.getScene().setRoot(fxmlLoader.load());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
 
-    }
     public void envoyer(String a , String b, String c, String d , String f ) {
 
         Properties props = new Properties();
@@ -119,7 +145,7 @@ public class Ajouterprogram {
             message.setSubject("welcome to gestion de coaching");
             message.setText("Nom: " + a  + " Titre: " + b + " Niveau: " + c + " Description: " + d + " Prix: " + f);
 
-            // Enable debugging
+
             session.setDebug(true);
 
             Transport.send(message);
@@ -131,31 +157,30 @@ public class Ajouterprogram {
 
     @FXML
     public void handleUploadButtonAction(ActionEvent actionEvent) {
-        // Create a file chooser
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Image File");
 
-        // Set file extension filter to only allow image files
+
         FileChooser.ExtensionFilter imageFilter =
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif");
         fileChooser.getExtensionFilters().add(imageFilter);
 
-        // Show open file dialog
+
         File selectedFile = fileChooser.showOpenDialog(new Stage());
 
-        // Check if a file is selected and it's an image
+
         if (selectedFile == null || !isImageFile(selectedFile)) {
-            // Clear the ImageView
+
             imageTF.setImage(null);
             System.out.println("Please select a valid image file.");
             return;
         }
 
-        // Store the file path with forward slashes
+
         filePath = selectedFile.getAbsolutePath().replace("\\", "/");
         System.out.println("File path stored: " + filePath);
 
-        // Set the image in the ImageView
         javafx.scene.image.Image image = new javafx.scene.image.Image(selectedFile.toURI().toString());
         imageTF.setImage(image);
     }
@@ -167,6 +192,38 @@ public class Ajouterprogram {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public void statistiques(ActionEvent actionEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Statistiques.fxml"));
+        try {
+            titreTF.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+
+
+    }
+
+    public void totals(ActionEvent actionEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/stat.fxml"));
+        try {
+            titreTF.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void open_dashboard(MouseEvent mouseEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/AjoSeance.fxml"));
+        try {
+            titreTF.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+
     }
 }
 

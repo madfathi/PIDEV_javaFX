@@ -1,4 +1,4 @@
-package  tn.esprit.guiapplicatio.models;
+package tn.esprit.guiapplicatio.models;
 import java.util.List;
 import java.util.Date;
 import java.util.Random;

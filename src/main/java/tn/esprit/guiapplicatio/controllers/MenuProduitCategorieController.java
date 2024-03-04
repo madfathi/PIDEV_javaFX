@@ -10,69 +10,65 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import tn.esprit.guiapplicatio.test.HelloApplication;
+//import org.example.MainFx;
 import java.io.IOException;
 import java.util.Objects;
 
 public class MenuProduitCategorieController {
-
     @FXML
-    private Button IdMenuProduit;
+    private Button IdMenuCategorie;
+
     @FXML
     public void MenuCategorie(ActionEvent actionEvent)throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/AfficherCategorie.fxml"));
-        Parent root = fxmlLoader.load();
-
-        IdMenuProduit.getScene().setRoot(root);
-
+        IdMenuCategorie .getScene().setRoot(fxmlLoader.load());
     }
 
     @FXML
     public void MenuProduit(ActionEvent actionEvent)throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/AjouterProduit.fxml"));
-        Parent root = fxmlLoader.load();
-
-        IdMenuProduit.getScene().setRoot(root);
-
+        IdMenuCategorie .getScene().setRoot(fxmlLoader.load());
     }
 
     @FXML
     void MenuReclamation(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/Reclamation.fxml"));
-        Parent root = fxmlLoader.load();
-
-        IdMenuProduit.getScene().setRoot(root);
-
+        IdMenuCategorie .getScene().setRoot(fxmlLoader.load());
     }
 
 
     public void open_dashboard(MouseEvent mouseEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/AjoSeance.fxml"));
+        try {
+           IdMenuCategorie.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+
     }
+
 
     public void ge_re(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/AjoSeance.fxml"));
-        Parent root = fxmlLoader.load();
+        IdMenuCategorie .getScene().setRoot(fxmlLoader.load());
 
-        IdMenuProduit.getScene().setRoot(root);
     }
 
     public void ge_co(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/Affichecommande.fxml"));
-        Parent root = fxmlLoader.load();
-
-        IdMenuProduit.getScene().setRoot(root);
+        IdMenuCategorie .getScene().setRoot(fxmlLoader.load());
+        
     }
 
     public void ge_pa(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/afficherpanier.fxml"));
-        Parent root = fxmlLoader.load();
-
-        IdMenuProduit.getScene().setRoot(root);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/Afficherpanier.fxml"));
+        IdMenuCategorie .getScene().setRoot(fxmlLoader.load());
     }
 
-    public void ge_coa(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/AfficherUsers.fxml"));
-        Parent root = fxmlLoader.load();
+    public void ge_coa(ActionEvent actionEvent) {
 
-        IdMenuProduit.getScene().setRoot(root);
+
     }
 }

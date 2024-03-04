@@ -1,7 +1,7 @@
 package tn.esprit.guiapplicatio.services;
 import tn.esprit.guiapplicatio.utils.MyDatabase;
-import tn.esprit.guiapplication.models.Client;
-import tn.esprit.guiapplication.models.Program;
+import tn.esprit.guiapplicatio.models.Client;
+import tn.esprit.guiapplicatio.models.Program;
 import tn.esprit.guiapplicatio.utils.MyDatabase;
 
 import java.sql.*;
@@ -23,7 +23,7 @@ public class ProgramService implements IServicee<Program> {
         ps.setString(2, program.getNiveau());
         ps.setString(3, program.getDescription());
         ps.setInt(4, program.getPrix());
-        //ps.setInt(5, program.getClient().getId_c()); // Assuming client_id is the foreign key in the program table
+        ps.setInt(5, program.getClient().getId_c());
         ps.setString(6, program.getImage());
         ps.executeUpdate();
 
@@ -37,7 +37,6 @@ public class ProgramService implements IServicee<Program> {
         ps.setString(2, program.getNiveau());
         ps.setString(3, program.getDescription());
         ps.setInt(4, program.getPrix());
-       // ps.setInt(5, program.getClient().getId_c()); // Assuming client_id is the foreign key in the program table
         ps.setInt(5, program.getId_p());
         ps.executeUpdate();
     }
@@ -69,15 +68,14 @@ public class ProgramService implements IServicee<Program> {
             program.setDescription(rs.getString("description"));
             program.setPrix(rs.getInt("prix"));
 
-            // Create and set the client associated with the program
+
             Client client = new Client();
             client.setId_c(rs.getInt("id_client"));
             client.setNom(rs.getString("nom"));
             client.setPrenom(rs.getString("prenom"));
             client.setAge(rs.getInt("age"));
             client.setPoids(rs.getInt("poids"));
-            // Assuming 'name' is a column in the 'client' table
-            // Set other client attributes as needed
+
 
             program.setClient(client);
 
@@ -100,31 +98,21 @@ public class ProgramService implements IServicee<Program> {
             program.setDescription(rs.getString("description"));
             program.setPrix(rs.getInt("prix"));
 
-            // Create and set the client associated with the program
+
             Client client = new Client();
             client.setId_c(rs.getInt("id_client"));
-            client.setNom(rs.getString("nom")); // Assuming 'name' is a column in the 'client' table
-            // Set other client attributes as needed
+            client.setNom(rs.getString("nom"));
+
 
             program.setClient(client);
 
             return program;
         } else {
-            return null; // Return null if program with the specified ID is not found
+            return null;
         }
     }
 
-    /*
-    public void sortByProgram(List<Program> programs) {
-        programs.sort(Comparator.comparing(Program::getTitre));
 
-        for (Program program : programs) {
-            System.out.println(program);
-        }
-
-    }
-
-*/
 
 
     public Program getProgramByName(String name) throws SQLException {
@@ -138,7 +126,6 @@ public class ProgramService implements IServicee<Program> {
                 if (rs.next()) {
                     Program program = new Program();
                     program.setId_p(rs.getInt("id_p"));
-                  //  program.setClient(cs.getClientByName(rs.getString("id_c")));
                     program.setTitre(rs.getString("titre"));
                     program.setNiveau(rs.getString("niveau"));
                     program.setDescription(rs.getString("description"));
@@ -149,8 +136,7 @@ public class ProgramService implements IServicee<Program> {
             }
         }
 
-        // Return null or throw an exception if the category is not found
-        return null; // You can choose a suitable default value
+        return null;
     }
     }
 

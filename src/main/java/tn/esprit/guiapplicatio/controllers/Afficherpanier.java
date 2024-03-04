@@ -117,7 +117,7 @@ public class Afficherpanier {
 
     @FXML
     void back(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/applictiongui/back.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplictio/back.fxml"));
         try {
             qua.getScene().setRoot(fxmlLoader.load());
         } catch (IOException e) {
@@ -242,6 +242,12 @@ public class Afficherpanier {
     }
 
     public void open_dashboard(MouseEvent mouseEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/AjoSeance.fxml"));
+        try {
+            lists.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void ge_co(ActionEvent actionEvent) throws IOException {
@@ -266,6 +272,12 @@ public class Afficherpanier {
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/AjoSeance.fxml"));
         lists.getScene().setRoot(fxmlLoader.load());
+
+    }
+
+    public void ge_coch(ActionEvent actionEvent) {
+
+
 
     }
 }

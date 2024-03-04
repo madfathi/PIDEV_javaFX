@@ -10,17 +10,17 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="671.0" prefWidth="555.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplicatio.controllers.ReclamationController">
+<AnchorPane prefHeight="671.0" prefWidth="555.0" stylesheets="@styles%20-%20Copie.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplicatio.controllers.ReclamationController">
     <children>
 
 
-                        <Button fx:id="approuver" layoutX="18.0" layoutY="274.0" mnemonicParsing="false" onAction="#approuver" prefHeight="34.0" prefWidth="212.0" text="    Approuver">
+                        <Button fx:id="approuver" layoutX="18.0" layoutY="274.0" mnemonicParsing="false" onAction="#approuver" prefHeight="38.0" prefWidth="212.0" text="Approuver">
 
                         </Button>
-                        <Button fx:id="refuser" layoutX="17.0" layoutY="341.0" mnemonicParsing="false" onAction="#refuser" prefHeight="34.0" prefWidth="212.0" text="     Refuser">
+                        <Button fx:id="refuser" layoutX="17.0" layoutY="341.0" mnemonicParsing="false" onAction="#refuser" prefHeight="34.0" prefWidth="212.0" text=" Refuser">
 
                         </Button>
-                        <Button fx:id="refresh" layoutX="18.0" layoutY="406.0" mnemonicParsing="false" onAction="#refresh" prefHeight="34.0" prefWidth="212.0" text="   Actualiser">
+                        <Button fx:id="refresh" layoutX="18.0" layoutY="406.0" mnemonicParsing="false" onAction="#refresh" prefHeight="34.0" prefWidth="212.0" text=" Actualiser">
 
                         </Button>
                         <ImageView fitHeight="33.0" fitWidth="32.0" layoutX="7.0" layoutY="-13.0" onMouseClicked="#returnHome" pickOnBounds="true" preserveRatio="true">
@@ -32,9 +32,9 @@
 
         <StackPane layoutX="238.0" prefHeight="671.0" prefWidth="800.0">
             <children>
-                <Pane fx:id="paneReclamations" layoutX="10.0" layoutY="10.0" prefHeight="616.0" prefWidth="700.0">
+                <Pane fx:id="paneReclamations" layoutX="10.0" layoutY="10.0" prefHeight="616.0" prefWidth="700.0" stylesheets="@styles.css">
                     <children>
-                        <ListView fx:id="lvReclamation" layoutX="16.0" layoutY="133.0" prefHeight="484.0" prefWidth="760.0" />
+                        <ListView fx:id="lvReclamation" layoutX="16.0" layoutY="133.0" prefHeight="484.0" prefWidth="760.0" styleClass="white-bg" stylesheets="@dashboardDesign.css" />
                         <ImageView fx:id="image" fitHeight="401.0" fitWidth="315.0" layoutX="1289.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true" />
                         <Label layoutX="14.0" layoutY="87.0" prefHeight="39.0" prefWidth="268.0" text="Liste des réclamations" textAlignment="CENTER">
                             <font>
@@ -51,6 +51,7 @@
                 </Pane>
             </children>
         </StackPane>
+      <Button layoutX="38.0" layoutY="24.0" mnemonicParsing="false" onAction="#backk" stylesheets="@styles.css" text="BACK" />
     </children>
 
 

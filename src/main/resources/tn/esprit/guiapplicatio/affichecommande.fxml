@@ -125,9 +125,12 @@
                   <URL value="@../../../../../out/assets/style/aliStyle.css" />
                </stylesheets>
             </HBox>
-            <Button layoutX="19.0" layoutY="418.0" mnemonicParsing="false" onAction="#co_ge" prefHeight="39.0" prefWidth="219.0" text="Gestion Seance" />
-            <Button layoutX="19.0" layoutY="490.0" mnemonicParsing="false" onAction="#co_co" prefHeight="40.0" prefWidth="219.0" text="Gestion Commande" />
             <Button layoutX="13.0" layoutY="11.0" mnemonicParsing="false" onAction="#back" text="BACK" />
+            <Button layoutX="21.0" layoutY="498.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="215.0" stylesheets="@aliStyle.css" text="Gestion Commande" />
+            <Button layoutX="21.0" layoutY="556.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="215.0" stylesheets="@aliStyle.css" text="Gestion Panier" />
+            <Button layoutX="21.0" layoutY="615.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="215.0" stylesheets="@aliStyle.css" text="Gestion User" />
+            <Button layoutX="21.0" layoutY="440.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="215.0" stylesheets="@aliStyle.css" text="Gestion produit" />
+            <Button layoutX="21.0" layoutY="381.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="215.0" stylesheets="@aliStyle.css" text="Gestion Seance" />
          </children>
       </AnchorPane>
    </children>

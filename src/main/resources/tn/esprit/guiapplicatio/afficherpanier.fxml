@@ -99,6 +99,11 @@
             <URL value="@../../../../../assets/style/nabilStyle.css" />
          </stylesheets>
       </Button>
-      <Button layoutX="12.0" layoutY="626.0" mnemonicParsing="false" onAction="#ge_coch" prefHeight="40.0" prefWidth="200.0" text="Gestion coaching" />
+      <Button layoutX="6.0" layoutY="623.0" mnemonicParsing="false" onAction="#ge_us" prefHeight="48.0" prefWidth="215.0" text="Gestion coaching">
+         <stylesheets>
+            <URL value="@../../../../../assets/style/aliStyle.css" />
+            <URL value="@../../../../../assets/style/nabilStyle.css" />
+         </stylesheets>
+      </Button>
    </children>
 </AnchorPane>

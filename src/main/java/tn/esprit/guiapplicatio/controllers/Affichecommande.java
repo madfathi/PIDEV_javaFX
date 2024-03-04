@@ -547,7 +547,12 @@ public String nom,pre,mail,addr,pani;
     }
 
     public void open_dashboard(MouseEvent mouseEvent) {
-
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/AjoSeance.fxml"));
+        try {
+            mt.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void co_ge(ActionEvent actionEvent) {

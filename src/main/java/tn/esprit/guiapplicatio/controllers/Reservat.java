@@ -324,6 +324,19 @@ ReservationService s=new ReservationService();
 
     }
 
+    public void ge_coch(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Ajouterclient.fxml"));
+        user.getScene().setRoot(fxmlLoader.load());
+
+    }
+
+    public void ge_pee(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Panier.fxml"));
+        user.getScene().setRoot(fxmlLoader.load());
+
+
+    }
+
     private class ButtonCell extends TableCell<Reservation, Boolean> {
         final Button cellButton = new Button("Supprimer");
 
