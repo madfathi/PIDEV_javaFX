@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplicatio.controllers.AjouterCode">
+   <children>
+      <TextField fx:id="codeTF" layoutX="439.0" layoutY="167.0" promptText="code" />
+      <TextField fx:id="montantTF" layoutX="439.0" layoutY="231.0" promptText="montant" />
+      <TextField fx:id="user_idTF" layoutX="439.0" layoutY="282.0" promptText="user_id" />
+      <DatePicker fx:id="date_expTF" layoutX="439.0" layoutY="330.0" promptText="Date_expiration" />
+      <Button layoutX="663.0" layoutY="247.0" mnemonicParsing="false" onAction="#ajouterCode" prefHeight="45.0" prefWidth="114.0" style="-fx-background-color: #F7C729;" text="Ajouter" />
+      <Button layoutX="292.0" layoutY="487.0" mnemonicParsing="false" onAction="#VersSupprimer" prefHeight="55.0" prefWidth="158.0" style="-fx-background-color: #000000;" text="Supprimer" textFill="WHITE">
+         <font>
+            <Font name="Constantia" size="22.0" />
+         </font></Button>
+      <Button layoutX="513.0" layoutY="487.0" mnemonicParsing="false" onAction="#VersModifier" prefHeight="55.0" prefWidth="158.0" style="-fx-background-color: #000000;" text="Modifier" textFill="WHITE">
+         <font>
+            <Font name="Constantia" size="22.0" />
+         </font></Button>
+      <Button layoutX="41.0" layoutY="487.0" mnemonicParsing="false" onAction="#VersAfficher" prefHeight="55.0" prefWidth="160.0" style="-fx-background-color: #000000;" text="Afficher" textFill="WHITE">
+         <font>
+            <Font name="Constantia" size="22.0" />
+         </font></Button>
+      <VBox prefHeight="600.0" prefWidth="82.0" stylesheets="@styles.css">
+         <children>
+            <HBox prefHeight="39.0" prefWidth="79.0" />
+         </children>
+      </VBox>
+      <Label layoutX="381.0" layoutY="15.0" text="Ajouter code promo" textFill="#f7c729">
+         <font>
+            <Font name="Constantia" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="285.0" layoutY="281.0" text="Le User_Id : " textFill="WHITE">
+         <font>
+            <Font name="Palatino Linotype" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="310.0" layoutY="167.0" text="Code : " textFill="WHITE">
+         <font>
+            <Font name="Palatino Linotype" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="252.0" layoutY="329.0" text="Date D'expiration : " textFill="WHITE">
+         <font>
+            <Font name="Palatino Linotype" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="307.0" layoutY="231.0" text="Montant : " textFill="WHITE">
+         <font>
+            <Font name="Palatino Linotype" size="20.0" />
+         </font>
+      </Label>
+      <Button layoutX="721.0" layoutY="487.0" mnemonicParsing="false" onAction="#RetourMenu" prefHeight="55.0" prefWidth="148.0" style="-fx-background-color: #000000;" text="Retour au Menu" textFill="WHITE">
+         <font>
+            <Font name="Constantia" size="14.0" />
+         </font>
+      </Button>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" />
+   </children>
+</AnchorPane>
