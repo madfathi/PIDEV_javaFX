@@ -8,12 +8,12 @@
 
 <AnchorPane prefHeight="428.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.projet3a.controllers.AfficherEvenment">
    <children>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#trier" prefHeight="30.0" prefWidth="150.0" text="Trier par nom">
+      <Button layoutX="356.0" layoutY="17.0" mnemonicParsing="false" onAction="#trier" prefHeight="30.0" prefWidth="218.0" text="Trier par nom">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" layoutX="178.0" layoutY="2.0" prefHeight="54.0" prefWidth="371.0" text="LIST DES EVENEMENTS">
+      <Label alignment="CENTER" layoutX="3.0" layoutY="5.0" prefHeight="54.0" prefWidth="242.0" text="EVENEMENTS">
          <font>
             <Font size="36.0" />
          </font>

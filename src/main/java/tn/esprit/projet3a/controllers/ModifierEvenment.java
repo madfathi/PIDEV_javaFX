@@ -67,7 +67,7 @@ public class ModifierEvenment {
             // Iterate through the list of events and add their details to the eventDataList
             for (Evenment evenment : evenments) {
                 String eventData = String.format("%-10s %-20s %-20s %-20s %-20s %-20s",
-                        evenment.getId_event(),
+                       evenment.getId_event(),
                         evenment.getDate_event(),
                         evenment.getLieu_event(),
                         evenment.getNom_event(),

@@ -192,6 +192,34 @@ public class EvenmentService implements IService<Evenment> {
         return elements;
     }
 
+    public int countEventsInMonth(int month) throws SQLException {
+        String query = "SELECT COUNT(*) AS event_count FROM evenment WHERE MONTH(date_event) = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, month);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("event_count");
+                }
+            }
+        }
+        return 0; // Return 0 if no events found for the month
+    }
+
+    public boolean eventExistsOnDay(int month, int day) throws SQLException {
+        String query = "SELECT COUNT(*) AS event_count FROM evenment WHERE MONTH(date_event) = ? AND DAY(date_event) = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, month);
+            statement.setInt(2, day);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int eventCount = resultSet.getInt("event_count");
+                    return eventCount > 0; // Return true if there is at least one event on the given day
+                }
+            }
+        }
+        return false; // Return false if no event found on the given day
+    }
+
 
 
 

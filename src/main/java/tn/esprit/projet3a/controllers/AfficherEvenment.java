@@ -72,6 +72,7 @@ public class AfficherEvenment {
                 ImageView imageView = new ImageView();
                 String imagePath = columns[columns.length - 1];
                 Image image = new Image("file:///" + imagePath);
+                System.out.println(imagePath);
                 imageView.setImage(image);
                 imageView.setFitWidth(100); // Adjust width of the image view
                 imageView.setPreserveRatio(true);

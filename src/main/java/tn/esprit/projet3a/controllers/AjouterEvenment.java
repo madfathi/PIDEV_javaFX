@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Properties;
 import java.util.Properties;
 import java.util.List;
@@ -214,6 +215,34 @@ public class AjouterEvenment {
             evenment.setDate_event(java.sql.Date.valueOf(date_eventTF.getValue()));
             evenment.setImage(path);
             try {
+                // Get the month and day values from the event date
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(evenment.getDate_event());
+                int month = calendar.get(Calendar.MONTH) + 1; // Adding 1 because Calendar months are zero-based
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                // Check if there's already an event on the same day
+                if (evenmentService.eventExistsOnDay(month, day)) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("Il existe déjà un événement pour ce jour.");
+                    alert.showAndWait();
+                    return; // Exit the method if event exists on the same day
+                }
+
+                // Count the events in the month
+                int eventCount = evenmentService.countEventsInMonth(month);
+
+                // Check if the event count exceeds 5
+                if (eventCount >= 5) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("Vous ne pouvez pas ajouter plus de 5 événements pour ce mois.");
+                    alert.showAndWait();
+                    return; // Exit the method if event count exceeds 5
+                }
+
+                // Add the event if event count is within limit
                 evenmentService.ajouter(evenment);
                 // Generate PDF for the event
                 File pdfFile = generatePDF(evenment);

@@ -96,6 +96,9 @@ public class Evenment extends EventElement {
             this.image = image;
     }
 
+
+
+
     @Override
     public String toString(){
         return "Evenment{" +

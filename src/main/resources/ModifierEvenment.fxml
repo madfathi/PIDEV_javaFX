@@ -47,7 +47,7 @@
       <Label fx:id="date_error" layoutX="251.0" layoutY="472.0" prefHeight="18.0" prefWidth="262.0" />
       <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="104.0" layoutY="18.0">
          <image>
-            <Image url="file:/C:/Users/ahmed/Downloads/simple.png" />
+            <Image url="file:/C:/Users/ahmed/IdeaProjects/projet3A/src/main/resources/simple.png" />
          </image>
       </ImageView>
    </children>

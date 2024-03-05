@@ -51,6 +51,11 @@ public class AdminEvenment {
     private Label label3;
 
     @FXML
+    private Label label4;
+
+
+
+    @FXML
     private Button ajouterAdmin;
 
     @FXML
@@ -69,64 +74,6 @@ public class AdminEvenment {
         }
         pieChart.setData(pieChartData);
 
-        /*
-        //labels animation//
-        label.setOnMouseEntered(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), label);
-            scaleTransition.setToX(1.2);
-            scaleTransition.setToY(1.2);
-            scaleTransition.play();
-        });
-        // Add scale transition on mouse exit
-        label.setOnMouseExited(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), label);
-            scaleTransition.setToX(1.0);
-            scaleTransition.setToY(1.0);
-            scaleTransition.play();
-        });
-
-        label1.setOnMouseEntered(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), label1);
-            scaleTransition.setToX(1.2);
-            scaleTransition.setToY(1.2);
-            scaleTransition.play();
-        });
-        // Add scale transition on mouse exit
-        label1.setOnMouseExited(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), label1);
-            scaleTransition.setToX(1.0);
-            scaleTransition.setToY(1.0);
-            scaleTransition.play();
-        });
-
-
-        label2.setOnMouseEntered(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), label2);
-            scaleTransition.setToX(1.2);
-            scaleTransition.setToY(1.2);
-            scaleTransition.play();
-        });
-        // Add scale transition on mouse exit
-        label2.setOnMouseExited(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), label2);
-            scaleTransition.setToX(1.0);
-            scaleTransition.setToY(1.0);
-            scaleTransition.play();
-        });
-
-        label3.setOnMouseEntered(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), label3);
-            scaleTransition.setToX(1.2);
-            scaleTransition.setToY(1.2);
-            scaleTransition.play();
-        });
-        // Add scale transition on mouse exit
-        label3.setOnMouseExited(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), label3);
-            scaleTransition.setToX(1.0);
-            scaleTransition.setToY(1.0);
-            scaleTransition.play();
-        });*/
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/AfficherEvenment.fxml"));
@@ -257,5 +204,21 @@ public class AdminEvenment {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    @FXML
+    void acceuil(MouseEvent event) {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/PowerFit.fxml"));
+        try {
+            label.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    void exit(MouseEvent event) {
+        System.exit(0);
     }
 }
