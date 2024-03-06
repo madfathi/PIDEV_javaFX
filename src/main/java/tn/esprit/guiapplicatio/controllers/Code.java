@@ -38,10 +38,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Code {
     @FXML
@@ -128,9 +125,11 @@ private commande co;
 //image=new Image(pro.getImage(),200,99,false,true);
 //prod_image.setImage(image);
     }
+
+
     public void generateQrCode(ActionEvent actionEvent) throws SQLException {
 
-       String sql= "SELECT *FROM commande WHERE idc= 50";
+       String sql= "SELECT *FROM commande WHERE idc= 16";
         ObservableList<commande> qrcode= FXCollections.observableArrayList();
 
         PreparedStatement prepare = null;

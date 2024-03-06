@@ -125,7 +125,7 @@
                   <URL value="@../../../../../out/assets/style/aliStyle.css" />
                </stylesheets>
             </HBox>
-            <Button layoutX="13.0" layoutY="11.0" mnemonicParsing="false" onAction="#back" text="BACK" />
+            <Button layoutX="13.0" layoutY="11.0" mnemonicParsing="false" onAction="#logo" text="LOGOUT" />
             <Button layoutX="21.0" layoutY="498.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="215.0" stylesheets="@aliStyle.css" text="Gestion Commande" />
             <Button layoutX="21.0" layoutY="556.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="215.0" stylesheets="@aliStyle.css" text="Gestion Panier" />
             <Button layoutX="21.0" layoutY="615.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="215.0" stylesheets="@aliStyle.css" text="Gestion User" />

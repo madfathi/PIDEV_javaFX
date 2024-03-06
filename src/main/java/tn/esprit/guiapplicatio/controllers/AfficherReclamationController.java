@@ -38,6 +38,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import tn.esprit.guiapplicatio.services.ReclamationService;
+import tn.esprit.guiapplicatio.test.HelloApplication;
 import tn.esprit.guiapplicatio.utils.DataSource;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -315,15 +316,13 @@ public class AfficherReclamationController implements Initializable {
 
     @FXML
     private void returnHome(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/FrontProduit.fxml"));
-        Parent root = loader.load();
 
-        // Get the current stage and set the new scene
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm());
-        stage.show();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/FrontProduit.fxml"));
+        Parent root = fxmlLoader.load();
+
+        lvReclamation.getScene().setRoot(root);
+
+
     }
 
 }

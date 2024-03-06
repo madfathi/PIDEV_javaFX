@@ -276,7 +276,7 @@ public class Ajouterclient {
     public void open_dashboard(MouseEvent mouseEvent) throws IOException {
 
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/reservat.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/o.fxml"));
         hauteurTF.getScene().setRoot(fxmlLoader.load());
 
 

@@ -1,7 +1,7 @@
 package tn.esprit.guiapplicatio.models;
 
-public class Review {
-    private int id_review, nbr_star;
+public class Review extends EventElement {
+    private int id_review,nbr_star;
     private String description;
     private int id_event;
 
@@ -11,7 +11,6 @@ public class Review {
         this.description = description;
         this.id_event = id_event;
     }
-
     public Review(int nbr_star, String description, int id_event) {
         this.nbr_star = nbr_star;
         this.description = description;
@@ -22,7 +21,7 @@ public class Review {
 
     }
 
-    public int getId_review() {
+    public  int getId_review() {
         return id_review;
     }
 

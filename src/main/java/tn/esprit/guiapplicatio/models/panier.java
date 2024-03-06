@@ -4,7 +4,11 @@ public class panier {
     private int idp,quantite,pt;
     private String nomp,prod_id;
     private String img;
+    public panier(int idPanier)
+    {
+        this.idp=idPanier;
 
+    }
     public panier() {
     }
 

@@ -71,4 +71,9 @@ public class MenuProduitCategorieController {
 
 
     }
+
+    public void logo(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/LOGIN.fxml"));
+        IdMenuCategorie .getScene().setRoot(fxmlLoader.load());
+    }
 }

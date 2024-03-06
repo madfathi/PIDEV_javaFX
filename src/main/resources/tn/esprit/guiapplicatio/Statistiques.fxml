@@ -7,13 +7,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplicatio.controllers.Statistique">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@styles%20-%20Copie.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.guiapplicatio.controllers.Statistique">
     <children>
         <AnchorPane prefHeight="400.0" prefWidth="700.0">
             <children>
-                <ListView fx:id="ListPie" layoutX="21.0" layoutY="100.0" prefHeight="259.0" prefWidth="274.0" />
-                <PieChart fx:id="adressePie" layoutX="392.0" layoutY="100.0" prefHeight="259.0" prefWidth="274.0" />
-                <Label alignment="TOP_CENTER" layoutX="121.0" layoutY="24.0" prefHeight="67.0" prefWidth="408.0" text="  Statistiques " textFill="#89408c">
+                <ListView fx:id="ListPie" layoutX="239.0" layoutY="195.0" prefHeight="259.0" prefWidth="274.0" styleClass="white-bg" stylesheets="@dashboardDesign.css" />
+                <Label alignment="TOP_CENTER" layoutX="420.0" layoutY="22.0" prefHeight="67.0" prefWidth="408.0" text="  Statistiques " textFill="#89408c">
                     <font>
                         <Font name="Amiri Regular" size="39.0" />
                     </font>
@@ -21,5 +20,6 @@
             <Button layoutX="21.0" layoutY="14.0" mnemonicParsing="false" onAction="#retour3" prefHeight="31.0" prefWidth="87.0" text="&lt;----" />
             </children>
         </AnchorPane>
+          <PieChart fx:id="adressePie" layoutX="700.0" layoutY="194.0" prefHeight="259.0" prefWidth="274.0" />
     </children>
 </AnchorPane>

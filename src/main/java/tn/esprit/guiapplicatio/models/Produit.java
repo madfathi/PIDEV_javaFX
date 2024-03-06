@@ -9,6 +9,17 @@ public class Produit {
     private String imageProduit;
     private Offre offre;
 
+
+
+
+    public Produit(int  idProduit, String nomProduit, int quantite, int prix, Categorie categorie, String imageProduit) {
+        this. idProduit =  idProduit;
+        this.nomProduit = nomProduit;
+        this.prix = prix;
+        this.quantite = quantite;
+        this.categorie = categorie;
+        this.imageProduit = imageProduit;
+    }
     public Produit(int  idProduit, String nomProduit, int quantite, int prix, Categorie categorie, String imageProduit,Offre offre) {
         this. idProduit =  idProduit;
         this.nomProduit = nomProduit;

@@ -1,4 +1,12 @@
 package tn.esprit.guiapplicatio.controllers;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import tn.esprit.guiapplicatio.test.HelloApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,12 +24,15 @@ import tn.esprit.guiapplicatio.utils.DataSource;
 import java.io.IOException;
 import java.sql.*;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Validercommande {
     @FXML
     private Button btn;
-
+    @FXML
+    private ImageView qrcode;
     @FXML
     private ListView<String> pp;
 
@@ -143,13 +154,99 @@ public class Validercommande {
             alert.setContentText("Une erreur : " + ex.getMessage());
             alert.showAndWait();
         }
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/code.fxml"));
+  /*      FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/code.fxml"));
         try {
             tel.getScene().setRoot(fxmlLoader.load());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+*/
+    }
+    public void generateQrCode(ActionEvent actionEvent) throws SQLException {
 
+        String sql= "SELECT *FROM commande WHERE idc= 16";
+        ObservableList<commande> qrcode= FXCollections.observableArrayList();
+
+        PreparedStatement prepare = null;
+
+        prepare = connection.prepareStatement(sql);
+        ResultSet rs= prepare.executeQuery();
+        commande proo;
+        while (rs.next()) {
+            proo=new commande(rs.getInt("tel"),rs.getString("nom"),rs.getString("pre"), rs.getNString("mail"),rs.getString("addr"), Collections.singletonList(rs.getString("pani")));
+            qrcode.add(proo);
+
+        }
+
+
+        // Vérifiez si un élément est sélectionné
+
+        // Générez la chaîne de données pour le QR code
+
+
+        //List<panier> users = papaService.recuperer();
+        //List<panier> qrData=papaService.recuperer();
+        String qrData = null;
+        qrData= String.valueOf(qrcode);
+
+
+        // Générez et affichez le QR code
+        generateAndDisplayQRCode(String.valueOf((qrData)));
+
+        // Affichez un message d'erreur ou prenez une autre action appropriée
+        System.out.println("qrData");
+
+
+    }
+
+    //generate qrcode et l'afficher
+    private void generateAndDisplayQRCode(String qrData) {
+        try {
+            // Configuration pour générer le QR code
+            Map<EncodeHintType, Object> hints = new HashMap<>();
+            hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+
+            // Générer le QR code avec ZXing
+            BitMatrix matrix = new MultiFormatWriter().encode(qrData, BarcodeFormat.QR_CODE, 184, 199, hints);
+// Ajuster la taille de l'ImageView
+
+            qrcode.setFitWidth(184);
+            qrcode.setFitHeight(199);
+
+            // Convertir la matrice en image JavaFX
+            Image qrCodeImage = matrixToImage(matrix);
+
+            // Afficher l'image du QR code dans l'ImageView
+            qrcode.setImage(qrCodeImage);
+            Alert a = new Alert(Alert.AlertType.WARNING);
+
+            a.setTitle("Succes");
+            a.setContentText("qr code generer");
+            a.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Méthode pour convertir une matrice BitMatrix en image BufferedImage
+    private Image matrixToImage(BitMatrix matrix) {
+        int width = matrix.getWidth();
+        int height = matrix.getHeight();
+
+        WritableImage writableImage = new WritableImage(width, height);
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int pixelColor = matrix.get(x, y) ? 0xFF000000 : 0xFFFFFFFF;
+                pixelWriter.setArgb(x, y, pixelColor);
+            }
+        }
+
+        System.out.println("Matrice convertie en image avec succès");
+
+        return writableImage;
     }
 
     @FXML

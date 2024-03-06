@@ -100,5 +100,8 @@
             <Image url="@../../../../../../../../../../zeroWaste-javaFX-main/src/assets/img/user-active.png" />
          </image>
       </ImageView>
+      <Button layoutX="26.0" layoutY="686.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="213.0" stylesheets="@aliStyle.css" text="Gestion Produit" />
+      <Button layoutX="26.0" layoutY="750.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="213.0" stylesheets="@aliStyle.css" text="Gestion Evenement" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#logo" text="logout" />
    </children>
 </AnchorPane>

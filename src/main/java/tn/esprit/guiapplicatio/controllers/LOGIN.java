@@ -46,7 +46,7 @@ public class LOGIN {
                 User user = userService.authentifier(email, mdp);
                 if (user != null) {
                     // Naviguer vers la page utilisateur (PageUser.fxml)
-                    navigateToPage("/tn/esprit/guiapplicatio/reservat.fxml", event);
+                    navigateToPage("/tn/esprit/guiapplicatio/o.fxml", event);
 
                 } else {
                     navigateToPage("/tn/esprit/guiapplicatio/reservat.fxml", event);

@@ -7,6 +7,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -20,6 +21,9 @@
             <String fx:value="white-bg" />
             <String fx:value="shadow" />
          </styleClass>
+         <children>
+            <ListView fx:id="produitlistview" layoutX="31.0" layoutY="444.0" prefHeight="239.0" prefWidth="668.0" />
+         </children>
       </AnchorPane>
       <TextField fx:id="tfNomProduit" layoutX="206.0" layoutY="43.0" prefHeight="38.0" prefWidth="213.0" />
       <TextField fx:id="tfQuantiteProduit" layoutX="206.0" layoutY="144.0" prefHeight="38.0" prefWidth="213.0" />
@@ -35,7 +39,7 @@
       <Button fx:id="modifierProduit" layoutX="255.0" layoutY="387.0" mnemonicParsing="false" onAction="#ModifierProduit" text="Modifier" />
       <Button fx:id="supprimerProduit" layoutX="178.0" layoutY="335.0" mnemonicParsing="false" onAction="#SupprimerProduit" text="Supprimer" />
       <ImageView fx:id="tfImageP" fitHeight="179.0" fitWidth="213.0" layoutX="531.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" />
-      <TableView fx:id="tabProduit" layoutX="89.0" layoutY="453.0" onMouseClicked="#setValue" prefHeight="274.0" prefWidth="684.0">
+      <TableView fx:id="tabProduit" layoutX="31.0" layoutY="339.0" onMouseClicked="#setValue" prefHeight="274.0" prefWidth="0.0">
         <columns>
           <TableColumn fx:id="nomProduitTab" prefWidth="98.0" text="NomProduit" />
           <TableColumn fx:id="nomCategorieTab" prefWidth="96.0" text="Categoire" />

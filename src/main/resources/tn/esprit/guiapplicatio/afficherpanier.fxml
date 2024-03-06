@@ -30,7 +30,7 @@
             </ListView>
          </children>
       </AnchorPane>
-      <Button layoutX="28.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" stylesheets="@styles.css" text="BACK" />
+      <Button layoutX="28.0" layoutY="14.0" mnemonicParsing="false" onAction="#logo" stylesheets="@styles.css" text="logout" />
       <Label layoutX="489.0" layoutY="168.0" text="GESTION PANIER" textAlignment="CENTER">
          <font>
             <Font size="28.0" />
@@ -81,25 +81,37 @@
             <URL value="@../../../../../assets/style/nabilStyle.css" />
          </stylesheets>
       </Button>
-      <Button layoutX="6.0" layoutY="410.0" mnemonicParsing="false" onAction="#ge_co" prefHeight="48.0" prefWidth="215.0" text="Gestion Commande">
+      <Button layoutX="6.0" layoutY="399.0" mnemonicParsing="false" onAction="#ge_co" prefHeight="48.0" prefWidth="215.0" text="Gestion Commande">
          <stylesheets>
             <URL value="@../../../../../assets/style/aliStyle.css" />
             <URL value="@../../../../../assets/style/nabilStyle.css" />
          </stylesheets>
       </Button>
-      <Button layoutX="6.0" layoutY="481.0" mnemonicParsing="false" onAction="#ge_pe" prefHeight="48.0" prefWidth="215.0" text="Gestion Panier">
+      <Button layoutX="6.0" layoutY="459.0" mnemonicParsing="false" onAction="#ge_pe" prefHeight="48.0" prefWidth="215.0" text="Gestion Panier">
          <stylesheets>
             <URL value="@../../../../../assets/style/aliStyle.css" />
             <URL value="@../../../../../assets/style/nabilStyle.css" />
          </stylesheets>
       </Button>
-      <Button layoutX="6.0" layoutY="553.0" mnemonicParsing="false" onAction="#ge_us" prefHeight="48.0" prefWidth="215.0" text="Gestion User">
+      <Button layoutX="6.0" layoutY="521.0" mnemonicParsing="false" onAction="#ge_us" prefHeight="48.0" prefWidth="215.0" text="Gestion User">
          <stylesheets>
             <URL value="@../../../../../assets/style/aliStyle.css" />
             <URL value="@../../../../../assets/style/nabilStyle.css" />
          </stylesheets>
       </Button>
-      <Button layoutX="6.0" layoutY="623.0" mnemonicParsing="false" onAction="#ge_us" prefHeight="48.0" prefWidth="215.0" text="Gestion coaching">
+      <Button layoutX="6.0" layoutY="582.0" mnemonicParsing="false" onAction="#ge_us" prefHeight="48.0" prefWidth="215.0" text="Gestion coaching">
+         <stylesheets>
+            <URL value="@../../../../../assets/style/aliStyle.css" />
+            <URL value="@../../../../../assets/style/nabilStyle.css" />
+         </stylesheets>
+      </Button>
+      <Button layoutX="6.0" layoutY="645.0" mnemonicParsing="false" onAction="#ge_us" prefHeight="48.0" prefWidth="215.0" text="Gestion Evenement">
+         <stylesheets>
+            <URL value="@../../../../../assets/style/aliStyle.css" />
+            <URL value="@../../../../../assets/style/nabilStyle.css" />
+         </stylesheets>
+      </Button>
+      <Button layoutX="6.0" layoutY="703.0" mnemonicParsing="false" onAction="#ge_us" prefHeight="48.0" prefWidth="215.0" text="Gestion Produit">
          <stylesheets>
             <URL value="@../../../../../assets/style/aliStyle.css" />
             <URL value="@../../../../../assets/style/nabilStyle.css" />

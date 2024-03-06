@@ -148,5 +148,34 @@ menugrid.add(pane,colum++,row);
             throw new RuntimeException(e);
         }
     }
+
+
+
+    public void ge_coch(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Ajouterclient.fxml"));
+        menuform.getScene().setRoot(fxmlLoader.load());
+    }
+
+    public void ge_re(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/o.fxml"));
+        menuform.getScene().setRoot(fxmlLoader.load());
+    }
+
+    public void ge_pee(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Panier.fxml"));
+        menuform.getScene().setRoot(fxmlLoader.load());
+
+    }
+
+    public void ge_produi(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/FrontProduit.fxml"));
+        menuform.getScene().setRoot(fxmlLoader.load());
+    }
+
+    public void ge_ev(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/FrontPage.fxml"));
+        menuform
+                .getScene().setRoot(fxmlLoader.load());
+    }
 }
 

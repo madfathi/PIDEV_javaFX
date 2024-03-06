@@ -8,22 +8,23 @@
     -fx-background-color: #0078D7; /* Blue color */
 }
 
+
 /*List View Styling*/
 /* styles.css */
 /* styles.css */
 
 /* ListView Styling */
 .list-view {
-    -fx-background-color: #CEE452; /* Set background color */
+    -fx-background-color: #ffffff; /* Set background color */
     -fx-font-family: "lucida console"; /* Set font family */
 }
 
 .list-cell {
     -fx-padding: 10px; /* Add padding */
-    -fx-background-color: #CEE452; /* Set background color of cells */
+    -fx-background-color: #ffffff; /* Set background color of cells */
     -fx-border-color: #cccccc; /* Add border color */
-    -fx-border-width: 1px; /* Add border width */
-    -fx-border-radius: 5px; /* Add border radius for rounded corners */
+    -fx-border-width: 0px; /* Add border width */
+    -fx-border-radius: 0px; /* Add border radius for rounded corners */
 }
 
 .list-cell:hover {
@@ -37,28 +38,28 @@
 
 /* Custom Scrollbar Styling */
 .scroll-bar:vertical {
-    -fx-background-color: #333333; /* Change background color of vertical scrollbar track */
+    -fx-background-color: #d3f5d2; /* Change background color of vertical scrollbar track */
     -fx-cursor: s-resize; /* Change cursor to south-resize (vertical scrollbar) */
-    -fx-padding: 3px; /* Add padding around the scrollbar */
+    -fx-padding: 1px; /* Add padding around the scrollbar */
 }
 
 .scroll-bar:horizontal {
-    -fx-background-color: #333333; /* Change background color of horizontal scrollbar track */
+    -fx-background-color: #d3f5d2; /* Change background color of horizontal scrollbar track */
     -fx-cursor: e-resize; /* Change cursor to east-resize (horizontal scrollbar) */
     -fx-padding: 3px; /* Add padding around the scrollbar */
 }
 
 .scroll-bar > .thumb {
-    -fx-background-color: #666666; /* Change background color of scrollbar thumb */
+    -fx-background-color: #26940d; /* Change background color of scrollbar thumb */
     -fx-cursor: hand; /* Change cursor to hand for scrollbar thumb */
-    -fx-border-radius: 5px; /* Apply rounded corners to the scrollbar thumb */
-    -fx-background-radius: 5px; /* Apply rounded corners to the scrollbar thumb */
+    -fx-border-radius: 0px; /* Apply rounded corners to the scrollbar thumb */
+    -fx-background-radius: 0px; /* Apply rounded corners to the scrollbar thumb */
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.4) , 5,0,0,1 ); /* Add drop shadow effect to the scrollbar thumb */
 }
 
 .scroll-bar > .increment-button,
 .scroll-bar > .decrement-button {
-    -fx-background-color: #666666; /* Change background color of scrollbar buttons */
+    -fx-background-color: #00ff66; /* Change background color of scrollbar buttons */
     -fx-background-radius: 5px; /* Apply rounded corners to the scrollbar buttons */
     -fx-shape: "M 0 0 L 10 5 L 0 10 Z"; /* Change shape of scrollbar buttons to triangular */
 }
@@ -123,18 +124,31 @@
     -fx-border-width: 1px;
     -fx-cursor: hand; /* Change cursor to hand on hover */
 }
-#ajouterAdmin {
-    -fx-font-size: 30px; /* Change the font size to 16 pixels */
+
+
+
+
+#label:hover,
+#acceuil:hover,
+#dashboard:hover,
+#exit2:hover,
+#acceuil1:hover,
+#user:hover,
+#exit1:hover,
+#label1:hover,
+#label2:hover,
+#label3:hover,
+#label4:hover{
+    -fx-background-color: #CEE452; /* Change background color on hover */
+    -fx-text-fill: white; /* Change text color on hover */
+    -fx-font-weight: bold; /* Make text bold on hover */
+    -fx-cursor: hand; /* Change cursor to hand on hover */
+    -fx-scale-x: 1.1; /* Scale horizontally on hover */
+    -fx-scale-y: 1.1; /* Scale vertically on hover */
+    -fx-transition: scale 0.2s; /* Add transition effect */
 }
-#modifierAdmin{
-    -fx-font-size: 30px; /* Change the font size to 16 pixels */
-}
-#rechercheAdmin{
-    -fx-font-size: 30px; /* Change the font size to 16 pixels */
-}
-#avisAdmin{
-    -fx-font-size: 30px; /* Change the font size to 16 pixels */
-}
+
+
 
 
 /* Button hover effect */
@@ -163,14 +177,15 @@
 
 
 
+
 /* Styling for labels */
-.label {
-    -fx-font-weight: bold;
-    -fx-text-fill: #000000; /* Black text color */
-    -fx-font-family: "Roboto";
-    -fx-padding: 5px;  /* Add padding for better spacing */
-    -fx-background-radius: 5px;  /* Round the corners */
-}
+/*.label {*/
+    /*-fx-font-weight: bold;*/
+   /* -fx-text-fill: #000000;*/ /* Black text color */
+   /* -fx-font-family: "Roboto";*/
+    /*-fx-padding: 5px;*/  /* Add padding for better spacing */
+    /*-fx-background-radius: 5px;*/  /* Round the corners */
+/*}*/
 
 
 /* styles.css */
@@ -242,5 +257,22 @@
 }
 
 
+.star-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-shape: "M 0.5,0 L 0.61,0.35 L 1,0.38 L 0.73,0.63 L 0.79,1 L 0.5,0.82 L 0.21,1 L 0.27,0.63 L 0,0.38 L 0.39,0.35 Z";
+    -fx-background-insets: 0;
+    -fx-border-width: 1;
+    -fx-border-color: black;
+    -fx-border-radius: 2;
+    -fx-scale-x: 2; /* Increase the scale horizontally */
+    -fx-scale-y: 2; /* Increase the scale vertically */
+}
 
+.star-button.selected {
+    -fx-background-color: gold; /* Change color for selected stars */
+}
 
+.star-button.unselected {
+    -fx-background-color: transparent; /* Change color for unselected stars */
+}

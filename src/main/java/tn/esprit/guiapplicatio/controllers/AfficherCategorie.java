@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import  tn.esprit.guiapplicatio.models.Categorie;
 import tn.esprit.guiapplicatio.services.CategorieService;
+import tn.esprit.guiapplicatio.test.HelloApplication;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -29,26 +30,12 @@ public class AfficherCategorie {
 
 
     @FXML
-    void returnTF(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/AjouterCategorie.fxml"));
-        try {
-            // Charger le nouveau contenu sans créer une nouvelle scène
-            Parent nouvelleRoot = fxmlLoader.load();
+    void returnTF(ActionEvent event) throws IOException {
 
-            // Obtenir la scène actuelle à partir d'un élément (par exemple, table) de l'UI
-            Scene sceneActuelle = table.getScene(); // Assurez-vous que 'table' est accessible ici
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/AjouterCategorie.fxml"));
+        Parent root = fxmlLoader.load();
 
-            // Mettre à jour le contenu ('root') de la scène actuelle
-            sceneActuelle.setRoot(nouvelleRoot);
-
-            // (Optionnel) Ajouter la feuille de style si nécessaire
-            if (!sceneActuelle.getStylesheets().contains("/styles.css")) {
-                sceneActuelle.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm());
-            }
-
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
+table.getScene().setRoot(root);
     }
 
     @FXML

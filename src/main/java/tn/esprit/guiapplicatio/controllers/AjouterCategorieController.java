@@ -54,6 +54,7 @@ import java.util.*;
 import java.util.List;
 
 import javafx.fxml.Initializable;
+import tn.esprit.guiapplicatio.test.HelloApplication;
 import tn.esprit.guiapplicatio.utils.DataSource;
 
 
@@ -258,14 +259,11 @@ public class AjouterCategorieController implements Initializable {
 
     //bouton retour pour retourner vers le menu
     public void backCategorie(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/MenuProduitCategorie.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root1));
-        Node source = (Node) actionEvent.getSource();
-        Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close();
-        stage.show();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/MenuProduitCategorie.fxml"));
+        Parent root = fxmlLoader.load();
+
+        tabCategorie.getScene().setRoot(root);
 
     }
 

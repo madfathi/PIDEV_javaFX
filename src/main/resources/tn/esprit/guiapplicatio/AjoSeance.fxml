@@ -62,7 +62,7 @@
                            </image>
                         </ImageView>
                         <TextField fx:id="searchField1" layoutX="712.0" layoutY="32.0" onKeyPressed="#addSeancSearch" prefHeight="26.0" prefWidth="226.0" />
-                        <Button layoutX="14.0" layoutY="1.0" mnemonicParsing="false" text="BACK" />
+                        <Button layoutX="14.0" layoutY="1.0" mnemonicParsing="false" onAction="#logo" text="logout" />
                      </children>
                   </AnchorPane>
                </top>
@@ -110,7 +110,7 @@
                         <Button layoutX="9.0" layoutY="501.0" mnemonicParsing="false" onAction="#ge_us" prefHeight="48.0" prefWidth="215.0" stylesheets="@aliStyle.css" text="Gestion User" />
                         <Button layoutX="18.0" layoutY="808.0" mnemonicParsing="false" onAction="#ge_coach" prefHeight="44.0" prefWidth="214.0" text="Gestion coaching" />
                         <Button layoutX="9.0" layoutY="562.0" mnemonicParsing="false" onAction="#ge_po" prefHeight="48.0" prefWidth="215.0" stylesheets="@aliStyle.css" text="Gestion produit" />
-                        <Button layoutX="28.0" layoutY="818.0" mnemonicParsing="false" onAction="#ge_coach" prefHeight="44.0" prefWidth="214.0" text="Gestion coaching" />
+                        <Button layoutX="9.0" layoutY="620.0" mnemonicParsing="false" onAction="#ge_ev" prefHeight="48.0" prefWidth="211.0" stylesheets="@aliStyle.css" text="Gestion Evenement" />
                      </children></AnchorPane>
                </left>
                <center>

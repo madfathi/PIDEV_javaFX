@@ -338,52 +338,52 @@ public class AjouterProduitController implements Initializable {
 
     public static class ColumnListViewCell extends ListCell<String> {
 
-    @Override
-    protected void updateItem(String item, boolean empty) {
-        super.updateItem(item, empty);
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
 
-        if (empty || item == null) {
-            setText(null);
-            setGraphic(null); // Clear graphic if cell is empty
-        } else {
-            // Split the data into columns
-            String[] columns = item.split("\\s{2,}"); // Split by 2 or more spaces
+            if (empty || item == null) {
+                setText(null);
+                setGraphic(null); // Clear graphic if cell is empty
+            } else {
+                // Split the data into columns
+                String[] columns = item.split("\\s{2,}"); // Split by 2 or more spaces
 
-            // Create a HBox to hold the columns
-            HBox rowBox = new HBox();
+                // Create a HBox to hold the columns
+                HBox rowBox = new HBox();
 
-            // Add labels for each column except the last one (image path)
-            for (int i = 0; i < columns.length - 1; i++) {
-                Label label = new Label(columns[i]);
-                label.setPrefWidth(150); // Set the width as needed
-                rowBox.getChildren().add(label);
-            }
-
-            // Add the image view for the last column (image path)
-            ImageView imageView = new ImageView();
-            String imagePath = columns[columns.length - 1];
-            try {
-                // Load image from classpath resources
-                InputStream stream = getClass().getResourceAsStream("/Photos/" + imagePath);
-                if (stream != null) {
-                    Image image = new Image(stream);
-                    imageView.setImage(image);
-                    imageView.setFitWidth(100); // Adjust width of the image view
-                    imageView.setPreserveRatio(true);
-                    rowBox.getChildren().add(imageView);
-                } else {
-                    System.err.println("Image not found: " + imagePath);
+                // Add labels for each column except the last one (image path)
+                for (int i = 0; i < columns.length - 1; i++) {
+                    Label label = new Label(columns[i]);
+                    label.setPrefWidth(150); // Set the width as needed
+                    rowBox.getChildren().add(label);
                 }
-            } catch (Exception e) {
-                System.err.println("Error loading image: " + e.getMessage());
+
+                // Add the image view for the last column (image path)
+                ImageView imageView = new ImageView();
+                String imagePath = columns[columns.length - 1];
+                try {
+                    // Load image from classpath resources
+                    InputStream stream = getClass().getResourceAsStream("/Photos/" + imagePath);
+                    if (stream != null) {
+                        Image image = new Image(stream);
+                        imageView.setImage(image);
+                        imageView.setFitWidth(100); // Adjust width of the image view
+                        imageView.setPreserveRatio(true);
+                        rowBox.getChildren().add(imageView);
+                    } else {
+                        System.err.println("Image not found: " + imagePath);
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error loading image: " + e.getMessage());
+                }
+
+                // Set the HBox as the cell's graphic
+                setGraphic(rowBox);
             }
-
-            // Set the HBox as the cell's graphic
-            setGraphic(rowBox);
         }
-    }
 
-}
+    }
     private void displayEventData() {
         ProduitService evenmentService = new ProduitService();
         List<Produit> evenments = evenmentService.readProduit();
@@ -392,12 +392,12 @@ public class AjouterProduitController implements Initializable {
         ObservableList<String> eventDataList = FXCollections.observableArrayList();
 
         // Add column titles
-        String columnTitles = String.format("%-20s %-20s %-20s %-20s %-20s", "NomProduit", "Quantite", "Prix", "NomCategorie", "Image Path");
+        String columnTitles = String.format("%-60s %-20s %-20s %-20s %-20s", "NomProduit", "Quantite", "Prix", "NomCategorie", "Image Path");
         eventDataList.add(columnTitles);
 
         // Iterate through the list of events and add their details to the eventDataList
         for (Produit produit : evenments) {
-            String eventData = String.format("%-20s %-20s %-20s %-20s %-20s",
+            String eventData = String.format("%-60s %-20s %-20s %-20s %-20s",
                     produit.getNomProduit(),
                     produit.getQuantite(),
                     produit.getPrix(),
@@ -410,7 +410,7 @@ public class AjouterProduitController implements Initializable {
         produitlistview.setItems(eventDataList);
 
         // Set custom ListCell to format the data in columns
-        produitlistview.setCellFactory(listView -> new tn.esprit.guiapplicatio.controllers.ProduitListView.ColumnListViewCell());
+        produitlistview.setCellFactory(listView -> new ProduitListView.ColumnListViewCell());
     }
 
 
@@ -424,7 +424,7 @@ public class AjouterProduitController implements Initializable {
 
         // Iterate through the list of products and format each product's details into a string
         for (Produit produit : produits) {
-            String formattedData = String.format("%-20s %-20s %-20s %-20s %-20s",
+            String formattedData = String.format("%-60s %-20s %-20s %-20s %-20s",
                     produit.getNomProduit(),
                     produit.getQuantite(),
                     produit.getPrix(),
@@ -548,15 +548,10 @@ public class AjouterProduitController implements Initializable {
     }
 
     public void backProduit(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/MenuProduitCategorie.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root1));
-        Node source = (Node) actionEvent.getSource();
-        Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close();
-        stage.show();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tn/esprit/guiapplicatio/MenuProduitCategorie.fxml"));
+        Parent root = fxmlLoader.load();
 
+        produitlistview.getScene().setRoot(root);
     }
 
     @FXML
@@ -839,21 +834,13 @@ public class AjouterProduitController implements Initializable {
 
     @FXML
     public void refreshProduit(ActionEvent actionEvent) {
-    showProduit();
+        showProduit();
     }
 
     public void PageAfficher(ActionEvent actionEvent) {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/ProduitListView.fxml"));
-        try {
-            tfNomProduit.getScene().setRoot(fxmlLoader.load());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-            throw new RuntimeException(e);
-        }
+
+
     }
-
-
-
 }
     /*
 

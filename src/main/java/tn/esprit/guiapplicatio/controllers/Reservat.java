@@ -1,11 +1,18 @@
 package tn.esprit.guiapplicatio.controllers;
+import javax.imageio.ImageIO;
 import javax.mail.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.awt.image.BufferedImage;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -19,9 +26,15 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 import tn.esprit.guiapplicatio.Cellule.resevationcell;
@@ -304,15 +317,28 @@ ReservationService s=new ReservationService();
     }
 
     public void open_dashboard(MouseEvent mouseEvent) {
+
     }
 
-    public void ge_re(ActionEvent actionEvent) {
+    public void ge_re(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/o.fxml"));
+        user.getScene().setRoot(fxmlLoader.load());
     }
 
     public void ge_se(ActionEvent actionEvent) throws IOException, SQLException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/AjoSeance.fxml"));
         user.getScene().setRoot(fxmlLoader.load());
         initialize();
+    }
+    private String generateCaptcha() {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(chars.length());
+            sb.append(chars.charAt(index));
+        }
+        return sb.toString();
     }
 
     public void mail(ActionEvent actionEvent) {
@@ -333,6 +359,14 @@ ReservationService s=new ReservationService();
     public void ge_pee(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Panier.fxml"));
         user.getScene().setRoot(fxmlLoader.load());
+
+
+    }
+
+    public void ge_produi(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/FrontProduit.fxml"));
+        user.getScene().setRoot(fxmlLoader.load());
+
 
 
     }
@@ -448,7 +482,20 @@ ReservationService s=new ReservationService();
     }
 
 
+    private Image createCaptchaImage(String captchaCode) {
+        Text text = new Text(captchaCode);
+        text.setFont(Font.font("Arial", 36)); // Set font size and type
+        text.setFill(Color.BLACK); // Set text color
 
+        // Create a StackPane to hold the text (and any additional graphics)
+        StackPane stackPane = new StackPane(text);
+
+        // Create a WritableImage from the StackPane
+        WritableImage writableImage = new WritableImage((int) stackPane.getBoundsInLocal().getWidth(), (int) stackPane.getBoundsInLocal().getHeight());
+        stackPane.snapshot(null, writableImage);
+
+        return writableImage;
+    }
     @FXML
     public void ajouter(ActionEvent actionEvent) throws SQLException {
 
@@ -559,6 +606,46 @@ return;
 
                         }
 
+                    String captchaCode = generateRandomString(6); // Adjust the length as per your CAPTCHA
+
+                    // Display the CAPTCHA code to the user
+                    TextInputDialog captchaDialog = new TextInputDialog();
+                    Image captchaImage = createCaptchaImage(captchaCode);
+
+
+                    captchaDialog.setTitle("CAPTCHA Verification");
+                    Font font = new Font("Arial", 18); // Adjust font and size as needed
+                    captchaDialog.setHeaderText("Please enter the CAPTCHA code:");
+                    captchaDialog.getDialogPane().lookup(".header-panel").setStyle("-fx-font: " + font.getSize() + "pt \"" + font.getName() + "\";");
+                    captchaDialog.setGraphic(new ImageView(captchaImage));
+                   // captchaDialog.setContentText("CAPTCHA: " + captchaCode);
+                    DialogPane dialogPane = captchaDialog.getDialogPane();
+                 // captchaDialog.getDialogPane().getStylesheets().add("tn/esprit/guiapplicatio/styles.css");
+
+                    dialogPane.getStyleClass().add("white-bg");
+                    captchaDialog.getDialogPane().setPrefWidth(500); // Set width
+                    captchaDialog.getDialogPane().setPrefHeight(300);
+                    Optional<String> result = captchaDialog.showAndWait();
+                    if (result.isPresent()) {
+                        String userInputCaptcha = result.get();
+                        // Validate the CAPTCHA code entered by the user
+                        if (validateCaptcha(userInputCaptcha, captchaCode)) {
+                            // CAPTCHA validation passed, proceed with adding the reservation
+                            // Your existing code to add the reservation here...
+                        } else {
+                            // CAPTCHA validation failed, show an error message
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("CAPTCHA Verification Failed");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Incorrect CAPTCHA code. Please try again.");
+                            alert.showAndWait();
+                            return;
+                        }
+                    }
+
+
+
+
 
 
 
@@ -637,6 +724,20 @@ initialize();
             tfImageP.setImage(im);
         }
     }*/
+  private boolean validateCaptcha(String userInputCaptcha, String actualCaptcha) {
+      // Compare user input with actual CAPTCHA code (case insensitive)
+      return userInputCaptcha.equalsIgnoreCase(actualCaptcha);
+  }
+
+    private String generateRandomString(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder randomString = new StringBuilder();
+        Random rnd = new Random();
+        for (int i = 0; i < length; i++) {
+            randomString.append(characters.charAt(rnd.nextInt(characters.length())));
+        }
+        return randomString.toString();
+    }
     @FXML
     public void rowClicked(MouseEvent mouseEvent) {
 
