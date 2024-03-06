@@ -94,7 +94,7 @@ public class Ajouterprogram {
         ps.setClient(c);
         try {
             po.ajouter(ps);
-            envoyer(nom.getText(), titreTF.getText(), niveauTF.getText(), descriptionTF.getText(), prixTF.getText());
+            envoyer(nom.getText(), titreTF.getText(), niveauTF.getText(), descriptionTF.getText(), prixTF.getText() , filePath);
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION) ;
             alert.setTitle("Success");
             alert.setContentText("program ajoutée");
@@ -119,7 +119,7 @@ public class Ajouterprogram {
     }
 
 
-    public void envoyer(String a , String b, String c, String d , String f ) {
+    public void envoyer(String a , String b, String c, String d , String f , String g) {
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -142,7 +142,7 @@ public class Ajouterprogram {
             message.setFrom(new InternetAddress("salim.mahdi@esprit.tn"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("salim.mahdi@esprit.tn"));
             message.setSubject("welcome to gestion de coaching");
-            message.setText("Nom: " + a  + " Titre: " + b + " Niveau: " + c + " Description: " + d + " Prix: " + f);
+            message.setText("Nom: " + a  + " Titre: " + b + " Niveau: " + c + " Description: " + d + " Prix: " + f + " Image: " + g);
 
 
             session.setDebug(true);
@@ -207,6 +207,15 @@ public class Ajouterprogram {
 
     public void totals(ActionEvent actionEvent) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/stat.fxml"));
+        try {
+            titreTF.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void afficherClient(ActionEvent actionEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Afficherclient.fxml"));
         try {
             titreTF.getScene().setRoot(fxmlLoader.load());
         } catch (IOException e) {

@@ -15,7 +15,7 @@
       <TextField fx:id="nomTFm" layoutX="582.0" layoutY="199.0" prefHeight="26.0" prefWidth="102.0" promptText="NOM" />
       <TextField fx:id="prenomTFm" layoutX="582.0" layoutY="234.0" prefHeight="26.0" prefWidth="102.0" promptText="PRENOM" />
       <TextField fx:id="ageTFm" layoutX="582.0" layoutY="270.0" prefHeight="26.0" prefWidth="102.0" promptText="AGE" />
-      <ListView fx:id="listView" layoutX="233.0" layoutY="175.0" prefHeight="170.0" prefWidth="322.0" />
+      <ListView fx:id="listView" layoutX="233.0" layoutY="175.0" prefHeight="209.0" prefWidth="322.0" />
       <Button layoutX="694.0" layoutY="306.0" mnemonicParsing="false" onAction="#sort" prefHeight="26.0" prefWidth="102.0" text="Tri" />
       <Button layoutX="695.0" layoutY="208.0" mnemonicParsing="false" onAction="#supprimerclient" text="supprimer" />
       <Button layoutX="695.0" layoutY="162.0" mnemonicParsing="false" onAction="#trouverClient" prefHeight="26.0" prefWidth="102.0" text="Trouver" />

@@ -18,6 +18,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -53,17 +54,8 @@ public class Ajouterclient {
     private Label ageLabel;
 
 
-    @FXML
-    void afficherClient(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Afficherclient.fxml"));
-        try {
-            ageTF.getScene().setRoot(fxmlLoader.load());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
 
 
-    }
 
 
     @FXML
@@ -118,6 +110,7 @@ public class Ajouterclient {
             return;
         }
         if (!prenom.matches("[a-zA-Z]+")) {
+            // Afficher une alerte
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText(null);
@@ -142,7 +135,7 @@ public class Ajouterclient {
             cs.ajouter(co);
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Succès");
-            alert.setContentText("Client ajouté." + "Attendre un mail du coach");
+            alert.setContentText("Félicitations, tu as ajouté. Attendre un mail.");
             alert.showAndWait();
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -151,13 +144,14 @@ public class Ajouterclient {
             alert.showAndWait();
         }
     }
+    
 
-
+ // Méthode pour calculer le BMR
     private double calculateBMR(int age, int poids, int hauteur) {
         return 655 + (9.6 * poids) + (1.8 * hauteur) - (4.7 * age);
     }
 
-
+    // Méthode pour afficher une alerte
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("BMR Résultat");
@@ -195,14 +189,14 @@ public class Ajouterclient {
 
             contentStream.endText();
 
-
+// Fermez le contenu de la page
             contentStream.close();
 
             String outputPath = "C:/Users/salim/IdeaProjects/guiapplication/PIDEV_javaFX/src/pdf.pdf";
             File file = new File(outputPath);
             document.save(file);
 
-
+// Fermez le document
             document.close();
 
             System.out.println("Le PDF a été généré avec succès.");
@@ -226,6 +220,9 @@ public class Ajouterclient {
                 String text = pdfStripper.getText(document);
                 document.close();
 
+                // Analyse du texte pour extraire l'âge, le poids et la taille
+                // Remplir les étiquettes avec les informations extraites
+                // Exemple simplifié :
                 ageLabel.setText(extractAge(text));
                 weightLabel.setText(extractWeight(text));
                 heightLabel.setText(extractHeight(text));
@@ -236,7 +233,7 @@ public class Ajouterclient {
         }
     }
 
-
+// Méthodes pour extraire l'âge, le poids et la taille à partir du texte du PDF
     private String extractAge(String text) {
         String agePattern = "(?i)(\\bAge\\b)\\s*:\\s*(\\d+)";
 
@@ -244,7 +241,7 @@ public class Ajouterclient {
         Matcher matcher = pattern.matcher(text);
         if (matcher.find()) {
             this.ageTF.setText(matcher.group(2));
-            return matcher.group(2);
+            return matcher.group(2);// Le groupe 2 correspond au nombre d'âge
 
         }
         return "Age non trouvé";
@@ -256,7 +253,7 @@ public class Ajouterclient {
         Matcher matcher = pattern.matcher(text);
         if (matcher.find()) {
             this.poidsTF.setText(matcher.group(2));
-            return matcher.group(2);
+            return matcher.group(2);// Le groupe 2 correspond au nombre de poids
         }
         return "Poids non trouvé";
     }
@@ -267,12 +264,23 @@ public class Ajouterclient {
         Matcher matcher = pattern.matcher(text);
         if (matcher.find()) {
             this.hauteurTF.setText(matcher.group(2));
-            return matcher.group(2);
+            return matcher.group(2);// Le groupe 2 correspond au nombre de taille
         }
         return "Taille non trouvée";
     }
 
+    public void retour4(ActionEvent actionEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplication/Description.fxml"));
+        try {
+            ageTF.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
+
+
+
+}
 
 
 
