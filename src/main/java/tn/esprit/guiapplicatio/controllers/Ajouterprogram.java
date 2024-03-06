@@ -235,5 +235,14 @@ public class Ajouterprogram {
         }
 
     }
+
+    public void affc(ActionEvent actionEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Afficherclient.fxml"));
+        try {
+            titreTF.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
 }
 

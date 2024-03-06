@@ -458,7 +458,7 @@ public class FrontProduitController implements Initializable {
     }
 
     public void ge_coch(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Ajouterclient.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Description.fxml"));
         qrcodeProduit.getScene().setRoot(fxmlLoader.load());
     }
 

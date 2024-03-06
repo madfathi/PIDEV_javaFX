@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -26,4 +27,9 @@
       <URL value="@aliStyle.css" />
       <URL value="@dashboardDesign.css" />
    </stylesheets>
+   <styleClass>
+      <String fx:value="addReview__btnText" />
+      <String fx:value="category__add-btn-icon" />
+      <String fx:value="activeLink" />
+   </styleClass>
 </AnchorPane>

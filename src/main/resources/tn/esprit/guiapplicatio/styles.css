@@ -34,6 +34,9 @@
 .list-cell:selected {
     -fx-background-color: #bfbfbf; /* Change background color when selected */
 }
+#dashboardBtn31:hover {
+    -fx-background-color: #035016; /* Change la couleur de fond lorsque survolé */
+}
 
 
 /* Custom Scrollbar Styling */

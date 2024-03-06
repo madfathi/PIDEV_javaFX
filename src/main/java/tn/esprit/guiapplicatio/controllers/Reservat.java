@@ -351,7 +351,7 @@ ReservationService s=new ReservationService();
     }
 
     public void ge_coch(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Ajouterclient.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/tn/esprit/guiapplicatio/Description.fxml"));
         user.getScene().setRoot(fxmlLoader.load());
 
     }
